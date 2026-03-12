@@ -1,5 +1,7 @@
-export default function (){
-    return
+import from {} bootstrap
+
+import default function (){
+    return(
     <Container>
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
@@ -7,4 +9,5 @@ export default function (){
         </Container>
       </Navbar>
     </Container>
+    )
 }
