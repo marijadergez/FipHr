@@ -27,7 +27,7 @@ export default function Izbornik() {
                                    onClick={()=>navigate(RouteNames.HOME)}
 
                             
-                            >Smjerovi</NavDropdown.Item>
+                            >Usluge</NavDropdown.Item>
                             
                         </NavDropdown>
                     </Nav>

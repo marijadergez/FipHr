@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/css/bootstrap.min.css'
 
 
 import './App.css'
@@ -7,7 +7,7 @@ import Izbornik from 'components/Izbornik'
 import { Route, Routes } from 'react-router-dom'
 import { RouteNames } from './constants'
 import Home from './pages/Home'
-import SmjerPregled from './pages/smjerovi/SmjerPregled'
+import UslugePregled from './pages/usluge/UslugePregled'
 
 function App() {
 
@@ -16,10 +16,10 @@ function App() {
       <Izbornik />
       <Routes>
         <Route path={RouteNames.HOME} element={<Home />}  />
-        <Route path={RouteNames.SMJEROVI} element={<SmjerPregled />}  />
+        <Route path={RouteNames.USLUGE} element={<UslugePregled />}  />
       </Routes>
     <hr />
-    &copy;Edunova
+    &copy; Marija @ Edunova 2026
 
    </Container>
   )
