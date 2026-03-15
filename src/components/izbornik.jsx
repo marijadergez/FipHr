@@ -1,8 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import { Navbar, NavDropdown } from "react-bootstrap";
-import { IME_APLIKACIJE, RouteNames } from "../constants";
-import { useNavigate } from "react-router-dom";
+
 
 export default function Izbornik(){
 
