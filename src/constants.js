@@ -1,7 +1,6 @@
-export const IME_APLIKACIJE='Fip Hr'
+export const IME_APLIKACIJE = 'FipHR'
 
-
-export const RouteNames ={
+export const RouteNames = {
     HOME: '/',
     USLUGE: '/usluge'
 }

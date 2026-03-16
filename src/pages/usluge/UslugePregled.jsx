@@ -1,8 +1,10 @@
-export default function UslugePregled(){
-    return(
+export default function UslugePregled() {
+    return (
+        <>
+        <h1>Usluge</h1>
+        <div>
+            Ovdje će doći pregled usluga
+        </div>
         
-          <>
-          Ovdje ce doci preglde usluga
-          </>
-    )
-}
+        </>
+ )}
