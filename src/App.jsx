@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { Container } from 'react-bootstrap'
-import Izbornik from './components/Izbornik'
+import Izbornik from './components/izbornik'
 import { Route, Routes } from 'react-router-dom'
 import { RouteNames } from './constants'
 import UslugePregled from './pages/usluge/UslugePregled'
@@ -22,7 +22,7 @@ function App() {
       </Routes>
       <hr />
 
-      &copy; Marija | Edunova | III.2026.
+      &copy; Marija | Edunova | 2026.
     </Container>
   )
 }
