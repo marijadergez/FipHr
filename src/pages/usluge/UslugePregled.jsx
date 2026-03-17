@@ -1,10 +1,37 @@
+import { useEffect, useState } from "react"
+import UslugeService from "../../services/usluge/UslugeService"
+
+
+
+
+
+
 export default function UslugePregled() {
+
+    const [usluge, setUsluge] = useState([])
+
+    useEffect(()=>{
+        ucitajUsluge()
+    },[])
+
+    async function ucitajUsluge() {
+        await UslugeService.get().then((odgovor)=>{
+            setUsluge(odgovor.data)
+        })
+        
+    }
+
+
     return (
         <>
-        <h1>Usluge</h1>
-        <div>
-            Ovdje će doći pregled usluga
-        </div>
-        
+        <ol>
+        {usluge && usluge.map((usluge)=>(
+            <li>{usluge.naziv} </li>
+        )        
+        )}
+
+        </ol>
+
+
         </>
  )}
