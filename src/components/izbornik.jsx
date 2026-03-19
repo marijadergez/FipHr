@@ -41,8 +41,11 @@ export default function Izbornik() {
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
+                
+
             </Container>
         </Navbar>
+        
     )
 
 

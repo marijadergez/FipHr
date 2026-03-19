@@ -32,10 +32,9 @@ export default function UslugePregled() {
                 <thead>
                     <tr>
                         <th>Naziv usluge</th>
-                        <th>Cijena </th>
-                       
-                       
+                        <th>Cijena </th>                     
                         <th>Popust</th>
+                         <th>Datum upisa</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,14 +54,16 @@ export default function UslugePregled() {
                                     fixedDecimalScale  />
 
                             </td>
-                            <td>
-                                <FormatDatuma datum={usluge.datumPokretanja} />
-                            </td>
+                           
                             <td>
                                 <GrValidate
                                     size={25}
                                     color={usluge.aktivan ? 'green' : 'red'}
                                 />
+                            </td>
+
+                             <td>
+                                <FormatDatuma datum={usluge.datumPokretanja} />
                             </td>
                             <td></td>
                         </tr>
