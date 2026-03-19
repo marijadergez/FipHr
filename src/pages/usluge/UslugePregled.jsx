@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import UslugeService from "../../services/usluge/UslugeService"
 import { Table } from "react-bootstrap"
 import { NumericFormat } from "react-number-format"
-import {FormatDatuma} from "react-number-format"
+
 import { GrValidate } from "react-icons/gr"
+import FormatDatuma from "../../components/FormatDatuma"
 
 
 
@@ -31,9 +32,9 @@ export default function UslugePregled() {
                 <thead>
                     <tr>
                         <th>Naziv usluge</th>
-                        <th>Cijena jedan mjesec</th>
-                        <th>Cijena godišnja</th>
-                        <th>Paket više usluga</th>
+                        <th>Cijena </th>
+                       
+                       
                         <th>Popust</th>
                     </tr>
                 </thead>
@@ -41,7 +42,7 @@ export default function UslugePregled() {
                     {usluge && usluge.map((usluge) => (
                         <tr>
                             <td>{usluge.naziv}</td>
-                            <td>{usluge.trajanje} h</td>
+                            
                             <td>
                                 <NumericFormat
                                     value={usluge.cijena}
@@ -49,7 +50,7 @@ export default function UslugePregled() {
                                     thousandSeparator='.'
                                     decimalSeparator=','
                                     suffix=' €'
-                                    prefix=' ='
+                                    prefix='= '
                                     decimalScale={2}
                                     fixedDecimalScale  />
 
