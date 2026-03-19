@@ -60,7 +60,7 @@ export default function UslugePregled() {
                             <td>
                                 <GrValidate
                                     size={25}
-                                    color={smjer.aktivan ? 'green' : 'red'}
+                                    color={usluge.aktivan ? 'green' : 'red'}
                                 />
                             </td>
                             <td></td>
