@@ -35,6 +35,8 @@ export default function UslugePregled() {
                         <th>Cijena </th>                     
                         <th>Popust</th>
                          <th>Datum upisa</th>
+                         <th>Akcija</th>
+                         
                     </tr>
                 </thead>
                 <tbody>
