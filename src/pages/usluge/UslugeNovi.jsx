@@ -44,6 +44,13 @@ export default function UslugeNovi(){
                     <Form.Control  type="date" name="datumPokretanja" />
                 </Form.Group>
 
+
+            <Form.Group className="mt-5" controlId="cijena">
+                <Form.Label>Očekivana cijena</Form.Label>
+                <Form.Control type="number" name="cijena" step={0.01} />
+
+            </Form.Group>
+
              <Row className="mt-4">
 
                 <Col>
