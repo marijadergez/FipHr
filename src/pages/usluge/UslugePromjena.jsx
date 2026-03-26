@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Form, Link, useNavigate, useParams } from "react-router-dom";
 import UslugeService from "../../services/usluge/UslugeService";
 import { RouteNames } from "../../constants";
-import { Button, Col, FormGroup, Row } from "react-bootstrap";
+import { Button, Col, FormControl, FormGroup, Row } from "react-bootstrap";
 
 export default function UslugePromjena(){
 
@@ -49,7 +49,7 @@ export default function UslugePromjena(){
         return(
         <>
         <h3 className="mt-5">Unesite promjenu</h3>
-          <Form onSubmit={odradiSubmit}>
+          <Form onSubmit = {odradiSubmit}>
             <FormGroup controlId="naziv">
                 <Form.Label>Unesite Naziv dosadašnje usluge ili opis</Form.Label>
                 <FormControl  type="text" name="naziv" required/>

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import UslugeService from "../../services/usluge/UslugeService"
-import { Table } from "react-bootstrap"
+import { Button, Table } from "react-bootstrap"
 import { NumericFormat } from "react-number-format"
 
 import { GrAdd, GrValidate } from "react-icons/gr"
 import FormatDatuma from "../../components/FormatDatuma"
 import { Link } from "react-router-dom"
 import { RouteNames } from "../../constants"
+import UslugePromjena from "./UslugePromjena"
 
 
 
@@ -31,8 +32,8 @@ export default function UslugePregled() {
         <>
 
             <Link to={RouteNames.USLUGE_NOVI}
-            className="btn btn-success w-100 my-3">
-                <GrAdd/> Dodaj novu uslugu
+                className="btn btn-success w-100 my-3">
+                <GrAdd /> Dodaj novu uslugu
             </Link>
 
             <Table hover bordered responsive>
@@ -40,18 +41,18 @@ export default function UslugePregled() {
                 <thead>
                     <tr>
                         <th>Naziv usluge</th>
-                        <th>Cijena </th>                     
+                        <th>Cijena </th>
                         <th>Popust</th>
-                         <th>Datum upisa</th>
-                         <th>Akcija</th>
-                         
+                        <th>Datum upisa</th>
+                        <th>Akcija</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     {usluge && usluge.map((usluge) => (
                         <tr key={usluge.sifra}>
                             <td>{usluge.naziv}</td>
-                            
+
                             <td>
                                 <NumericFormat
                                     value={usluge.cijena}
@@ -61,10 +62,10 @@ export default function UslugePregled() {
                                     suffix=' €'
                                     prefix='= '
                                     decimalScale={2}
-                                    fixedDecimalScale  />
+                                    fixedDecimalScale />
 
                             </td>
-                           
+
                             <td>
                                 <GrValidate
                                     size={25}
@@ -72,10 +73,17 @@ export default function UslugePregled() {
                                 />
                             </td>
 
-                             <td>
+                            <td>
                                 <FormatDatuma datum={usluge.datumPokretanja} />
                             </td>
-                            <td></td>
+                            <td>
+
+                                <Link to={RouteNames.USLUGE_PROMJENA}
+                                    className="btn btn-success w-10 my-3">
+                                    <GrAdd /> Promjena
+                                </Link>
+
+                            </td>
                         </tr>
                     ))}
                 </tbody>
