@@ -3,5 +3,6 @@ export const IME_APLIKACIJE = 'FipHR'
 export const RouteNames = {
     HOME: '/',
     USLUGE: '/usluge',
-    USLUGE_NOVI:'/usluge/novi'
+    USLUGE_NOVI:'/usluge/novi',
+    USLUGE_PROMJENA: '/usluge/:sifra'
 }
