@@ -23,11 +23,11 @@ async function getBySifra(sifra) {
 
 async function promjeni(sifra,usluga) {
     const index =nadiIndex(sifra)
-    usluge[index] = {...usluge[index], ...usluge}    
+    usluge[index] = {...usluge[index], ...usluga}    
 }
 
 function nadiIndex(sifra){
-    return usluge.findIndex(s=>sifra === parseInt(sifra))
+    return usluge.findIndex(s=>s.sifra === parseInt(sifra))
 }
 
 export default{

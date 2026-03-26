@@ -5,15 +5,16 @@ import { NumericFormat } from "react-number-format"
 
 import { GrAdd, GrValidate } from "react-icons/gr"
 import FormatDatuma from "../../components/FormatDatuma"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
-import UslugePromjena from "./UslugePromjena"
+
 
 
 
 
 export default function UslugePregled() {
 
+    const navigate = useNavigate()
     const [usluge, setUsluge] = useState([])
 
     useEffect(() => {
@@ -49,13 +50,13 @@ export default function UslugePregled() {
                     </tr>
                 </thead>
                 <tbody>
-                    {usluge && usluge.map((usluge) => (
-                        <tr key={usluge.sifra}>
-                            <td>{usluge.naziv}</td>
+                    {usluge && usluge.map((usluga) => (
+                        <tr key={usluga.sifra}>
+                            <td>{usluga.naziv}</td>
 
                             <td>
                                 <NumericFormat
-                                    value={usluge.cijena}
+                                    value={usluga.cijena}
                                     displayType={'text'}
                                     thousandSeparator='.'
                                     decimalSeparator=','
@@ -69,19 +70,18 @@ export default function UslugePregled() {
                             <td>
                                 <GrValidate
                                     size={25}
-                                    color={usluge.aktivan ? 'green' : 'red'}
+                                    color={usluga.popust ? 'green' : 'red'}
                                 />
                             </td>
 
                             <td>
-                                <FormatDatuma datum={usluge.datumPokretanja} />
+                                <FormatDatuma datum={usluga.datumPokretanja} />
                             </td>
                             <td>
 
-                                <Link to={RouteNames.USLUGE_PROMJENA}
-                                    className="btn btn-success w-10 my-3">
-                                    <GrAdd /> Promjena
-                                </Link>
+                                <Button onClick={()=>{navigate(`/usluge/${usluga.sifra}`)}}>
+                                    Promjeni
+                                </Button>
 
                             </td>
                         </tr>
