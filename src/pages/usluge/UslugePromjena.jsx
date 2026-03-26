@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Form, Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import UslugeService from "../../services/usluge/UslugeService";
 import { RouteNames } from "../../constants";
-import { Button, Col, FormControl, FormGroup, Row } from "react-bootstrap";
+import { Button, Col, Form, FormControl, FormGroup, Row } from "react-bootstrap";
 
 export default function UslugePromjena(){
 
@@ -56,13 +56,13 @@ export default function UslugePromjena(){
             </FormGroup>
 
             <Form.Group className="mt-5" controlId="datumPokretanja">
-                    <Form.Label >Datum pokretanja custom usluge</Form.Label>
+                    <Form.Label >Datum promjene koju unosite</Form.Label>
                     <Form.Control  type="date" name="datumPokretanja" />
                 </Form.Group>
 
 
             <Form.Group className="mt-5" controlId="cijena">
-                <Form.Label>Očekivana cijena</Form.Label>
+                <Form.Label>Očekivana cijena izmjene</Form.Label>
                 <Form.Control type="number" name="cijena" step={0.01} />
 
             </Form.Group>
