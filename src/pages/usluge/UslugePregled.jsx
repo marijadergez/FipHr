@@ -35,7 +35,7 @@ export default function UslugePregled() {
                 <GrAdd/> Dodaj novu uslugu
             </Link>
 
-            <Table>
+            <Table hover bordered responsive>
 
                 <thead>
                     <tr>
