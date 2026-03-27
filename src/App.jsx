@@ -11,6 +11,7 @@ import UslugePromjena from './pages/usluge/UslugePromjena'
 
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
+import './App.css';
 
 function App() {
 
@@ -30,6 +31,13 @@ function App() {
       loop
       autoplay
     />
+
+    
+     <>
+      <div className="glass">
+      </div>
+  
+    </>
       <hr />
 
       &copy; Marija | Edunova | 2026.
