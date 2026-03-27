@@ -28,6 +28,15 @@ export default function UslugePregled() {
 
     }
 
+    async function obrisi(sifra) {
+        if(!confirm('Sigurno obrisati?')){
+            return
+        }
+        await UslugeService.obrisi(sifra)
+        ucitajUsluge()
+        
+    }
+
 
     return (
         <>
@@ -82,8 +91,13 @@ export default function UslugePregled() {
                                 <Button onClick={()=>{navigate(`/usluge/${usluga.sifra}`)}}>
                                     Promjeni
                                 </Button>
+                                        &nbsp;&nbsp;
 
+                                <Button variant="danger" onClick={()=>{obrisi(usluge.sifra)}}> 
+                                    Obriši
+                                </Button>
                             </td>
+
                         </tr>
                     ))}
                 </tbody>
