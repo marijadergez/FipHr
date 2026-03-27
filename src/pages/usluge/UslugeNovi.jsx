@@ -24,7 +24,7 @@ export default function UslugeNovi(){
             trajanje: parseInt(podaci.get('trajanje')),
             cijena: parseFloat(podaci.get('cijena')),
             datumPokretanja: new Date(podaci.get('datumPokretanja')).toISOString(),
-            aktivan: podaci.get('aktivan') === 'on'
+            popust: podaci.get('popust') === 'on'
         })
 
 
@@ -50,6 +50,10 @@ export default function UslugeNovi(){
                 <Form.Control type="number" name="cijena" step={0.01} />
 
             </Form.Group>
+
+            <Form.Group controlId="popust">
+                    <Form.Check label="Popust" name="popust" />
+                </Form.Group>
 
              <Row className="mt-4">
 

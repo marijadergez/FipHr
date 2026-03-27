@@ -93,7 +93,7 @@ export default function UslugePregled() {
                                 </Button>
                                         &nbsp;&nbsp;
 
-                                <Button variant="danger" onClick={()=>{obrisi(usluge.sifra)}}> 
+                                <Button variant="danger" onClick={()=>{obrisi(usluga.sifra)}}> 
                                     Obriši
                                 </Button>
                             </td>

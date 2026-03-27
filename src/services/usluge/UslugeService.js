@@ -8,9 +8,9 @@ async function get() {
 
 async function dodaj(usluga) {
     if(usluge.length===0){
-        usluge.sifra=1
+        usluga.sifra=1
     }else{
-        usluge.sifra =usluge[usluge.length -1].sifra + 1
+        usluga.sifra =usluge[usluge.length -1].sifra + 1
     }
     usluge.push(usluga)
     
