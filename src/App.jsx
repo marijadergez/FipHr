@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import UslugeNovi from './pages/usluge/UslugeNovi'
 import UslugePromjena from './pages/usluge/UslugePromjena'
 
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 
 function App() {
@@ -24,6 +25,11 @@ function App() {
 
 
       </Routes>
+      <DotLottieReact
+      src="https://lottie.host/671c63f5-ebe2-4a63-a4ba-11e54b67d00e/8hocp9zpl8.lottie"
+      loop
+      autoplay
+    />
       <hr />
 
       &copy; Marija | Edunova | 2026.
