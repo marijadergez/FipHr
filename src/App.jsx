@@ -33,11 +33,11 @@ function App() {
     />
 
     
-     <>
+     {/*}
       <div className="glass">
       </div>
-  
-    </>
+  {*/}
+    
       <hr />
 
       &copy; Marija | Edunova | 2026.

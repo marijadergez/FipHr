@@ -1,7 +1,7 @@
 body{
   background-color: rgb(241, 233, 223);
   background: linear-gradient(90deg, #9dc4e4 0,#73d6b5 40%);
-
+}
 /*.glass {
   position: absolute;
   text-align: center;
@@ -10,7 +10,7 @@ body{
   top: 10%;
   left: 10%;
   z-index: 1;
-  /*backdrop-filter: blur(1px);*/
+  backdrop-filter: blur(1px);
 }*/
 
 .App-logo {
@@ -21,7 +21,7 @@ body{
   top: 0.5rem;
   left: 0.5rem;
 }
-}
+
 
 h1{
   color: rgb(40, 131, 131);
