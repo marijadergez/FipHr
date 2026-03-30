@@ -10,7 +10,7 @@ body{
   top: 10%;
   left: 10%;
   z-index: 1;
-  backdrop-filter: blur(1px);
+  /*backdrop-filter: blur(1px);*/
 }
 
 .App-logo {
