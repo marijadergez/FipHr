@@ -25,18 +25,18 @@ async function dodaj(usluga){
 // 3/4 Update od CRUD
 async function promjeni(sifra,usluga) {
     const index = nadiIndex(sifra)
-    smjerovi[index] = {...smjerovi[index], ...smjer}
+    usluge[index] = {...smjerovi[index], ...smjer}
 }
 
 function nadiIndex(sifra){
-    return smjerovi.findIndex(s=>s.sifra === parseInt(sifra))
+    return usluge.findIndex(s=>s.sifra === parseInt(sifra))
 }
 
 // 4/4 Delete od CRUD
 async function obrisi(sifra) {
     const index = nadiIndex(sifra);
     if (index > -1) {
-        smjerovi.splice(index, 1);
+        usluge.splice(index, 1);
     }
     return;
 }

@@ -1,5 +1,3 @@
-
-
 const STORAGE_KEY = 'usluge';
 
 function dohvatiSveIzStorage() {
@@ -36,7 +34,7 @@ async function dodaj(usluga) {
 
     usluge.push(usluga);
     spremiUStorage(usluge);
-    return { data: smjer};
+    return { data: usluga};
 }
 
 async function promjeni(sifra, usluga) {

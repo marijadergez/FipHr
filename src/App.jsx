@@ -26,6 +26,8 @@ function App() {
 
 
       </Routes>
+
+      
       <DotLottieReact
       src="https://lottie.host/671c63f5-ebe2-4a63-a4ba-11e54b67d00e/8hocp9zpl8.lottie"
       loop

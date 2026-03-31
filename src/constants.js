@@ -6,3 +6,5 @@ export const RouteNames = {
     USLUGE_NOVI:'/usluge/novi',
     USLUGE_PROMJENA: '/usluge/:sifra'
 }
+
+export const DATA_SOURCE = 'localStorage';
