@@ -8,10 +8,12 @@ import UslugePregled from './pages/usluge/UslugePregled'
 import Home from './pages/Home'
 import UslugeNovi from './pages/usluge/UslugeNovi'
 import UslugePromjena from './pages/usluge/UslugePromjena'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import './App.css'
+import KorisnikPregled from './pages/korisnici/KorisnikPregled'
+import KorisnikPromjena from './pages/korisniciI/KorisnikPromjena'
+import Korisnici from '.pages/korisnici/KorisniciPregled' 
 
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-
-import './App.css';
 
 function App() {
 
@@ -23,7 +25,9 @@ function App() {
           <Route path={RouteNames.USLUGE} element={<UslugePregled />}  />
           <Route path={RouteNames.USLUGE_NOVI} element={<UslugeNovi />}  />
           <Route path={RouteNames.USLUGE_PROMJENA} element={<UslugePromjena />}  />
-
+          <Route path={RouteNames.KORISNICI} element={<KorisnikPregled />} />
+          <Route path={RouteNames.KORISNICI_NOVI} element={<KorisnikPregled />} />
+          <Route path={RouteNames.korisnici_PROMJENA} element={<KorisnikPromjena />} />
 
       </Routes>
 

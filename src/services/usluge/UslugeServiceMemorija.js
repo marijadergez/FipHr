@@ -25,7 +25,7 @@ async function dodaj(usluga){
 // 3/4 Update od CRUD
 async function promjeni(sifra,usluga) {
     const index = nadiIndex(sifra)
-    usluge[index] = {...smjerovi[index], ...smjer}
+    usluge[index] = {...usluge[index], ...usluga}
 }
 
 function nadiIndex(sifra){
