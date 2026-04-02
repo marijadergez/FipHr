@@ -126,11 +126,11 @@ export default function UslugeNovi(){
 
                                 {/* Aktivan - Switch umjesto checkboxa za moderniji izgled */}
                                 <Col md={6}>
-                                    <Form.Group controlId="aktivan" className="mb-3 mt-md-3">
+                                    <Form.Group controlId="popust" className="mb-3 mt-md-3">
                                         <Form.Check
                                             type="switch"
-                                            label="Usluga je aktivna"
-                                            name="aktivan"
+                                            label="Usluga je na popustu"
+                                            name="popust"
                                             className="fs-5"
                                         />
                                     </Form.Group>

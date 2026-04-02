@@ -49,7 +49,7 @@ async function promjeni(sifra, usluga) {
     
 }
 
-async function obrisi(usluga) {
+async function obrisi(sifra) {
     let usluge = dohvatiSveIzStorage();
     usluge = usluge.filter(s => s.sifra !== parseInt(sifra));
     spremiUStorage(usluge);
