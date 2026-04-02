@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import UslugeService from "../../services/usluge/UslugeService";
 import { RouteNames } from "../../constants";
-import { Button, Col, Form, FormControl, FormGroup, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
 
 export default function UslugePromjena(){
 
@@ -24,7 +24,7 @@ export default function UslugePromjena(){
             }
             const s = odgovor.data
             s.datumPokretanja = s.datumPokretanja.substring(0,10)
-            setSmjer(s)
+            setUsluga(s)
             setAktivan(s.aktivan)
            // console.table(odgovor.data)
         })
@@ -166,7 +166,7 @@ export default function UslugePromjena(){
                                     <Form.Group controlId="aktivan" className="mb-3 mt-md-3">
                                         <Form.Check
                                             type="switch"
-                                            label="Smjer je aktivan"
+                                            label="Usluga je aktivna"
                                             name="aktivan"
                                             className="fs-5"
                                             checked={aktivan}

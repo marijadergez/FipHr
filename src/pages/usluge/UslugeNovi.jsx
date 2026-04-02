@@ -1,14 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import UslugeService from "../../services/usluge/UslugeService";
 import { RouteNames } from "../../constants";
-import { Button, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
 
 
 export default function UslugeNovi(){
 
     const navigate = useNavigate()
 
-    async function dodaj(smjer){
+    async function dodaj(uslugu){
         //console.table(smjer)
         await UslugeService.dodaj(uslugu).then(()=>{
             navigate(RouteNames.USLUGE)
@@ -32,12 +32,7 @@ export default function UslugeNovi(){
             return // Prekid
         }
 
-        // --- KONTROLA 3: Trajanje (Logički raspon) ---
-        // Provjera je li broj i je li unutar zadanih granica (npr. 1 - 500 sati)
-        if (isNaN(podaci.get('trajanje')) || podaci.get('trajanje') < 1 || podaci.get('trajanje') > 500) {
-            alert("Trajanje mora biti broj između 1 i 500 sati!")
-            return // Prekid
-        }
+       
 
         if (!podaci.get('cijena') || podaci.get('cijena') === "") {
             alert("Obavezno cijena smjera!")
@@ -76,14 +71,14 @@ export default function UslugeNovi(){
 
     return (
         <>
-            <h3>Unos novog smjera</h3>
+            <h3>Unos nove usluge</h3>
             <Form onSubmit={odradiSubmit}>
 
 
                 <Container className="mt-4">
                     <Card className="shadow-sm">
                         <Card.Body>
-                            <Card.Title className="mb-4">Podaci o smjeru</Card.Title>
+                            <Card.Title className="mb-4">Podaci o usluzi</Card.Title>
 
                             {/* Naziv - Pun širina na svim ekranima */}
                             <Row>
@@ -150,7 +145,7 @@ export default function UslugeNovi(){
                                     Odustani
                                 </Link>
                                 <Button type="submit" variant="success">
-                                    Dodaj novU uslugu
+                                    Dodaj novu uslugu
                                 </Button>
                             </div>
                         </Card.Body>
