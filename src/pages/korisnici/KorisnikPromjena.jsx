@@ -25,7 +25,7 @@ export default function KorisnikPromjena(){
     }
 
     async function promjeni(korisnik) {
-        await KorisnikService.promjeni(params.sifra,korisnikk).then(()=>{
+        await KorisnikService.promjeni(params.sifra,korisnik).then(()=>{
             navigate(RouteNames.KORISNICI)
         })
     }

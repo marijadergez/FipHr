@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'polaznici';
+const STORAGE_KEY = 'korisnici';
 
 function dohvatiSveIzStorage() {
     const podaci = localStorage.getItem(STORAGE_KEY);
@@ -37,12 +37,12 @@ async function dodaj(korisnik) {
     return { data:korisnik};
 }
 
-async function promjeni(sifra,polaznik) {
+async function promjeni(sifra,korisnik) {
      const korisnici = dohvatiSveIzStorage();
      const index = korisnici.findIndex( s => s.sifra === parseInt(sifra));
 
      if (index !== -1) {
-        korisnici[index] = { ...korisnici[index], ...korisnici};
+        korisnici[index] = { ...korisnici[index], ...korisnik};
         spremiUStorage(korisnici);
      }
      return { data: korisnici[index] };

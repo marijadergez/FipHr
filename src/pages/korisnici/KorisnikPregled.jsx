@@ -3,13 +3,13 @@ import KorisnikService from "../../services/korisnici/KorisnikService"
 import { Button, Table } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
-import { korisnici } from "../../services/korisnici/KorisnikPodaci"
+
 
 export default function KorisnikPregled(){
 
     const navigate = useNavigate()
 
-    const [pkorisnici,setKorisnici] = useState([])
+    const [korisnici,setKorisnici] = useState([])
 
     useEffect(()=>{
         ucitajKorisnika()
