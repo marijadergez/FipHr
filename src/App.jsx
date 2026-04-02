@@ -11,8 +11,9 @@ import UslugePromjena from './pages/usluge/UslugePromjena'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import './App.css'
 import KorisnikPregled from './pages/korisnici/KorisnikPregled'
-import KorisnikPromjena from './pages/korisniciI/KorisnikPromjena'
-import Korisnici from '.pages/korisnici/KorisniciPregled' 
+import KorisnikPromjena from './pages/korisnici/KorisnikPromjena'
+import KorisnikNovi from './pages/korisnici/KorisnikNovi'
+
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
           <Route path={RouteNames.USLUGE_NOVI} element={<UslugeNovi />}  />
           <Route path={RouteNames.USLUGE_PROMJENA} element={<UslugePromjena />}  />
           <Route path={RouteNames.KORISNICI} element={<KorisnikPregled />} />
-          <Route path={RouteNames.KORISNICI_NOVI} element={<KorisnikPregled />} />
+          <Route path={RouteNames.KORISNICI_NOVI} element={<KorisnikNovi />} />
           <Route path={RouteNames.korisnici_PROMJENA} element={<KorisnikPromjena />} />
 
       </Routes>

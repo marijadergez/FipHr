@@ -1,7 +1,7 @@
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { RouteNames } from "../../constants"
 import { Link, useNavigate } from "react-router-dom"
-import PolaznikService from "../../services/polaznici/PolaznikService"
+import KorisnikService from "../../services/korisnici/KorisnikService"
 
 export default function KorisnikNovi(){
 

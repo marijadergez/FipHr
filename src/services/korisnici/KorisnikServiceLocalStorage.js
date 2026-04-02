@@ -42,8 +42,8 @@ async function promjeni(sifra,polaznik) {
      const index = korisnici.findIndex( s => s.sifra === parseInt(sifra));
 
      if (index !== -1) {
-        korisnici[index] = { ...korisnici[index], ...korisnik};
-        spremiUStorage(polaznici);
+        korisnici[index] = { ...korisnici[index], ...korisnici};
+        spremiUStorage(korisnici);
      }
      return { data: korisnici[index] };
     
@@ -51,7 +51,7 @@ async function promjeni(sifra,polaznik) {
 
 async function obrisi(sifra) {
     let korisnici = dohvatiSveIzStorage();
-    korisnici = korisnik.filter(p => p.sifra !== parseInt(sifra));
+    korisnici = korisnici.filter(p => p.sifra !== parseInt(sifra));
     spremiUStorage(korisnici);
     return { message: 'Obrisano' };
     
