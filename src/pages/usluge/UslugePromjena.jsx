@@ -16,8 +16,8 @@ export default function UslugePromjena(){
             ucitajUsluge()
         },[])
 
-        async function ucitajSmjer() {
-        await SmjerService.getBySifra(params.sifra).then((odgovor)=>{
+        async function ucitajUsluge() {
+        await UslugeService.getBySifra(params.sifra).then((odgovor)=>{
             if(!odgovor.success){
                 alert('Nije implementiran servis')
                 return
@@ -25,14 +25,14 @@ export default function UslugePromjena(){
             const s = odgovor.data
             s.datumPokretanja = s.datumPokretanja.substring(0,10)
             setUsluga(s)
-            setAktivan(s.aktivan)
+            setPopust(s.popust)
            // console.table(odgovor.data)
         })
     }
 
-    async function promjeni(smjer) {
-        await SmjerService.promjeni(params.sifra,smjer).then(()=>{
-            navigate(RouteNames.SMJEROVI)
+    async function promjeni(usluga) {
+        await UslugeService.promjeni(params.sifra,usluga).then(()=>{
+            navigate(RouteNames.USLUGE)
         })
     }
 
@@ -70,27 +70,12 @@ export default function UslugePromjena(){
             return // Prekid
         }
 
-        if (!podaci.get('datumPokretanja') || podaci.get('datumPokretanja') === "") {
-            alert("Morate odabrati datum pokretanja!")
-            return
-        }
-
-        // B) Logička provjera: Datum ne smije biti u prošlosti
-        const odabraniDatum = new Date(podaci.get('datumPokretanja'))
-        const danas = new Date()
-        danas.setHours(0, 0, 0, 0) // Resetiramo vrijeme na ponoć radi točne usporedbe datuma
-
-        if (odabraniDatum < danas) {
-            alert("Datum pokretanja ne može biti u prošlosti!")
-            return
-        }
 
         promjeni({
             naziv: podaci.get('naziv'),
-            trajanje: parseInt(podaci.get('trajanje')),
             cijena: parseFloat(podaci.get('cijena')),
-            datumPokretanja: new Date(podaci.get('datumPokretanja')).toISOString(),
-            aktivan: aktivan
+            datumPokretanja: usluga.datumPokretanja,
+            popust: popust
         })
     }
 
@@ -121,18 +106,7 @@ export default function UslugePromjena(){
 
                             {/* Trajanje i Cijena - Jedno pored drugog na md+, jedno ispod drugog na mobitelu */}
                             <Row>
-                                <Col md={6}>
-                                    <Form.Group controlId="trajanje" className="mb-3">
-                                        <Form.Label className="fw-bold">Trajanje (sati)</Form.Label>
-                                        <Form.Control
-                                            type="number"
-                                            name="trajanje"
-                                            step={1}
-                                            placeholder="0"
-                                            defaultValue={usluga.trajanje}
-                                        />
-                                    </Form.Group>
-                                </Col>
+                               
                                 <Col md={6}>
                                     <Form.Group controlId="cijena" className="mb-3">
                                         <Form.Label className="fw-bold">Cijena (€)</Form.Label>
@@ -145,32 +119,18 @@ export default function UslugePromjena(){
                                         />
                                     </Form.Group>
                                 </Col>
-                            </Row>
-
-                            <Row className="align-items-center">
-                                {/* Datum pokretanja */}
-                                <Col md={6}>
-                                    <Form.Group controlId="datumPokretanja" className="mb-3">
-                                        <Form.Label className="fw-bold">Datum pokretanja</Form.Label>
-                                        <Form.Control type="date" name="datumPokretanja" 
-                                        // Dodajemo onClick i onFocus za bolju pristupačnost
-                                        onClick={(e) => e.target.showPicker()} 
-                                        onFocus={(e) => e.target.showPicker()}
-                                        defaultValue={usluga.datumPokretanja}
-                                        />
-                                    </Form.Group>
-                                </Col>
+                        
 
                                 {/* Aktivan - Switch umjesto checkboxa za moderniji izgled */}
                                 <Col md={6}>
-                                    <Form.Group controlId="aktivan" className="mb-3 mt-md-3">
+                                    <Form.Group controlId="popust" className="mb-3 mt-md-3">
                                         <Form.Check
                                             type="switch"
-                                            label="Usluga je aktivna"
-                                            name="aktivan"
+                                            label="Usluga je na popustu"
+                                            name="popust"
                                             className="fs-5"
                                             checked={popust}
-                                            onChange={(e) => setAktivan(e.target.checked)}
+                                            onChange={(e) => setPopust(e.target.checked)}
                                         />
                                     </Form.Group>
                                 </Col>

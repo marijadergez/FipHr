@@ -9,6 +9,10 @@ export const RouteNames = {
     KORISNICI: '/korisnici',
     KORISNICI_NOVI: '/korisnici/novi',
     korisnici_PROMJENA: '/korisnici/:sifra',
+
+    GRAD: '/gradovi',
+    GRAD_NOVI: '/gradovi/novi',
+    GRAD_PROMJENA: '/gradovi/:sifra',
 }
 
-export const DATA_SOURCE = 'memory';
+export const DATA_SOURCE = 'memorija';

@@ -1,23 +1,48 @@
-import { Link, useNavigate } from "react-router-dom";
-import UslugeService from "../../services/usluge/UslugeService";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import gradoviService from "../../services/gradovi/gradoviService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
 
-
-export default function UslugeNovi(){
+export default function gradPromjena(){
 
     const navigate = useNavigate()
+    const params = useParams()
+    const [grad,setGrad] =useState({})
+    const [usluge,setUsluge] =useState(false)
 
-    async function dodaj(uslugu){
-        //console.table(smjer)
-        await UslugeService.dodaj(uslugu).then(()=>{
-            navigate(RouteNames.USLUGE)
+    useEffect(
+        ()=>{
+            ucitajGrad()
+            ucitajUsluge()
+        },[])
+
+        async function ucitajGrad() {
+        await GradService.getBySifra(params.sifra).then((odgovor)=>{
+            if(!odgovor.success){
+                alert('Nije implementiran grad')
+                return
+            }
+           setGrad(odgovor.data)
+        })
+    }
+    async function ucitajUsluge() {
+        await UslugeService.get().then((odgovor) => {
+            if (!odgovor.success) {
+                alert('Nije implementiran servis za usluge')
+                return
+            }
+            setSmjerovi(odgovor.data)
+        })
+
+    async function promjeni(grad) {
+        await GradService.promjeni(params.sifra,grad).then(()=>{
+            navigate(RouteNames.GRADOVI)
         })
     }
 
-
-    function odradiSubmit(e){ // e je event
-        e.preventDefault() // nemoj odraditi submit
+    function odradiSubmit(e){
+        e.preventDefault()
         const podaci = new FormData(e.target)
 
          // --- KONTROLA 1: Naziv (Postojanje) ---
@@ -28,11 +53,11 @@ export default function UslugeNovi(){
 
         // --- KONTROLA 2: Naziv (Minimalna duljina) ---
         if (podaci.get('naziv').trim().length < 3) {
-            alert("Naziv smjera mora imati najmanje 3 znaka!")
+            alert("Naziv grada mora imati najmanje 3 znaka!")
             return // Prekid
         }
 
-       
+      
 
         if (!podaci.get('cijena') || podaci.get('cijena') === "") {
             alert("Obavezno cijena smjera!")
@@ -45,27 +70,22 @@ export default function UslugeNovi(){
             return // Prekid
         }
 
-       
 
-        dodaj({
+        promjeni({
             naziv: podaci.get('naziv'),
-          
             cijena: parseFloat(podaci.get('cijena')),
-            datumPokretanja: new Date().toISOString(),
-            popust: podaci.get('popust') === 'on'
+            popust: popust
         })
     }
 
-    return (
-        <>
-            <h3>Unos nove usluge</h3>
+    return(
+         <>
+            <h3>Promjena grada</h3>
             <Form onSubmit={odradiSubmit}>
-
-
                 <Container className="mt-4">
                     <Card className="shadow-sm">
                         <Card.Body>
-                            <Card.Title className="mb-4">Podaci o usluzi</Card.Title>
+                            <Card.Title className="mb-4">Podaci o gradu</Card.Title>
 
                             {/* Naziv - Pun širina na svim ekranima */}
                             <Row>
@@ -75,8 +95,9 @@ export default function UslugeNovi(){
                                         <Form.Control
                                             type="text"
                                             name="naziv"
-                                            placeholder="Unesite naziv usluge"
+                                            placeholder="Unesite naziv grad"
                                             required
+                                            defaultValue={grad.naziv}
                                         />
                                     </Form.Group>
                                 </Col>
@@ -93,18 +114,22 @@ export default function UslugeNovi(){
                                             name="cijena"
                                             step={0.01}
                                             placeholder="0,00"
+                                            defaultValue={grad.cijena}
                                         />
                                     </Form.Group>
                                 </Col>
-                      
+                        
+
                                 {/* Aktivan - Switch umjesto checkboxa za moderniji izgled */}
                                 <Col md={6}>
                                     <Form.Group controlId="popust" className="mb-3 mt-md-3">
                                         <Form.Check
                                             type="switch"
-                                            label="Usluga je na popustu"
+                                            label="grad je na popustu"
                                             name="popust"
                                             className="fs-5"
+                                            checked={popust}
+                                            onChange={(e) => setPopust(e.target.checked)}
                                         />
                                     </Form.Group>
                                 </Col>
@@ -114,99 +139,20 @@ export default function UslugeNovi(){
 
                             {/* Gumbi za akciju - RWD pozicioniranje */}
                             <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                <Link to={RouteNames.USLUGE} className="btn btn-danger px-4">
+                                <Link to={RouteNames.GRADOVI} className="btn btn-danger px-4">
                                     Odustani
                                 </Link>
                                 <Button type="submit" variant="success">
-                                    Dodaj novu uslugu
+                                    Promjeni grad
                                 </Button>
                             </div>
                         </Card.Body>
                     </Card>
                 </Container>
 
+
             </Form>
         </>
     )
 }
-
-  /*  async function dodaj(usluga){
-        
-        await UslugeService.dodaj(usluga).then(()=>{
-             navigate(RouteNames.USLUGE) 
-        })
-       
-    }
-        
-     function odradiSubmit(e){
-        e.preventDefault()
-        const podaci = new FormData(e.target)
-        dodaj({
-            naziv: podaci.get('naziv'),
-            trajanje: parseInt(podaci.get('trajanje')),
-            cijena: parseFloat(podaci.get('cijena')),
-            datumPokretanja: new Date(podaci.get('datumPokretanja')).toISOString(),
-            popust: podaci.get('popust') === 'on'
-        })
-
-
-    }
-
-    return(
-        <>
-        <h3 className="mt-5">Unesite novu custom uslugu</h3>
-          <Form onSubmit={odradiSubmit}>
-            <FormGroup controlId="naziv">
-                <Form.Label>Unesite Naziv ili opis</Form.Label>
-                <FormControl  type="text" name="naziv" required/>
-            </FormGroup>
-
-            <Form.Group className="mt-5" controlId="datumPokretanja">
-                    <Form.Label >Datum pokretanja custom usluge</Form.Label>
-                    <Form.Control  type="date" name="datumPokretanja" />
-                </Form.Group>
-
-
-            <Form.Group className="mt-5" controlId="cijena">
-                <Form.Label>Očekivana cijena</Form.Label>
-                <Form.Control type="number" name="cijena" step={0.01} />
-
-            </Form.Group>
-
-            <Form.Group controlId="popust">
-                    <Form.Check label="Popust" name="popust" />
-                </Form.Group>
-
-             <Row className="mt-4">
-
-                <Col>
-                <Link to={RouteNames.USLUGE} className="btn btn-danger">
-                Odustani
-                </Link>
-                </Col>
-
-                <Col>
-                <Button type="submit" variant="success">
-                    Dodaj novu uslugu
-                </Button>
-                </Col>
-                
-                
-                
-                
-            </Row>   
-
-
-
-
-
-
-          </Form>
-        
-        
-        </>
-    )
-
-
-
-}*/
+}

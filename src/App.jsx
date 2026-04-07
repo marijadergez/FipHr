@@ -13,7 +13,9 @@ import './App.css'
 import KorisnikPregled from './pages/korisnici/KorisnikPregled'
 import KorisnikPromjena from './pages/korisnici/KorisnikPromjena'
 import KorisnikNovi from './pages/korisnici/KorisnikNovi'
-
+import GradPromjena from './pages/gradovi/GradPromjena'
+import GradoviNovi from './pages/gradovi/GradNovi'
+import GradoviPregled from './pages/gradovi/GradPregled'
 
 
 function App() {
@@ -26,9 +28,15 @@ function App() {
           <Route path={RouteNames.USLUGE} element={<UslugePregled />}  />
           <Route path={RouteNames.USLUGE_NOVI} element={<UslugeNovi />}  />
           <Route path={RouteNames.USLUGE_PROMJENA} element={<UslugePromjena />}  />
+
           <Route path={RouteNames.KORISNICI} element={<KorisnikPregled />} />
           <Route path={RouteNames.KORISNICI_NOVI} element={<KorisnikNovi />} />
           <Route path={RouteNames.korisnici_PROMJENA} element={<KorisnikPromjena />} />
+
+          <Route path={RouteNames.GRAD} element={<GradoviPregled />} />
+          <Route path={RouteNames.GRAD_NOVI} element={<GradoviNovi />} />
+          <Route path={RouteNames.GRAD_PROMJENA} element={<GradPromjena />} />
+
 
       </Routes>
 

@@ -1,17 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
-import UslugeService from "../../services/usluge/UslugeService";
+import gradoviService from "../../services/gradovi/gradoviService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
 
 
-export default function UslugeNovi(){
+export default function gradoviNovi(){
 
     const navigate = useNavigate()
 
     async function dodaj(uslugu){
         //console.table(smjer)
-        await UslugeService.dodaj(uslugu).then(()=>{
-            navigate(RouteNames.USLUGE)
+        await gradoviService.dodaj(uslugu).then(()=>{
+            navigate(RouteNames.gradovi)
         })
     }
 
@@ -58,7 +58,7 @@ export default function UslugeNovi(){
 
     return (
         <>
-            <h3>Unos nove usluge</h3>
+            <h3>Unos nove gradovi</h3>
             <Form onSubmit={odradiSubmit}>
 
 
@@ -75,7 +75,7 @@ export default function UslugeNovi(){
                                         <Form.Control
                                             type="text"
                                             name="naziv"
-                                            placeholder="Unesite naziv usluge"
+                                            placeholder="Unesite naziv gradovi"
                                             required
                                         />
                                     </Form.Group>
@@ -102,7 +102,7 @@ export default function UslugeNovi(){
                                     <Form.Group controlId="popust" className="mb-3 mt-md-3">
                                         <Form.Check
                                             type="switch"
-                                            label="Usluga je na popustu"
+                                            label="grad je na popustu"
                                             name="popust"
                                             className="fs-5"
                                         />
@@ -114,11 +114,11 @@ export default function UslugeNovi(){
 
                             {/* Gumbi za akciju - RWD pozicioniranje */}
                             <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                <Link to={RouteNames.USLUGE} className="btn btn-danger px-4">
+                                <Link to={RouteNames.GRAD} className="btn btn-danger px-4">
                                     Odustani
                                 </Link>
                                 <Button type="submit" variant="success">
-                                    Dodaj novu uslugu
+                                    Dodaj novi grad
                                 </Button>
                             </div>
                         </Card.Body>
@@ -129,84 +129,3 @@ export default function UslugeNovi(){
         </>
     )
 }
-
-  /*  async function dodaj(usluga){
-        
-        await UslugeService.dodaj(usluga).then(()=>{
-             navigate(RouteNames.USLUGE) 
-        })
-       
-    }
-        
-     function odradiSubmit(e){
-        e.preventDefault()
-        const podaci = new FormData(e.target)
-        dodaj({
-            naziv: podaci.get('naziv'),
-            trajanje: parseInt(podaci.get('trajanje')),
-            cijena: parseFloat(podaci.get('cijena')),
-            datumPokretanja: new Date(podaci.get('datumPokretanja')).toISOString(),
-            popust: podaci.get('popust') === 'on'
-        })
-
-
-    }
-
-    return(
-        <>
-        <h3 className="mt-5">Unesite novu custom uslugu</h3>
-          <Form onSubmit={odradiSubmit}>
-            <FormGroup controlId="naziv">
-                <Form.Label>Unesite Naziv ili opis</Form.Label>
-                <FormControl  type="text" name="naziv" required/>
-            </FormGroup>
-
-            <Form.Group className="mt-5" controlId="datumPokretanja">
-                    <Form.Label >Datum pokretanja custom usluge</Form.Label>
-                    <Form.Control  type="date" name="datumPokretanja" />
-                </Form.Group>
-
-
-            <Form.Group className="mt-5" controlId="cijena">
-                <Form.Label>Očekivana cijena</Form.Label>
-                <Form.Control type="number" name="cijena" step={0.01} />
-
-            </Form.Group>
-
-            <Form.Group controlId="popust">
-                    <Form.Check label="Popust" name="popust" />
-                </Form.Group>
-
-             <Row className="mt-4">
-
-                <Col>
-                <Link to={RouteNames.USLUGE} className="btn btn-danger">
-                Odustani
-                </Link>
-                </Col>
-
-                <Col>
-                <Button type="submit" variant="success">
-                    Dodaj novu uslugu
-                </Button>
-                </Col>
-                
-                
-                
-                
-            </Row>   
-
-
-
-
-
-
-          </Form>
-        
-        
-        </>
-    )
-
-
-
-}*/
