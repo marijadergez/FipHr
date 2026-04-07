@@ -1,5 +1,5 @@
 import { DATA_SOURCE } from "../../constants";
-import gradoviServiceLocalStorage from "./GradLocalStorage";
+import gradoviServiceLocalStorage from "./GradServiceLocalStorage";
 import gradoviServiceMemorija from "./gradoviServiceMemorija";
 
 
