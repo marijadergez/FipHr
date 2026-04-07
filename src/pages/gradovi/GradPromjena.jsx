@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import gradoviService from "../../services/gradovi/gradoviService";
+import gradoviService from "../../services/gradovi/GradService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
 
@@ -18,7 +18,7 @@ export default function gradPromjena(){
         },[])
 
         async function ucitajGrad() {
-        await GradService.getBySifra(params.sifra).then((odgovor)=>{
+        await gradoviService.getBySifra(params.sifra).then((odgovor)=>{
             if(!odgovor.success){
                 alert('Nije implementiran grad')
                 return
@@ -36,8 +36,8 @@ export default function gradPromjena(){
         })
 
     async function promjeni(grad) {
-        await GradService.promjeni(params.sifra,grad).then(()=>{
-            navigate(RouteNames.GRADOVI)
+        await gradoviService.promjeni(params.sifra,grad).then(()=>{
+            navigate(RouteNames.GRAD_PROMJENA)
         })
     }
 
@@ -60,7 +60,7 @@ export default function gradPromjena(){
       
 
         if (!podaci.get('cijena') || podaci.get('cijena') === "") {
-            alert("Obavezno cijena smjera!")
+            alert("Obavezno cijena po gradu!")
             return
         }
 
@@ -139,7 +139,7 @@ export default function gradPromjena(){
 
                             {/* Gumbi za akciju - RWD pozicioniranje */}
                             <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                <Link to={RouteNames.GRADOVI} className="btn btn-danger px-4">
+                                <Link to={RouteNames.GRAD} className="btn btn-danger px-4">
                                     Odustani
                                 </Link>
                                 <Button type="submit" variant="success">

@@ -53,11 +53,7 @@ export default function UslugePromjena(){
         }
 
         // --- KONTROLA 3: Trajanje (Logički raspon) ---
-        // Provjera je li broj i je li unutar zadanih granica (npr. 1 - 500 sati)
-        if (isNaN(podaci.get('trajanje')) || podaci.get('trajanje') < 1 || podaci.get('trajanje') > 500) {
-            alert("Trajanje mora biti broj između 1 i 500 sati!")
-            return // Prekid
-        }
+      
 
         if (!podaci.get('cijena') || podaci.get('cijena') === "") {
             alert("Obavezno cijena smjera!")

@@ -5,8 +5,8 @@ export const grad = [
     {
         sifra: 2,
         naziv: 'Knjigovodstvo trgovačkih društava',
-        usluga: 2
-    }
+        usluga: 2,
+    },
 
     {
         sifra: 1,

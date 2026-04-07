@@ -1,6 +1,7 @@
 import { DATA_SOURCE } from "../../constants";
 import gradoviServiceLocalStorage from "./GradServiceLocalStorage";
-import gradoviServiceMemorija from "./gradoviServiceMemorija";
+import gradoviServiceMemorija from "./GradServiceMemorija";
+
 
 
 
@@ -22,9 +23,9 @@ switch (DATA_SOURCE) {
 const PrazanServis = {
     get: async () =>({ success: false, data: [] }),
     getBySifra: async (sifra) => ({ success: false, data: {} }),
-    dodaj: async (grad) => { console.error("Servis nije učitan"); },
+    dodaj: async (grad) => { console.error("Servis grad nije učitan"); },
   
-    obrisi: async (sifra) => { console.error("Servis nije dostupan"); }
+    obrisi: async (sifra) => { console.error("Servis šifra grad nije dostupan"); }
 
 
 }

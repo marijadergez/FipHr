@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import gradoviService from "../../services/gradovi/gradoviService";
+import gradoviService from "../../services/gradovi/GradService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
 
@@ -8,10 +8,10 @@ export default function gradoviNovi(){
 
     const navigate = useNavigate()
 
-    async function dodaj(uslugu){
+    async function dodaj(grad){
         //console.table(smjer)
-        await gradoviService.dodaj(uslugu).then(()=>{
-            navigate(RouteNames.gradovi)
+        await gradoviService.dodaj(grad).then(()=>{
+            navigate(RouteNames.GRAD)
         })
     }
 
@@ -28,14 +28,14 @@ export default function gradoviNovi(){
 
         // --- KONTROLA 2: Naziv (Minimalna duljina) ---
         if (podaci.get('naziv').trim().length < 3) {
-            alert("Naziv smjera mora imati najmanje 3 znaka!")
+            alert("Naziv grada mora imati najmanje 3 znaka!")
             return // Prekid
         }
 
        
 
         if (!podaci.get('cijena') || podaci.get('cijena') === "") {
-            alert("Obavezno cijena smjera!")
+            alert("Obavezno cijena po gradu!")
             return
         }
 
