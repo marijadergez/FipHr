@@ -169,7 +169,7 @@ export default function UslugePromjena(){
                                             label="Usluga je aktivna"
                                             name="aktivan"
                                             className="fs-5"
-                                            checked={aktivan}
+                                            checked={popust}
                                             onChange={(e) => setAktivan(e.target.checked)}
                                         />
                                     </Form.Group>

@@ -11,4 +11,4 @@ export const RouteNames = {
     korisnici_PROMJENA: '/korisnici/:sifra',
 }
 
-export const DATA_SOURCE = 'localStorage';
+export const DATA_SOURCE = 'memory';
