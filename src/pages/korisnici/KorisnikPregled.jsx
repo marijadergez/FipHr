@@ -45,7 +45,7 @@ export default function KorisnikPregled(){
                     <th>Ime</th>
                     <th>Prezime</th>
                     <th>Email</th>
-                    <th>OIB</th>
+                    <th>Grad</th>
                     <th></th>
                 </tr>
             </thead>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import gradoviService from "../../services/gradovi/GradService";
+import GradService from "../../services/gradovi/GradService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
 
@@ -9,16 +9,14 @@ export default function gradPromjena(){
     const navigate = useNavigate()
     const params = useParams()
     const [grad,setGrad] =useState({})
-    const [usluge,setUsluge] =useState(false)
 
     useEffect(
         ()=>{
             ucitajGrad()
-            ucitajUsluge()
         },[])
 
-        async function ucitajGrad() {
-        await gradoviService.getBySifra(params.sifra).then((odgovor)=>{
+    async function ucitajGrad() {
+        await GradService.getBySifra(params.sifra).then((odgovor)=>{
             if(!odgovor.success){
                 alert('Nije implementiran grad')
                 return
@@ -26,18 +24,11 @@ export default function gradPromjena(){
            setGrad(odgovor.data)
         })
     }
-    async function ucitajUsluge() {
-        await UslugeService.get().then((odgovor) => {
-            if (!odgovor.success) {
-                alert('Nije implementiran servis za usluge')
-                return
-            }
-            setSmjerovi(odgovor.data)
-        })
+   
 
     async function promjeni(grad) {
-        await gradoviService.promjeni(params.sifra,grad).then(()=>{
-            navigate(RouteNames.GRAD_PROMJENA)
+        await GradService.promjeni(params.sifra,grad).then(()=>{
+            navigate(RouteNames.GRADOVI)
         })
     }
 
@@ -59,22 +50,9 @@ export default function gradPromjena(){
 
       
 
-        if (!podaci.get('cijena') || podaci.get('cijena') === "") {
-            alert("Obavezno cijena po gradu!")
-            return
-        }
-
-        // --- KONTROLA 4: Upisnina (Negativne vrijednosti) ---
-        if (podaci.get('cijena') < 0) {
-            alert("Cijena ne može biti negativan broj!")
-            return // Prekid
-        }
-
 
         promjeni({
-            naziv: podaci.get('naziv'),
-            cijena: parseFloat(podaci.get('cijena')),
-            popust: popust
+            naziv: podaci.get('naziv')
         })
     }
 
@@ -103,43 +81,12 @@ export default function gradPromjena(){
                                 </Col>
                             </Row>
 
-                            {/* Trajanje i Cijena - Jedno pored drugog na md+, jedno ispod drugog na mobitelu */}
-                            <Row>
-                               
-                                <Col md={6}>
-                                    <Form.Group controlId="cijena" className="mb-3">
-                                        <Form.Label className="fw-bold">Cijena (€)</Form.Label>
-                                        <Form.Control
-                                            type="number"
-                                            name="cijena"
-                                            step={0.01}
-                                            placeholder="0,00"
-                                            defaultValue={grad.cijena}
-                                        />
-                                    </Form.Group>
-                                </Col>
-                        
-
-                                {/* Aktivan - Switch umjesto checkboxa za moderniji izgled */}
-                                <Col md={6}>
-                                    <Form.Group controlId="popust" className="mb-3 mt-md-3">
-                                        <Form.Check
-                                            type="switch"
-                                            label="grad je na popustu"
-                                            name="popust"
-                                            className="fs-5"
-                                            checked={popust}
-                                            onChange={(e) => setPopust(e.target.checked)}
-                                        />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-
+                           
                             <hr />
 
                             {/* Gumbi za akciju - RWD pozicioniranje */}
                             <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                <Link to={RouteNames.GRAD} className="btn btn-danger px-4">
+                                <Link to={RouteNames.GRADOVI} className="btn btn-danger px-4">
                                     Odustani
                                 </Link>
                                 <Button type="submit" variant="success">
@@ -154,5 +101,4 @@ export default function gradPromjena(){
             </Form>
         </>
     )
-}
 }

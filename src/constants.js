@@ -8,11 +8,12 @@ export const RouteNames = {
 
     KORISNICI: '/korisnici',
     KORISNICI_NOVI: '/korisnici/novi',
-    korisnici_PROMJENA: '/korisnici/:sifra',
+    KORISNICI_PROMJENA: '/korisnici/:sifra',
 
-    GRAD: '/gradovi',
-    GRAD_NOVI: '/gradovi/novi',
-    GRAD_PROMJENA: '/gradovi/:sifra',
+    GRADOVI: '/gradovi',
+    GRADOVI_NOVI: '/gradovi/novi',
+    GRADOVI_PROMJENA: '/gradovi/:sifra',
 }
 
+// memorija, localStorage, firebase
 export const DATA_SOURCE = 'memorija';

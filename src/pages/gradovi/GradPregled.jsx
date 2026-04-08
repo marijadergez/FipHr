@@ -7,6 +7,7 @@ import { GrAdd, GrValidate } from "react-icons/gr"
 import FormatDatuma from "../../components/FormatDatuma"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
+import GradService from "../../services/gradovi/GradService"
 
 
 
@@ -32,7 +33,7 @@ export default function gradoviPregled() {
         if(!confirm('Sigurno obrisati?')){
             return
         }
-        await gradoviService.obrisi(sifra)
+        await GradService.obrisi(sifra)
         ucitajgradovi()
         
     }
@@ -41,7 +42,7 @@ export default function gradoviPregled() {
     return (
         <>
 
-            <Link to={RouteNames.GRAD}
+            <Link to={RouteNames.GRADOVI_NOVI}
                 className="btn btn-success w-100 my-3">
                 <GrAdd /> Dodaj novi grad
             </Link>
@@ -50,11 +51,8 @@ export default function gradoviPregled() {
 
                 <thead>
                     <tr>
-                        <th>Naziv gradovi</th>
-                        <th>Cijena </th>
-                        <th>Popust</th>
-                        
-                        <th>Popust</th>
+                        <th>Naziv</th>
+                        <th>Akcija</th>
 
                     </tr>
                 </thead>
@@ -63,29 +61,9 @@ export default function gradoviPregled() {
                         <tr key={grad.sifra}>
                             <td>{grad.naziv}</td>
 
-                            <td>
-                                <NumericFormat
-                                    value={grad.cijena}
-                                    displayType={'text'}
-                                    thousandSeparator='.'
-                                    decimalSeparator=','
-                                    suffix=' €'
-                                    prefix='= '
-                                    decimalScale={2}
-                                    fixedDecimalScale />
-
-                            </td>
-
-                            <td>
-                                <GrValidate
-                                    size={25}
-                                    color={grad.popust ? 'green' : 'red'}
-                                />
-                            </td>
-
-                            <td>
-                                <FormatDatuma datum={grad.datumPokretanja} />
-                            </td>
+                            
+                          
+                           
                             <td>
 
                                 <Button onClick={()=>{navigate(`/gradovi/${grad.sifra}`)}}>

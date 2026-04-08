@@ -37,6 +37,6 @@ export default {
     get: () => AktivniServis.get(),
     getBySifra: (sifra) => AktivniServis.getBySifra(sifra),
     dodaj: (korisnik) => AktivniServis.dodaj(korisnik),
-    promjeni: (sifra, korisnik) => AktivniServis.promjeni(sifra),
+    promjeni: (sifra, korisnik) => AktivniServis.promjeni(sifra,korisnik),
     obrisi: (sifra) => AktivniServis.obrisi(sifra)
 }

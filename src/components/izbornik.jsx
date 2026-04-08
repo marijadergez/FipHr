@@ -10,9 +10,6 @@ export default function Izbornik() {
 
 
 
-
-
-
     return (
         <Navbar expand="lg">
             <Container>
@@ -27,6 +24,11 @@ export default function Izbornik() {
                         >Početna</Nav.Link>
 
                         <NavDropdown title="Ponuda" id="basic-nav-dropdown">
+                            
+                            <NavDropdown.Item
+                                onClick={() => navigate(RouteNames.GRADOVI)}
+                            >Gradovi</NavDropdown.Item>
+                            
                             <NavDropdown.Item
                                 onClick={() => navigate(RouteNames.USLUGE)}
                             >Usluge</NavDropdown.Item>

@@ -4,7 +4,7 @@ export const korisnici = [
     ime: 'Obrtnik',
     prezime: 'Naziv obrta',
     email: 'E-mail obrta',
-    oib: 'Oib obrta'
+    grad:'Grad sjedište obrta',
 
 },
 
@@ -13,7 +13,7 @@ export const korisnici = [
     ime: 'Firma',
     prezime: 'Prezimović',
     email: 'E-mail tvrtke',
-    oib: 'Oib tvrtke',
+    grad: 'Grad sjedište tvrtke',
 
 }
 

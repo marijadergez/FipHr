@@ -2,18 +2,19 @@ import { Button, Col, Form, Row } from "react-bootstrap"
 import { RouteNames } from "../../constants"
 import { Link, useNavigate } from "react-router-dom"
 import KorisnikService from "../../services/korisnici/KorisnikService"
+import { gradovi } from "../../services/gradovi/GradPodaci"
 
-export default function KorisnikNovi(){
+export default function KorisnikNovi() {
 
     const navigate = useNavigate()
 
-    async function dodaj(korisnik){
-        await KorisnikService.dodaj(korisnik).then(()=>{
+    async function dodaj(korisnik) {
+        await KorisnikService.dodaj(korisnik).then(() => {
             navigate(RouteNames.KORISNICI)
         })
     }
 
-    function odradiSubmit(e){ // e je event
+    function odradiSubmit(e) { // e je event
         e.preventDefault() // nemoj odraditi submit
         const podaci = new FormData(e.target)
 
@@ -76,13 +77,13 @@ export default function KorisnikNovi(){
             ime: podaci.get('ime'),
             prezime: podaci.get('prezime'),
             email: podaci.get('email'),
-            oib: podaci.get('oib')
+            grad: podaci.get('grad')
         })
     }
 
     return (
         <>
-            <h3>Unos novog polaznika</h3>
+            <h3>Unos novog korisnika</h3>
             <Form onSubmit={odradiSubmit}>
                 <Form.Group controlId="ime">
                     <Form.Label>Ime</Form.Label>
@@ -99,10 +100,17 @@ export default function KorisnikNovi(){
                     <Form.Control type="email" name="email" required />
                 </Form.Group>
 
-                <Form.Group controlId="oib">
-                    <Form.Label>OIB</Form.Label>
-                    <Form.Control type="text" name="oib" required maxLength={11} />
-                </Form.Group>
+                <hr />
+
+
+                <Form.Select name="grad" required value={gradovi.usluga || ''} onChange={(e) => setGrad({ ...grad, usluga: parseInt(e.target.value) })}>
+                    <option value="grad">Odaberite grad</option>
+                    {gradovi && gradovi.map((grad) => (
+                        <option key={grad.sifra} value={grad.sifra}>
+                            {grad.naziv}
+                        </option>
+                    ))}
+                </Form.Select>
 
                 <Row className="mt-4">
                     <Col>

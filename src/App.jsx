@@ -1,21 +1,25 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { Container } from 'react-bootstrap'
-import Izbornik from './components/izbornik'
+import Izbornik from './components/Izbornik'
 import { Route, Routes } from 'react-router-dom'
-import { RouteNames } from './constants'
+import { RouteNames, IME_APLIKACIJE } from './constants'
+
 import UslugePregled from './pages/usluge/UslugePregled'
 import Home from './pages/Home'
 import UslugeNovi from './pages/usluge/UslugeNovi'
 import UslugePromjena from './pages/usluge/UslugePromjena'
+
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import './App.css'
+
 import KorisnikPregled from './pages/korisnici/KorisnikPregled'
 import KorisnikPromjena from './pages/korisnici/KorisnikPromjena'
 import KorisnikNovi from './pages/korisnici/KorisnikNovi'
+
 import GradPromjena from './pages/gradovi/GradPromjena'
-import GradoviNovi from './pages/gradovi/GradNovi'
-import GradoviPregled from './pages/gradovi/GradPregled'
+import GradNovi from './pages/gradovi/GradNovi'
+import GradPregled from './pages/gradovi/GradPregled'
 
 
 function App() {
@@ -31,11 +35,11 @@ function App() {
 
           <Route path={RouteNames.KORISNICI} element={<KorisnikPregled />} />
           <Route path={RouteNames.KORISNICI_NOVI} element={<KorisnikNovi />} />
-          <Route path={RouteNames.korisnici_PROMJENA} element={<KorisnikPromjena />} />
+          <Route path={RouteNames.KORISNICI_PROMJENA} element={<KorisnikPromjena />} />
 
-          <Route path={RouteNames.GRAD} element={<GradoviPregled />} />
-          <Route path={RouteNames.GRAD_NOVI} element={<GradoviNovi />} />
-          <Route path={RouteNames.GRAD_PROMJENA} element={<GradPromjena />} />
+          <Route path={RouteNames.GRADOVI} element={<GradPregled />} />
+          <Route path={RouteNames.GRADOVI_NOVI} element={<GradNovi />} />
+          <Route path={RouteNames.GRADOVI_PROMJENA} element={<GradPromjena />} />
 
 
       </Routes>

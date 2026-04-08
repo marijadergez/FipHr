@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import KorisnikService from "../../services/korisnici/KorisnikService"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { RouteNames } from "../../constants"
+import { gradovi } from "../../services/gradovi/GradPodaci"
 
 export default function KorisnikPromjena(){
 
@@ -93,7 +94,7 @@ export default function KorisnikPromjena(){
             ime: podaci.get('ime'),
             prezime: podaci.get('prezime'),
             email: podaci.get('email'),
-            oib: podaci.get('oib')
+            grad: podaci.get('grad')
             
         })
     }
@@ -120,12 +121,22 @@ export default function KorisnikPromjena(){
                     <Form.Control type="email" name="email" required 
                     defaultValue={korisnik.email}/>
                 </Form.Group>
+                <hr />
 
-                <Form.Group controlId="oib">
-                    <Form.Label>OIB</Form.Label>
-                    <Form.Control type="text" name="oib" required maxLength={11}
-                    defaultValue={korisnik.oib}/>
-                </Form.Group>
+                 <Form.Select name="grad" required value={gradovi.usluga || ''} onChange={(e) => setGrupa({...grad, usluga: parseInt(e.target.value)})}>
+                                            <option value="">Odaberite grad</option>
+                                            {gradovi && gradovi.map((grad) => (
+                                                <option key={grad.sifra} value={grad.sifra}>
+                                                    {grad.naziv}
+                                                </option>
+                                            ))}
+                                        </Form.Select>
+
+           
+
+
+
+
 
                 <Row className="mt-4">
                     <Col>

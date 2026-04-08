@@ -1,18 +1,15 @@
 
-export const grad = [
+export const gradovi = [
 
-
-    {
-        sifra: 2,
-        naziv: 'Knjigovodstvo trgovačkih društava',
-        usluga: 2,
-    },
 
     {
         sifra: 1,
-        naziv: 'Knjigovodstvo obrtnika',
+        naziv: 'Osijek'
+    },
 
-        usluga: 1
+    {
+        sifra: 2,
+        naziv: 'Donji Miholjac'
 
 
 
