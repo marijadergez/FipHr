@@ -3,13 +3,13 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import KorisnikService from "../../services/korisnici/KorisnikService"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { RouteNames } from "../../constants"
-import { gradovi } from "../../services/gradovi/GradPodaci"
 
 export default function KorisnikPromjena(){
 
     const navigate = useNavigate()
     const params = useParams()
     const [korisnik, setKorisnik] = useState({})
+    
 
     useEffect(()=>{
         ucitajKorisnika()
@@ -123,14 +123,18 @@ export default function KorisnikPromjena(){
                 </Form.Group>
                 <hr />
 
-                 <Form.Select name="grad" required value={gradovi.usluga || ''} onChange={(e) => setGrupa({...grad, usluga: parseInt(e.target.value)})}>
-                                            <option value="">Odaberite grad</option>
-                                            {gradovi && gradovi.map((grad) => (
-                                                <option key={grad.sifra} value={grad.sifra}>
-                                                    {grad.naziv}
-                                                </option>
-                                            ))}
-                                        </Form.Select>
+                    
+                <Form.Group controlId="grad">
+                    <Form.Label>Grad</Form.Label>
+                    <Form.Select name="grad" required>
+                        <option key={0} value="">Odaberite grad</option>
+                        {gradovi && gradovi.map((grad) => (
+                            <option key={grad.sifra} value={grad.sifra}>
+                                {grad.naziv}
+                            </option>
+                        ))}
+                    </Form.Select>
+                </Form.Group>
 
            
 

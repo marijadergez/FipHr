@@ -28,35 +28,35 @@ function App() {
     <Container>
       <Izbornik />
       <Routes>
-          <Route path={RouteNames.HOME} element={<Home/>}  />
-          <Route path={RouteNames.USLUGE} element={<UslugePregled />}  />
-          <Route path={RouteNames.USLUGE_NOVI} element={<UslugeNovi />}  />
-          <Route path={RouteNames.USLUGE_PROMJENA} element={<UslugePromjena />}  />
+        <Route path={RouteNames.HOME} element={<Home />} />
+        <Route path={RouteNames.USLUGE} element={<UslugePregled />} />
+        <Route path={RouteNames.USLUGE_NOVI} element={<UslugeNovi />} />
+        <Route path={RouteNames.USLUGE_PROMJENA} element={<UslugePromjena />} />
 
-          <Route path={RouteNames.KORISNICI} element={<KorisnikPregled />} />
-          <Route path={RouteNames.KORISNICI_NOVI} element={<KorisnikNovi />} />
-          <Route path={RouteNames.KORISNICI_PROMJENA} element={<KorisnikPromjena />} />
+        <Route path={RouteNames.KORISNICI} element={<KorisnikPregled />} />
+        <Route path={RouteNames.KORISNICI_NOVI} element={<KorisnikNovi />} />
+        <Route path={RouteNames.KORISNICI_PROMJENA} element={<KorisnikPromjena />} />
 
-          <Route path={RouteNames.GRADOVI} element={<GradPregled />} />
-          <Route path={RouteNames.GRADOVI_NOVI} element={<GradNovi />} />
-          <Route path={RouteNames.GRADOVI_PROMJENA} element={<GradPromjena />} />
+        <Route path={RouteNames.GRADOVI} element={<GradPregled />} />
+        <Route path={RouteNames.GRADOVI_NOVI} element={<GradNovi />} />
+        <Route path={RouteNames.GRADOVI_PROMJENA} element={<GradPromjena />} />
 
 
       </Routes>
 
-      
-      <DotLottieReact
-      src="https://lottie.host/671c63f5-ebe2-4a63-a4ba-11e54b67d00e/8hocp9zpl8.lottie"
-      loop
-      autoplay
-    />
 
-    
-     {/*}
+      <DotLottieReact
+        src="https://lottie.host/671c63f5-ebe2-4a63-a4ba-11e54b67d00e/8hocp9zpl8.lottie"
+        loop
+        autoplay
+      />
+
+
+      {/*}
       <div className="glass">
       </div>
   {*/}
-    
+
       <hr />
 
       &copy; Marija | Edunova | 2026.
