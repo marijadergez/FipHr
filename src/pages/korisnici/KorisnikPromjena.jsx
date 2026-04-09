@@ -3,19 +3,27 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import KorisnikService from "../../services/korisnici/KorisnikService"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { RouteNames } from "../../constants"
-import { korisnici } from "../../services/korisnici/KorisnikPodaci"
-import { gradovi } from "../../services/gradovi/GradPodaci"
+import GradService from "../../services/gradovi/GradService"
 
 export default function KorisnikPromjena() {
 
     const navigate = useNavigate()
     const params = useParams()
     const [korisnik, setKorisnik] = useState({})
+    const [gradovi, setGradovi] = useState([])
 
 
     useEffect(() => {
         ucitajKorisnika()
+        ucitajgradovi()
     }, [])
+
+     async function ucitajgradovi() {
+            await GradService.get().then((odgovor) => {
+                setGradovi(odgovor.data)
+            })
+    
+        }
 
     async function ucitajKorisnika() {
         await KorisnikService.getBySifra(params.sifra).then((odgovor) => {
@@ -80,7 +88,7 @@ export default function KorisnikPromjena() {
             ime: podaci.get('ime'),
             prezime: podaci.get('prezime'),
             email: podaci.get('email'),
-            grad: podaci.get('grad')
+            grad: parseInt(podaci.get('grad'))
 
         })
     }
@@ -112,7 +120,7 @@ export default function KorisnikPromjena() {
 
                 <Form.Group controlId="grad">
                     <Form.Label>Grad</Form.Label>
-                    <Form.Select name="grad" required>
+                    <Form.Select name="grad" required value={korisnik.grad || ''} onChange={(e) => setKorisnik({...korisnik, grad: parseInt(e.target.value)})}>
                         <option key={0} value="">Odaberite grad</option>
                         {gradovi && gradovi.map((grad) => (
                             <option key={gradovi.sifra} value={grad.sifra}>

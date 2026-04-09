@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom"
 import KorisnikService from "../../services/korisnici/KorisnikService"
 import GradService from "../../services/gradovi/GradService"
 import { useEffect, useState } from "react"
+import { gradovi } from "../../services/gradovi/GradPodaci"
+
 
 export default function KorisnikNovi() {
 
@@ -78,7 +80,7 @@ export default function KorisnikNovi() {
             ime: podaci.get('ime'),
             prezime: podaci.get('prezime'),
             email: podaci.get('email'),
-            grad: podaci.get('grad')
+            grad: parseInt(podaci.get('grad'))
         })
     }
 

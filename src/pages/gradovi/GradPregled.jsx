@@ -16,7 +16,7 @@ import GradService from "../../services/gradovi/GradService"
 export default function gradoviPregled() {
 
     const navigate = useNavigate()
-    const [gradovi, setgradovi] = useState([])
+    const [gradovi, setGradovi] = useState([])
 
     useEffect(() => {
         ucitajgradovi()
@@ -24,7 +24,7 @@ export default function gradoviPregled() {
 
     async function ucitajgradovi() {
         await GradService.get().then((odgovor) => {
-            setgradovi(odgovor.data)
+            setGradovi(odgovor.data)
         })
 
     }

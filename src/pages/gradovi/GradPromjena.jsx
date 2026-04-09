@@ -8,7 +8,7 @@ export default function gradPromjena(){
 
     const navigate = useNavigate()
     const params = useParams()
-    const [grad,setGrad] =useState({})
+    
 
     useEffect(
         ()=>{

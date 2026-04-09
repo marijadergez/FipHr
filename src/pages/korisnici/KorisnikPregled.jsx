@@ -3,17 +3,27 @@ import KorisnikService from "../../services/korisnici/KorisnikService"
 import { Button, Table } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
+import GradService from "../../services/gradovi/GradService"
+
 
 
 export default function KorisnikPregled(){
 
     const navigate = useNavigate()
-
+     const [gradovi, setGradovi] = useState([])
     const [korisnici,setKorisnici] = useState([])
 
     useEffect(()=>{
         ucitajKorisnika()
+        ucitajGradovi()
     },[])
+
+     async function ucitajGradovi() {
+            await GradService.get().then((odgovor) => {
+                setGradovi(odgovor.data)
+            })
+    
+        }
 
     async function ucitajKorisnika() {
         await KorisnikService.get().then((odgovor)=>{
@@ -24,6 +34,10 @@ export default function KorisnikPregled(){
             setKorisnici(odgovor.data)
         })
     }
+    function dohvatiNazivGrada(sifraGrada) {
+        const grad = gradovi.find(s => s.sifra === sifraGrada)
+        return grad.naziv
+    }
 
     async function brisanje(sifra) {
         if (!confirm('Sigurno obrisati?')) return;
@@ -32,6 +46,9 @@ export default function KorisnikPregled(){
             setKorisnici(odgovor.data)
         })
     }
+        
+
+
 
     return(
         <>
@@ -55,7 +72,7 @@ export default function KorisnikPregled(){
                         <td className="lead">{korisnik.ime}</td>
                         <td className="lead">{korisnik.prezime}</td>
                         <td>{korisnik.email}</td>
-                        <td>{korisnik.oib}</td>
+                        <td>{dohvatiNazivGrada(korisnik.grad)}</td>
                         <td>
                             <Button onClick={()=>{navigate(`/korisnici/${korisnik.sifra}`)}}>
                                 Promjeni
@@ -71,4 +88,5 @@ export default function KorisnikPregled(){
         </Table>
         </>
     )
+
 }
