@@ -3,21 +3,23 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import KorisnikService from "../../services/korisnici/KorisnikService"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { RouteNames } from "../../constants"
+import { korisnici } from "../../services/korisnici/KorisnikPodaci"
+import { gradovi } from "../../services/gradovi/GradPodaci"
 
-export default function KorisnikPromjena(){
+export default function KorisnikPromjena() {
 
     const navigate = useNavigate()
     const params = useParams()
     const [korisnik, setKorisnik] = useState({})
-    
 
-    useEffect(()=>{
+
+    useEffect(() => {
         ucitajKorisnika()
-    },[])
+    }, [])
 
     async function ucitajKorisnika() {
-        await KorisnikService.getBySifra(params.sifra).then((odgovor)=>{
-            if(!odgovor.success){
+        await KorisnikService.getBySifra(params.sifra).then((odgovor) => {
+            if (!odgovor.success) {
                 alert('Nije implementiran servis')
                 return
             }
@@ -26,12 +28,12 @@ export default function KorisnikPromjena(){
     }
 
     async function promjeni(korisnik) {
-        await KorisnikService.promjeni(params.sifra,korisnik).then(()=>{
+        await KorisnikService.promjeni(params.sifra, korisnik).then(() => {
             navigate(RouteNames.KORISNICI)
         })
     }
 
-    function odradiSubmit(e){
+    function odradiSubmit(e) {
         e.preventDefault()
         const podaci = new FormData(e.target)
 
@@ -72,88 +74,67 @@ export default function KorisnikPromjena(){
             return;
         }
 
-        // --- KONTROLA 7: OIB (Postojanje) ---
-        if (!podaci.get('oib') || podaci.get('oib').trim().length === 0) {
-            alert("OIB je obavezan!");
-            return;
-        }
 
-        // --- KONTROLA 8: OIB (Duljina) ---
-        if (podaci.get('oib').trim().length !== 11) {
-            alert("OIB mora imati točno 11 znamenki!");
-            return;
-        }
-
-        // --- KONTROLA 9: OIB (Samo brojevi) ---
-        if (!/^\d+$/.test(podaci.get('oib'))) {
-            alert("OIB smije sadržavati samo brojeve!");
-            return;
-        }
 
         promjeni({
             ime: podaci.get('ime'),
             prezime: podaci.get('prezime'),
             email: podaci.get('email'),
             grad: podaci.get('grad')
-            
+
         })
     }
 
-    return(
-         <>
+    return (
+        <>
             <h3>Promjena korisnika</h3>
             <Form onSubmit={odradiSubmit}>
                 <Form.Group controlId="ime">
                     <Form.Label>Ime</Form.Label>
-                    <Form.Control type="text" name="ime" required 
-                    defaultValue={korisnik.ime}/>
+                    <Form.Control type="text" name="ime" required
+                        defaultValue={korisnik.ime} />
                 </Form.Group>
-                
+
 
                 <Form.Group controlId="prezime">
                     <Form.Label>Prezime</Form.Label>
-                    <Form.Control type="text" name="prezime" required 
-                    defaultValue={korisnik.prezime}/>
+                    <Form.Control type="text" name="prezime" required
+                        defaultValue={korisnik.prezime} />
                 </Form.Group>
 
                 <Form.Group controlId="email">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" name="email" required 
-                    defaultValue={korisnik.email}/>
+                    <Form.Control type="email" name="email" required
+                        defaultValue={korisnik.email} />
                 </Form.Group>
                 <hr />
 
-                    
+
                 <Form.Group controlId="grad">
                     <Form.Label>Grad</Form.Label>
                     <Form.Select name="grad" required>
                         <option key={0} value="">Odaberite grad</option>
                         {gradovi && gradovi.map((grad) => (
-                            <option key={grad.sifra} value={grad.sifra}>
+                            <option key={gradovi.sifra} value={grad.sifra}>
                                 {grad.naziv}
                             </option>
                         ))}
                     </Form.Select>
                 </Form.Group>
 
-           
 
 
 
 
 
-                <Row className="mt-4">
-                    <Col>
-                        <Link to={RouteNames.KORISNICI} className="btn btn-danger">
-                            Odustani
-                        </Link>
-                    </Col>
-                    <Col>
-                        <Button type="submit" variant="success">
-                            Promjeni korisnika
-                        </Button>
-                    </Col>
-                </Row>
+                <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <Link to={RouteNames.KORISNICI} className="btn btn-danger px-4">
+                        Odustani
+                    </Link>
+                    <Button type="submit" variant="success">
+                        Promjeni korisnika
+                    </Button>
+                </div>
 
             </Form>
         </>
