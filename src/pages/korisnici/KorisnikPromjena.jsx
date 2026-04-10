@@ -11,19 +11,21 @@ export default function KorisnikPromjena() {
     const params = useParams()
     const [korisnik, setKorisnik] = useState({})
     const [gradovi, setGradovi] = useState([])
+    const [email, setEmail] = useState([])
 
 
     useEffect(() => {
         ucitajKorisnika()
         ucitajgradovi()
+        ucitajEmail()
     }, [])
 
-     async function ucitajgradovi() {
-            await GradService.get().then((odgovor) => {
-                setGradovi(odgovor.data)
-            })
-    
-        }
+    async function ucitajgradovi() {
+        await GradService.get().then((odgovor) => {
+            setGradovi(odgovor.data)
+        })
+
+    }
 
     async function ucitajKorisnika() {
         await KorisnikService.getBySifra(params.sifra).then((odgovor) => {
@@ -39,6 +41,10 @@ export default function KorisnikPromjena() {
         await KorisnikService.promjeni(params.sifra, korisnik).then(() => {
             navigate(RouteNames.KORISNICI)
         })
+    }
+
+    async function ucitajEmail() {
+        setEmail(korisnik.email)
     }
 
     function odradiSubmit(e) {
@@ -75,12 +81,7 @@ export default function KorisnikPromjena() {
             return;
         }
 
-        // --- KONTROLA 6: Email (Format) ---
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(podaci.get('email'))) {
-            alert("Email nije u ispravnom formatu!");
-            return;
-        }
+
 
 
 
@@ -110,17 +111,19 @@ export default function KorisnikPromjena() {
                         defaultValue={korisnik.prezime} />
                 </Form.Group>
 
+
                 <Form.Group controlId="email">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" name="email" required
                         defaultValue={korisnik.email} />
                 </Form.Group>
+                
                 <hr />
 
 
                 <Form.Group controlId="grad">
                     <Form.Label>Grad</Form.Label>
-                    <Form.Select name="grad" required value={korisnik.grad || ''} onChange={(e) => setKorisnik({...korisnik, grad: parseInt(e.target.value)})}>
+                    <Form.Select name="grad" required value={korisnik.grad || ''} onChange={(e) => setKorisnik({ ...korisnik, grad: parseInt(e.target.value) })}>
                         <option key={0} value="">Odaberite grad</option>
                         {gradovi && gradovi.map((grad) => (
                             <option key={gradovi.sifra} value={grad.sifra}>
