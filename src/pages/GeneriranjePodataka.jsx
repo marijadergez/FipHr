@@ -3,6 +3,7 @@ import { Button, Form, Alert, Container, Row, Col } from 'react-bootstrap';
 import { Faker, hr } from '@faker-js/faker';
 import UslugeService from '../services/usluge/UslugeService';
 import GradService from '../services/gradovi/GradService';
+import KorisnikService from '../services/korisnici/KorisnikService';
 
 
 
@@ -19,7 +20,7 @@ export default function GeneriranjePodataka() {
     });
 
     const generirajUsluge = async (broj) => {
-        const naziviSmjerova = [
+        const naziviUsluga = [
             'Knjigovodstvo obrtnika',
             'Knjigovodstvo trgovačkih društava',
             

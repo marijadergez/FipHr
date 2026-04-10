@@ -20,6 +20,7 @@ import KorisnikNovi from './pages/korisnici/KorisnikNovi'
 import GradPromjena from './pages/gradovi/GradPromjena'
 import GradNovi from './pages/gradovi/GradNovi'
 import GradPregled from './pages/gradovi/GradPregled'
+import GeneriranjePodataka from './pages/GeneriranjePodataka'
 
 
 function App() {
@@ -40,6 +41,8 @@ function App() {
         <Route path={RouteNames.GRADOVI} element={<GradPregled />} />
         <Route path={RouteNames.GRADOVI_NOVI} element={<GradNovi />} />
         <Route path={RouteNames.GRADOVI_PROMJENA} element={<GradPromjena />} />
+
+        <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
 
 
       </Routes>

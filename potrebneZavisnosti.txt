@@ -9,4 +9,5 @@ npm install react-icons
 instaliraj si :import React from 'react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
-
+// faker za generiranje podataka
+npm install @faker-js/faker
