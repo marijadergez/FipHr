@@ -33,13 +33,15 @@ export default function Izbornik() {
                                 onClick={() => navigate(RouteNames.USLUGE)}
                             >Usluge</NavDropdown.Item>
 
+                            <NavDropdown.Item
+                                onClick={() => navigate(RouteNames.KORISNICI)}
+                            >Korisnici</NavDropdown.Item>
+
 
                             <NavDropdown.Divider />
 
 
-                            <NavDropdown.Item
-                                onClick={() => navigate(RouteNames.KORISNICI)}
-                            >Korisnici</NavDropdown.Item>
+                            
 
                         </NavDropdown>
                     </Nav>

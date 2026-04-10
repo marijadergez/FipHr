@@ -11,13 +11,11 @@ export default function KorisnikPromjena() {
     const params = useParams()
     const [korisnik, setKorisnik] = useState({})
     const [gradovi, setGradovi] = useState([])
-    const [email, setEmail] = useState([])
 
 
     useEffect(() => {
         ucitajKorisnika()
         ucitajgradovi()
-        ucitajEmail()
     }, [])
 
     async function ucitajgradovi() {
@@ -43,9 +41,6 @@ export default function KorisnikPromjena() {
         })
     }
 
-    async function ucitajEmail() {
-        setEmail(korisnik.email)
-    }
 
     function odradiSubmit(e) {
         e.preventDefault()
@@ -82,9 +77,6 @@ export default function KorisnikPromjena() {
         }
 
 
-
-
-
         promjeni({
             ime: podaci.get('ime'),
             prezime: podaci.get('prezime'),
@@ -117,26 +109,20 @@ export default function KorisnikPromjena() {
                     <Form.Control type="email" name="email" required
                         defaultValue={korisnik.email} />
                 </Form.Group>
-                
-                <hr />
 
+                <hr />
 
                 <Form.Group controlId="grad">
                     <Form.Label>Grad</Form.Label>
                     <Form.Select name="grad" required value={korisnik.grad || ''} onChange={(e) => setKorisnik({ ...korisnik, grad: parseInt(e.target.value) })}>
                         <option key={0} value="">Odaberite grad</option>
                         {gradovi && gradovi.map((grad) => (
-                            <option key={gradovi.sifra} value={grad.sifra}>
+                            <option key={grad.sifra} value={grad.sifra}>
                                 {grad.naziv}
                             </option>
                         ))}
                     </Form.Select>
                 </Form.Group>
-
-
-
-
-
 
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                     <Link to={RouteNames.KORISNICI} className="btn btn-danger px-4">

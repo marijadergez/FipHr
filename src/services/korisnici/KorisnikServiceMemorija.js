@@ -25,7 +25,7 @@ async function dodaj(korisnik){
 
 async function promjeni(sifra,korisnik) {
     const index = nadiIndex(sifra)
-    korisnik[index] = {...korisnici[index], ...korisnik}
+    korisnici[index] = {...korisnici[index], ...korisnik}
 }
 
 function nadiIndex(sifra){

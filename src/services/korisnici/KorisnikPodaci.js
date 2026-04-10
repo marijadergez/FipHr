@@ -3,7 +3,7 @@ export const korisnici = [
     sifra: 1,
     ime: 'Obrtnik',
     prezime: 'Naziv obrta',
-    email: 'E-mail obrta',
+    email: 'test@gmail.com',
     grad:1,
 
 },
@@ -12,7 +12,7 @@ export const korisnici = [
     sifra: 2,
     ime: 'Firma',
     prezime: 'Prezimović',
-    email: 'E-mail tvrtke',
+    email: 'test@edunova.hr',
     grad: 2,
 
 }
