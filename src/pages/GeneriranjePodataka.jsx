@@ -305,11 +305,11 @@ export default function GeneriranjePodataka() {
                                 min="1"
                                 max="100"
                                 value={brojGrupa}
-                                onChange={(e) => setBrojGrupa(parseInt(e.target.value))}
+                                onChange={(e) => setBrojGradova(parseInt(e.target.value))}
                                 disabled={loading}
                             />
                             <Form.Text className="text-muted">
-                                Unesite broj grupa (1-100)
+                                Unesite broj gradova (1-100)
                             </Form.Text>
                         </Form.Group>
                         <Button 
@@ -318,7 +318,7 @@ export default function GeneriranjePodataka() {
                             disabled={loading}
                             className="w-100"
                         >
-                            {loading ? 'Generiranje...' : 'Generiraj grupe'}
+                            {loading ? 'Generiranje...' : 'Generiraj gradove'}
                         </Button>
                     </Form>
                 </Col>
@@ -340,17 +340,17 @@ export default function GeneriranjePodataka() {
                 <Col md={4}>
                     <Button 
                         variant="danger" 
-                        onClick={handleObrisiSmjerove}
+                        onClick={handleObrisiUsluge}
                         disabled={loading}
                         className="w-100 mb-2"
                     >
-                        {loading ? 'Brisanje...' : 'Obriši sve smjerove'}
+                        {loading ? 'Brisanje...' : 'Obriši sve usluge'}
                     </Button>
                 </Col>
                 <Col md={4}>
                     <Button 
                         variant="danger" 
-                        onClick={handleObrisiKorisni}
+                        onClick={handleObrisiKorisnike}
                         disabled={loading}
                         className="w-100 mb-2"
                     >
