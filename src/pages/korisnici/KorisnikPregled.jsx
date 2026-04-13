@@ -36,7 +36,7 @@ export default function KorisnikPregled(){
     }
     function dohvatiNazivGrada(sifraGrada) {
         const grad = gradovi.find(s => s.sifra === sifraGrada)
-        return grad.naziv
+        return grad!=null ? grad.naziv : 'Nije definirano'
     }
 
     async function brisanje(sifra) {
