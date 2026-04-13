@@ -81,6 +81,7 @@ export default function KorisnikNovi() {
             prezime: podaci.get('prezime'),
             email: podaci.get('email'),
             grad: parseInt(podaci.get('grad'))
+            
         })
     }
 
@@ -116,6 +117,11 @@ export default function KorisnikNovi() {
                         ))}
                     </Form.Select>
                 </Form.Group>
+
+               
+
+
+
 
 
                 <Row className="mt-4">

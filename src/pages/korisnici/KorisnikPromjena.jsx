@@ -82,6 +82,7 @@ export default function KorisnikPromjena() {
             prezime: podaci.get('prezime'),
             email: podaci.get('email'),
             grad: parseInt(podaci.get('grad'))
+         
 
         })
     }
@@ -123,6 +124,8 @@ export default function KorisnikPromjena() {
                         ))}
                     </Form.Select>
                 </Form.Group>
+
+                
 
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                     <Link to={RouteNames.KORISNICI} className="btn btn-danger px-4">

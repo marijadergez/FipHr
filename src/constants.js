@@ -14,7 +14,12 @@ export const RouteNames = {
     GRADOVI_NOVI: '/gradovi/novi',
     GRADOVI_PROMJENA: '/gradovi/:sifra',
     
-    GENERIRANJE_PODATAKA: '/generiraj-podatke'
+    GENERIRANJE_PODATAKA: '/generiraj-podatke',
+
+    PONUDE: '/ponuda',
+   
+
+
 }
 
 // memorija, localStorage, firebase

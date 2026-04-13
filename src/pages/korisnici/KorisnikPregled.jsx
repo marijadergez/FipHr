@@ -63,7 +63,8 @@ export default function KorisnikPregled(){
                     <th>Prezime</th>
                     <th>Email</th>
                     <th>Grad</th>
-                    <th></th>
+                    <th>Akcija</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -74,6 +75,7 @@ export default function KorisnikPregled(){
                         <td>{korisnik.email}</td>
                         <td>{dohvatiNazivGrada(korisnik.grad)}</td>
                         <td>
+                            
                             <Button onClick={()=>{navigate(`/korisnici/${korisnik.sifra}`)}}>
                                 Promjeni
                             </Button>
