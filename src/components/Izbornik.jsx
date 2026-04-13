@@ -38,18 +38,23 @@ export default function Izbornik() {
                             >Korisnici</NavDropdown.Item>
 
 
-                            <NavDropdown.Divider />
-                            
-                            <NavDropdown.Item
+                             <NavDropdown.Divider />
+
+                                 <NavDropdown.Item
                             onClick={()=>navigate(RouteNames.GENERIRANJE_PODATAKA)}
                             >Generiraj podatke</NavDropdown.Item>
+                            </NavDropdown>
                             
-                        </NavDropdown>
+                           
+                            
+                          
+                            
+                        
 
 
                             
 
-                        </NavDropdown>
+                        
                     </Nav>
                 </Navbar.Collapse>
             </Container>
