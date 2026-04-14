@@ -1,7 +1,7 @@
 
 import { DATA_SOURCE } from "../../constants";
-import PonudaServiceLocalStorage from "../ponude/PonudaServiceLocalStorage";
-import PonudaServiceMemorija from "../ponude/PonudaServiceMemorija";
+import PonudaServiceLocalStorage from "./PonudaServiceLocalStorage";
+import PonudaServiceMemorija from "./PonudaServiceMemorija";
 
 
 

@@ -16,7 +16,9 @@ export const RouteNames = {
     
     GENERIRANJE_PODATAKA: '/generiraj-podatke',
 
-    PONUDE: '/ponuda',
+    PONUDE: '/ponude',
+    PONUDE_NOVI: '/ponude/novi',
+    PONUDE_PROMJENA: '/ponude/:sifra'
    
 
 

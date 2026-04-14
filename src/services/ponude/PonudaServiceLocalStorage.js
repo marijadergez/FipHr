@@ -23,17 +23,17 @@ async function getBySifra(sifra) {
 }
 
 async function dodaj(ponuda) {
-    const ponuda = dohvatiSveIzStorage();
+    const ponude = dohvatiSveIzStorage();
 
     if (ponuda.length === 0) {
        ponuda.sifra = 1;
     }else {
-        const maxSifra = Math.max(...ponuda.map(s => s.sifra));
+        const maxSifra = Math.max(...ponude.map(s => s.sifra));
        ponuda.sifra = maxSifra + 1;
     }
 
-    ponuda.push(ponuda);
-    spremiUStorage(ponuda);
+    ponude.push(ponuda);
+    spremiUStorage(ponude);
     return { data: ponuda};
 }
 

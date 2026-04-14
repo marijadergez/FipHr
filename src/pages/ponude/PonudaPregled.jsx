@@ -7,24 +7,25 @@ import { GrAdd, GrValidate } from "react-icons/gr"
 import FormatDatuma from "../../components/FormatDatuma"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
-import GradService from "../../services/gradovi/GradService"
+
+import PonudaService from "../../services/ponude/PonudaService";
 
 
 
 
 
-export default function gradoviPregled() {
+export default function PonudaPregled() {
 
     const navigate = useNavigate()
-    const [gradovi, setGradovi] = useState([])
+    const [ponude, setPonuda] = useState([])
 
     useEffect(() => {
-        ucitajgradovi()
+        ucitajponude()
     }, [])
 
-    async function ucitajgradovi() {
-        await GradService.get().then((odgovor) => {
-            setGradovi(odgovor.data)
+    async function ucitajponude() {
+        await PonudaService.get().then((odgovor) => {
+            setPonuda(odgovor.data)
         })
 
     }
@@ -33,8 +34,8 @@ export default function gradoviPregled() {
         if (!confirm('Sigurno obrisati?')) {
             return
         }
-        await GradService.obrisi(sifra)
-        ucitajgradovi()
+        await PonudaService.obrisi(sifra)
+        ucitajponude()
 
     }
 
@@ -42,36 +43,36 @@ export default function gradoviPregled() {
     return (
         <>
 
-            <Link to={RouteNames.GRADOVI_NOVI}
+            <Link to={RouteNames.PONUDA_NOVI}
                 className="btn btn-success w-100 my-3">
-                <GrAdd /> Dodaj novi grad
+                <GrAdd /> Dodaj novu ponudu
             </Link>
 
             <Table hover bordered responsive>
 
                 <thead>
                     <tr>
-                        <th>Naziv</th>
+                        <th>Korisnik</th>
                         <th>Akcija</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    {gradovi && gradovi.map((grad) => (
-                        <tr key={grad.sifra}>
-                            <td>{grad.naziv}</td>
+                    {ponude && ponude.map((ponuda) => (
+                        <tr key={ponuda.sifra}>
+                            <td>{ponuda.korisnik}</td>
 
 
 
 
                             <td>
 
-                                <Button onClick={() => { navigate(`/gradovi/${grad.sifra}`) }}>
+                                <Button onClick={() => { navigate(`/ponude/${ponuda.sifra}`) }}>
                                     Promjeni
                                 </Button>
                                 &nbsp;&nbsp;
 
-                                <Button variant="danger" onClick={() => { obrisi(grad.sifra) }}>
+                                <Button variant="danger" onClick={() => { obrisi(ponuda.sifra) }}>
                                     Obriši
                                 </Button>
                             </td>

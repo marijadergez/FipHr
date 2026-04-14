@@ -23,7 +23,7 @@ export default function Izbornik() {
 
                         >Početna</Nav.Link>
 
-                        <NavDropdown title="Ponuda" id="basic-nav-dropdown">
+                        <NavDropdown title="Program" id="basic-nav-dropdown">
                             
                            
                             
