@@ -21,7 +21,6 @@ import GradPromjena from './pages/gradovi/GradPromjena'
 import GradNovi from './pages/gradovi/GradNovi'
 import GradPregled from './pages/gradovi/GradPregled'
 import GeneriranjePodataka from './pages/GeneriranjePodataka'
-import PonudaPregled from './pages/ponude/PonudaPregled'
 
 
 
@@ -46,9 +45,6 @@ function App() {
 
         <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
 
-        <Route path={RouteNames.PONUDE} element={<PonudaPregled />} />
-
-       
 
 
       </Routes>

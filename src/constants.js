@@ -15,10 +15,6 @@ export const RouteNames = {
     GRADOVI_PROMJENA: '/gradovi/:sifra',
     
     GENERIRANJE_PODATAKA: '/generiraj-podatke',
-
-    PONUDE: '/ponude',
-    PONUDE_NOVI: '/ponude/novi',
-    PONUDE_PROMJENA: '/ponude/:sifra'
    
 
 

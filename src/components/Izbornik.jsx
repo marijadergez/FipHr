@@ -31,9 +31,6 @@ export default function Izbornik() {
                                 onClick={() => navigate(RouteNames.USLUGE)}
                             >Usluge</NavDropdown.Item>
 
-                             <NavDropdown.Item
-                                onClick={() => navigate(RouteNames.PONUDE)}
-                            >Ponude</NavDropdown.Item>
 
                             <NavDropdown.Item
                                 onClick={() => navigate(RouteNames.KORISNICI)}
