@@ -5,6 +5,7 @@ export const korisnici = [
     prezime: 'Naziv obrta',
     email: 'test@gmail.com',
     grad:1,
+    usluga:2,
 
 },
 
@@ -14,6 +15,7 @@ export const korisnici = [
     prezime: 'Prezimović',
     email: 'test@edunova.hr',
     grad: 2,
+    usluga: 1
 
 }
 

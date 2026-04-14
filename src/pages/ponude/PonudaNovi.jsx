@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import PonudaService from "../../services/gradovi/PonudaService";
+import PonudaService from "../../services/ponude/PonudaService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 
