@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PonudaService from "../../services/ponude/PonudaService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { ponude } from "../../services/ponude/PonudaPodaci";
 
 
 export default function PonudaNovi() {
@@ -35,11 +36,33 @@ export default function PonudaNovi() {
             return // Prekid
         }
 
+        // --- KONTROLA 4: Upisnina (Negativne vrijednosti) ---
+        if (podaci.get('cijena') < 0) {
+            alert("Cijena ne može biti negativan broj!")
+            return // Prekid
+        }
 
+        if (!podaci.get('datumPokretanja') || podaci.get('datumPokretanja') === "") {
+            alert("Morate odabrati datum pokretanja!")
+            return
+        }
+
+        // B) Logička provjera: Datum ne smije biti u prošlosti
+        const odabraniDatum = new Date(podaci.get('datumPokretanja'))
+        const danas = new Date()
+        danas.setHours(0, 0, 0, 0) // Resetiramo vrijeme na ponoć radi točne usporedbe datuma
+
+        if (odabraniDatum < danas) {
+            alert("Datum pokretanja ne može biti u prošlosti!")
+            return
+        }
 
 
         dodaj({
-            naziv: podaci.get('naziv')
+            naziv: podaci.get('naziv'),
+            popust: podaci.get('aktivan') === 'on',
+            cijena: parseFloat(podaci.get('cijena')),
+            datumPokretanja: new Date(podaci.get('datumPokretanja'))
         })
     }
 
@@ -69,17 +92,20 @@ export default function PonudaNovi() {
                                 </Col>
                             </Row>
 
-                            <Form.Group controlId="grad">
-                                <Form.Label>Grad</Form.Label>
-                                <Form.Select name="grad" required>
-                                    <option key={0} value="">Odaberite grad</option>
-                                    {gradovi && gradovi.map((grad) => (
-                                        <option key={grad.sifra} value={grad.sifra}>
-                                            {grad.naziv}
+                            <Form.Group controlId="ponuda">
+                                <Form.Label>ponuda</Form.Label>
+                                <Form.Select name="ponuda" required>
+                                    <option key={0} value="">Odaberite ponuda</option>
+                                    {ponude && ponude.map((ponuda) => (
+                                        <option key={ponuda.sifra} value={ponuda.sifra}>
+                                            {ponuda.naziv}
                                         </option>
                                     ))}
                                 </Form.Select>
                             </Form.Group>
+
+
+
 
 
 

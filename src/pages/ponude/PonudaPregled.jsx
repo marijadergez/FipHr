@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 
 import PonudaService from "../../services/ponude/PonudaService";
+import PonudaNovi from "./PonudaNovi"
 
 
 
@@ -20,11 +21,15 @@ export default function PonudaPregled() {
     const [ponude, setPonuda] = useState([])
 
     useEffect(() => {
-        ucitajponude()
+        ucitajPonude()
     }, [])
 
-    async function ucitajponude() {
+    async function ucitajPonude() {
         await PonudaService.get().then((odgovor) => {
+            if(!odgovor.success){
+                alert('Nije implementiran servis')
+                return
+            }
             setPonuda(odgovor.data)
         })
 
@@ -35,7 +40,7 @@ export default function PonudaPregled() {
             return
         }
         await PonudaService.obrisi(sifra)
-        ucitajponude()
+        ucitajPonude()
 
     }
 
@@ -43,7 +48,7 @@ export default function PonudaPregled() {
     return (
         <>
 
-            <Link to={RouteNames.PONUDA_NOVI}
+            <Link to={RouteNames.PONUDE_NOVI}
                 className="btn btn-success w-100 my-3">
                 <GrAdd /> Dodaj novu ponudu
             </Link>
@@ -54,6 +59,9 @@ export default function PonudaPregled() {
                     <tr>
                         <th>Korisnik</th>
                         <th>Akcija</th>
+                        <th>Datum pokretanja</th>
+                        <th>Cijena</th>
+                        <th>Popust</th>
 
                     </tr>
                 </thead>

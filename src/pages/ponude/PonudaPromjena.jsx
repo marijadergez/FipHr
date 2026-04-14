@@ -10,11 +10,13 @@ export default function ponudaPromjena(){
     const params = useParams()
     const [ponuda, setPonuda] = useState({})
     
+    
 
     useEffect(
         ()=>{
             ucitajPonude()
         },[])
+        
 
     async function ucitajPonude() {
         await PonudaService.getBySifra(params.sifra).then((odgovor)=>{
@@ -29,9 +31,11 @@ export default function ponudaPromjena(){
 
     async function promjeni(ponuda) {
         await PonudaService.promjeni(params.sifra,ponuda).then(()=>{
-            navigate(RouteNames.PONUDE)
+            navigate(RouteNames.PONUDE_PROMJENA)
         })
     }
+    
+       
 
     function odradiSubmit(e){
         e.preventDefault()
@@ -42,6 +46,15 @@ export default function ponudaPromjena(){
             alert("Naziv je obavezan i ne smije sadržavati samo razmake!")
             return // Prekid
         }
+        if (!podaci.get('datumPokretanja') || podaci.get('datumPokretanja') === "") {
+            alert("Morate odabrati datum pokretanja!")
+            return
+        }
+        if (podaci.get('naziv').trim().length < 3) {
+            alert("Naziv smjera mora imati najmanje 3 znaka!")
+            return // Prekid
+        }
+
 
         // --- KONTROLA 2: Naziv (Minimalna duljina) ---
         if (podaci.get('naziv').trim().length < 3) {
@@ -49,11 +62,20 @@ export default function ponudaPromjena(){
             return // Prekid
         }
 
-      
+           const s = odgovor.data
+            s.datumPokretanja = s.datumPokretanja.substring(0,10)
+           
+            setPopust(s.popust)
+           // console.table(odgovor.data)
+        
+    
 
 
         promjeni({
-            naziv: podaci.get('naziv')
+             naziv: podaci.get('naziv'),
+            popust: podaci.get('aktivan') === 'on',
+            cijena: parseFloat(podaci.get('cijena')),
+            datumPokretanja: new Date(podaci.get('datumPokretanja'))
         })
     }
 
@@ -81,6 +103,23 @@ export default function ponudaPromjena(){
                                     </Form.Group>
                                 </Col>
                             </Row>
+
+
+                          <Col md={6}>
+                                    <Form.Group controlId="aktivan" className="mb-3 mt-md-3">
+                                        <Form.Check
+                                            type="switch"
+                                            label="Ponuda je aktivna"
+                                            name="aktivan"
+                                            className="fs-5"
+                                            checked={aktivan}
+                                            onChange={(e) => setAktivan(e.target.checked)}
+                                        />
+                                    </Form.Group>
+                                </Col>
+
+
+
 
                            
                             <hr />
