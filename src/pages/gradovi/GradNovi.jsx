@@ -52,7 +52,7 @@ export default function GradNovi(){
                 <Container className="mt-4">
                     <Card className="shadow-sm">
                         <Card.Body>
-                            <Card.Title className="mb-4">Podaci o usluzi</Card.Title>
+                            <Card.Title className="mb-4">Podaci o gradu</Card.Title>
 
                             {/* Naziv - Pun širina na svim ekranima */}
                             <Row>

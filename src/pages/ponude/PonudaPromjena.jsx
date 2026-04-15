@@ -31,11 +31,10 @@ export default function ponudaPromjena(){
 
     async function promjeni(ponuda) {
         await PonudaService.promjeni(params.sifra,ponuda).then(()=>{
-            navigate(RouteNames.PONUDE_PROMJENA)
+            navigate(RouteNames.PONUDE)
         })
     }
-    
-       
+   
 
     function odradiSubmit(e){
         e.preventDefault()
@@ -105,18 +104,16 @@ export default function ponudaPromjena(){
                             </Row>
 
 
-                          <Col md={6}>
-                                    <Form.Group controlId="aktivan" className="mb-3 mt-md-3">
-                                        <Form.Check
-                                            type="switch"
-                                            label="Ponuda je aktivna"
-                                            name="aktivan"
-                                            className="fs-5"
-                                            checked={aktivan}
-                                            onChange={(e) => setAktivan(e.target.checked)}
-                                        />
-                                    </Form.Group>
-                                </Col>
+                         <Col md={6}>
+                                <Form.Group controlId="popust" className="mb-3 mt-md-3">
+                                    <Form.Check
+                                        type="switch"
+                                        label="Ponuda usluge je na popustu"
+                                        name="popust"
+                                        className="fs-5"
+                                    />
+                                </Form.Group>
+                            </Col>
 
 
 

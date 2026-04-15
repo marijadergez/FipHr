@@ -14,7 +14,7 @@ export const ponude = [
     },
 
     {
-        sifra: 1,
+        sifra: 2,
         korisnik: 2,
         usluge: [1,3] ,
         datum:'2026-03-19T17:00:00',
