@@ -103,11 +103,7 @@ export default function PonudaNovi() {
         }
     }
 
-    async function dodaj(grad) {
-        await GradService.dodaj(grad).then(() => {
-            navigate(RouteNames.GRADOVI)
-        })
-    }
+ 
 
 
     function odradiSubmit(e) { // e je event
@@ -127,21 +123,14 @@ export default function PonudaNovi() {
         }
 
         // --- KONTROLA 4: Upisnina (Negativne vrijednosti) ---
-        if (podaci.get('cijena') < 0) {
-            alert("Cijena ne može biti negativan broj!")
-            return // Prekid
-        }
-         if (!podaci.get('smjer') || podaci.get('smjer') === "") {
-            alert("Morate odabrati smjer!");
+        
+         if (!podaci.get('usluga') || podaci.get('usluga') === "") {
+            alert("Morate odabrati uslugu!");
             return;
         }
         
 
 
-        if (!podaci.get('datumPokretanja') || podaci.get('datumPokretanja') === "") {
-            alert("Morate odabrati datum pokretanja!")
-            return
-        }
         if (podaci.get('ime').trim().length < 2) {
             alert("Ime mora imati najmanje 2 znaka!");
             return;
@@ -160,24 +149,15 @@ export default function PonudaNovi() {
             return;
         }
 
-        // B) Logička provjera: Datum ne smije biti u prošlosti
-        const odabraniDatum = new Date(podaci.get('datumPokretanja'))
-        const danas = new Date()
-        danas.setHours(0, 0, 0, 0) // Resetiramo vrijeme na ponoć radi točne usporedbe datuma
-
-        if (odabraniDatum < danas) {
-            alert("Datum pokretanja ne može biti u prošlosti!")
-            return
-        }
+        
 
 
         dodaj({
             naziv: podaci.get('naziv'),
             usluge: odabranaUsluga,
             korisnici: odabraniKorisnici.map(p => p.sifra),
-            popust: podaci.get('aktivan') === 'on',
-            cijena: parseFloat(podaci.get('cijena')),
-            datumPokretanja: new Date(podaci.get('datumPokretanja'))
+            
+            
         })
     }
 
