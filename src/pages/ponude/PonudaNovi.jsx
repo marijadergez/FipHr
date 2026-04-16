@@ -19,6 +19,7 @@ export default function PonudaNovi() {
     const [ pretragaKorisnika, setPretragaKorisnka] = useState([])
      const [prikaziAutocomplete, setPrikaziAutocomplete] = useState(false)
     const [odabraniIndex, setOdabraniIndex] = useState(-1)
+    const [popust,setPopust] =useState(false)
 
     useEffect(() => {
         ucitajUsluge()
@@ -156,6 +157,10 @@ export default function PonudaNovi() {
             naziv: podaci.get('naziv'),
             usluge: odabranaUsluga,
             korisnici: odabraniKorisnici.map(p => p.sifra),
+
+             cijena: parseFloat(podaci.get('cijena')),
+            datumPokretanja: new Date().toISOString(),
+            popust: popust
             
             
         })
@@ -249,6 +254,18 @@ return (
                                         </div>
                                     )}
                                 </Form.Group>
+                                 <Col md={6}>
+                                    <Form.Group controlId="popust" className="mb-3 mt-md-3">
+                                        <Form.Check
+                                            type="switch"
+                                            label="Usluga je na popustu"
+                                            name="popust"
+                                            className="fs-5"
+                                            checked={popust}
+                                            onChange={(e) => setPopust(e.target.checked)}
+                                        />
+                                    </Form.Group>
+                                </Col>
 
                                 {/* Tablica odabranih polaznika */}
                                 {odabraniKorisnici.length > 0 && (
@@ -266,6 +283,10 @@ return (
                                                         <td>{korisnik.ime} {korisnik.prezime}</td>
                                                         
                                                          <td>{dohvatiNazivGrada(korisnik.grad)}</td>
+                                                         <td>{ponuda.popust===0 ? '' : ponuda.popust + ' %'}</td>
+                                                         <td></td>
+
+
                                                         <td>
                                                             <Button
                                                                 variant="danger"
