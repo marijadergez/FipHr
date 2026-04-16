@@ -2,8 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PonudaService from "../../services/ponude/PonudaService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { ponude } from "../../services/ponude/PonudaPodaci";
-import { usluge } from "../../services/usluge/UslugePodaci";
+
 import { useEffect, useState } from "react";
 import KorisnikService from "../../services/korisnici/KorisnikService";
 import UslugeService from "../../services/usluge/UslugeService";
@@ -123,43 +122,14 @@ export default function PonudaNovi() {
             return // Prekid
         }
 
-        // --- KONTROLA 4: Upisnina (Negativne vrijednosti) ---
-        
-         if (!podaci.get('usluga') || podaci.get('usluga') === "") {
-            alert("Morate odabrati uslugu!");
-            return;
-        }
-        
-
-
-        if (podaci.get('ime').trim().length < 2) {
-            alert("Ime mora imati najmanje 2 znaka!");
-            return;
-        }
-
-        // --- KONTROLA 3: Prezime (Postojanje) ---
-        if (!podaci.get('prezime') || podaci.get('prezime').trim().length === 0) {
-            alert("Prezime je obavezno i ne smije sadržavati samo razmake!");
-            return;
-        }
-
-
-         const odabranaUsluga = parseInt(podaci.get('smjer'));
-        if (isNaN(odabranaUsluga) || odabranaUsluga <= 0) {
-            alert("Odabrana usluga nije valjana!");
-            return;
-        }
-
-        
+   
 
 
         dodaj({
             naziv: podaci.get('naziv'),
             usluge: odabranaUsluga,
             korisnici: odabraniKorisnici.map(p => p.sifra),
-
-             cijena: parseFloat(podaci.get('cijena')),
-            datumPokretanja: new Date().toISOString(),
+           
             popust: popust
             
             
@@ -321,6 +291,7 @@ return (
                     <Button type="submit" variant="success">
                         Dodaj novu ponudu
                     </Button>
+                  
                 </div>
             </Container>
         </Form>

@@ -2,11 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import UslugeService from "../../services/usluge/UslugeService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
+import { usluge } from "../../services/usluge/UslugePodaci";
 
 
 export default function UslugeNovi(){
 
     const navigate = useNavigate()
+    
 
     async function dodaj(uslugu){
         //console.table(smjer)
@@ -45,6 +47,8 @@ export default function UslugeNovi(){
             return // Prekid
         }
 
+
+         
        
 
         dodaj({
@@ -68,35 +72,25 @@ export default function UslugeNovi(){
                             <Card.Title className="mb-4">Podaci o usluzi</Card.Title>
 
                             {/* Naziv - Pun širina na svim ekranima */}
-                            <Row>
-                                <Col xs={12}>
-                                    <Form.Group controlId="naziv" className="mb-3">
-                                        <Form.Label className="fw-bold">Naziv</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            name="naziv"
-                                            placeholder="Unesite naziv usluge"
-                                            required
-                                        />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
+                          
 
                             {/* Trajanje i Cijena - Jedno pored drugog na md+, jedno ispod drugog na mobitelu */}
                             <Row>
                                
-                                <Col md={6}>
-                                    <Form.Group controlId="cijena" className="mb-3">
-                                        <Form.Label className="fw-bold">Cijena (€)</Form.Label>
-                                        <Form.Control
-                                            type="number"
-                                            name="cijena"
-                                            step={0.01}
-                                            placeholder="0,00"
-                                        />
-                                    </Form.Group>
-                                </Col>
+                               <Form.Group controlId="usluge">
+                    <Form.Label>Usluge</Form.Label>
+                    <Form.Select name="usluge" required>
+                        <option key={0} value="">Odaberite usluge za ponudu</option>
+                        {usluge && usluge.map((usluga) => (
+                            <option key={usluga.sifra} value={usluga.sifra}>
+                                {usluga.naziv}
+                            </option>
+                        ))}
+                    </Form.Select>
+                </Form.Group>
                       
+
+                      <hr />
                                 {/* Aktivan - Switch umjesto checkboxa za moderniji izgled */}
                                 <Col md={6}>
                                     <Form.Group controlId="popust" className="mb-3 mt-md-3">
