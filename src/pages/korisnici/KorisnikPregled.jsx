@@ -14,7 +14,7 @@ export default function KorisnikPregled(){
     const [korisnici,setKorisnici] = useState([])
 
     useEffect(()=>{
-        ucitajKorisnika()
+        ucitajKorisnike()
         ucitajGradovi()
     },[])
 
@@ -25,7 +25,7 @@ export default function KorisnikPregled(){
     
         }
 
-    async function ucitajKorisnika() {
+    async function ucitajKorisnike() {
         await KorisnikService.get().then((odgovor)=>{
             if(!odgovor.success){
                 alert('Nije implementiran servis')

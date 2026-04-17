@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import PonudaService from "../../services/ponude/PonudaService";
 import { RouteNames } from "../../constants";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 
 import { useEffect, useState } from "react";
 import KorisnikService from "../../services/korisnici/KorisnikService";
@@ -17,8 +17,8 @@ export default function PonudaNovi() {
     const navigate = useNavigate()
     const [usluge, setUsluge] = useState([])
     const [korisnici, setKorisnici] = useState([])
-    const [odabraniKorisnici, setOdabraniKorisnici] = useState([])
-    const [pretragaKorisnika, setPretragaKorisnka] = useState([])
+    const [odabraneUsluge, setOdabraneUsluge] = useState([])
+    const [pretragaUsluga, setPretragaUsluga] = useState('')
     const [prikaziAutocomplete, setPrikaziAutocomplete] = useState(false)
     const [odabraniIndex, setOdabraniIndex] = useState(-1)
     const [popust, setPopust] = useState(false)
@@ -27,34 +27,13 @@ export default function PonudaNovi() {
     useEffect(() => {
         ucitajUsluge()
         ucitajKorisnike()
-        ucitajPonude()
     }, [])
 
-
-
-
-
-
-    async function ucitajPonude() {
-        await PonudaService.getBySifra(params.sifra).then((odgovor) => {
-            if (!odgovor.success) {
-                alert('Nije implementiranA PONUDA')
-                return
-            }
-            setPonuda(odgovor.data)
-        })
-    }
 
 
     async function dodaj(ponuda) {
         //console.table(smjer)
         await PonudaService.dodaj(ponuda).then(() => {
-            navigate(RouteNames.PONUDE)
-        })
-    }
-
-    async function promjeni(ponuda) {
-        await PonudaService.promjeni(params.sifra, ponuda).then(() => {
             navigate(RouteNames.PONUDE)
         })
     }
@@ -80,36 +59,35 @@ export default function PonudaNovi() {
             setKorisnici(odgovor.data)
         })
     }
-    function dodajKorisnika(korisnik) {
-        if (!odabraniKorisnici.find(p => p.sifra === korisnik.sifra)) {
-            setOdabraniKorisnici([...odabraniKorisnici, korisnik])
+    function dodajUslugu(usluga) {
+        if (!odabraneUsluge.find(p => p.sifra === usluga.sifra)) {
+            setOdabraneUsluge([...odabraneUsluge, usluga])
         }
-        setPretragaKorisnka('')
+        setPretragaUsluga('')
         setPrikaziAutocomplete(false)
         setOdabraniIndex(-1)
     }
-    function ukloniKorisnika(sifra) {
-        setOdabraniKorisnici(odabraniKorisnici.filter(p => p.sifra !== sifra))
+    function ukloniUslugu(sifra) {
+        setOdabraneUsluge(odabraneUsluge.filter(p => p.sifra !== sifra))
     }
 
-    function filtrirajKorisnike() {
-        if (!pretragaKorisnika) return []
-        return korisnici.filter(p =>
-            !odabraniKorisnici.find(op => op.sifra === p.sifra) &&
-            (p.ime.toLowerCase().includes(pretragaKorisnika.toLowerCase()) ||
-                p.prezime.toLowerCase().includes(pretragaKorisnika.toLowerCase()))
+    function filtrirajUsluge() {
+        if (!pretragaUsluga) return []
+        return usluge.filter(p =>
+            !odabraneUsluge.find(op => op.sifra === p.sifra) &&
+            (p.naziv.toLowerCase().includes(pretragaUsluga.toLowerCase()))
         )
     }
     function handleKeyDown(e) {
-        const filtriraniKorisnici = filtrirajKorisnike()
+        const filtriraneUsluge = filtrirajUsluge()
 
         if (e.key === 'ArrowDown') {
             e.preventDefault()
             setOdabraniIndex(prev => {
-                if (prev + 1 === filtriraniKorisnici.length) {
+                if (prev + 1 === filtriraneUsluge.length) {
                     return 0
                 }
-                return prev < filtriraniKorisnici.length - 1 ? prev + 1 : prev
+                return prev < filtriraneUsluge.length - 1 ? prev + 1 : prev
             }
 
             )
@@ -117,13 +95,13 @@ export default function PonudaNovi() {
             e.preventDefault()
             setOdabraniIndex(prev => {
                 if (prev === 0) {
-                    return filtriraniKorisnici.length - 1
+                    return filtriraneUsluge.length - 1
                 }
                 return prev > 0 ? prev - 1 : 0
             })
-        } else if (e.key === 'Enter' && odabraniIndex >= 0 && filtriraniKorisnici.length > 0) {
+        } else if (e.key === 'Enter' && odabraniIndex >= 0 && filtriraneUsluge.length > 0) {
             e.preventDefault()
-            dodajKorisnika(filtriraniKorisnici[odabraniIndex])
+            dodajUslugu(filtriraneUsluge[odabraniIndex])
         } else if (e.key === 'Escape') {
             setPrikaziAutocomplete(false)
             setOdabraniIndex(-1)
@@ -149,20 +127,13 @@ export default function PonudaNovi() {
             return // Prekid
         }
 
-        promjeni({
-            naziv: podaci.get('naziv'),
-        })
-
-
 
         dodaj({
             naziv: podaci.get('naziv'),
-            usluge: odabranaUsluga,
-            korisnici: odabraniKorisnici.map(p => p.sifra),
-
-            popust: popust
-
-
+            usluge: odabraneUsluge.map(u => u.sifra),
+            korisnik: parseInt(podaci.get('korisnik')),
+            popust: parseInt(podaci.get('popust')),
+            datum:  new Date().toISOString()
         })
     }
 
@@ -192,107 +163,100 @@ export default function PonudaNovi() {
                                             name="naziv"
                                             placeholder="Unesite naziv ponude "
                                             required
-                                            defaultValue={ponude.naziv}
                                         />
                                     </Form.Group>
 
-                                    {/* Smjer */}
-                                    <Form.Group controlId="usluge" className="mb-3">
-                                        <Form.Label className="fw-bold">Usluge</Form.Label>
-                                        <Form.Select name="usluge" required>
-                                            <option value="">Odaberite uslugu</option>
-                                            {usluge && usluge.map((usluge) => (
-                                                <option key={usluge.sifra} value={usluge.sifra}>
-                                                    {usluge.naziv}
+                                    {/*korisnici */}
+                                    <Form.Group controlId="korisnik" className="mb-3">
+                                        <Form.Label className="fw-bold">Korisnici</Form.Label>
+                                        <Form.Select name="korisnik" required>
+                                            <option value="">Odaberite korisnika</option>
+                                            {korisnici && korisnici.map((korisnik) => (
+                                                <option key={korisnik.sifra} value={korisnik.sifra}>
+                                                    {korisnik.ime} {korisnik.prezime}
                                                 </option>
                                             ))}
                                         </Form.Select>
                                     </Form.Group>
+                                    
+                                
+                                        <Form.Group controlId="popust" className="mb-3 mt-md-3">
+                                            <Form.Control
+                                            type="number"
+                                            name="popust"
+                                            placeholder="0"
+                                            required
+                                        />
+                                        </Form.Group>
+                                  
                                 </Card.Body>
                             </Card>
                         </Col>
 
-                        {/* Desna strana - Polaznici */}
+                        {/* Desna strana - usluge */}
                         <Col md={6}>
                             <Card className="shadow-sm">
                                 <Card.Body>
-                                    <Card.Title className="mb-4">Korisnici</Card.Title>
+                                    <Card.Title className="mb-4">Usluge</Card.Title>
 
                                     {/* Autocomplete pretraga */}
                                     <Form.Group className="mb-3 position-relative">
-                                        <Form.Label className="fw-bold">Dodaj korisnika</Form.Label>
+                                        <Form.Label className="fw-bold">Dodaj usluge</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            placeholder="Pretraži polaznika..."
-                                            value={pretragaKorisnika}
+                                            placeholder="Pretraži usluge..."
+                                            value={pretragaUsluga}
                                             onChange={(e) => {
-                                                setPretragaKorisnka(e.target.value)
+                                                setPretragaUsluga(e.target.value)
                                                 setPrikaziAutocomplete(e.target.value.length > 0)
                                                 setOdabraniIndex(-1)
                                             }}
-                                            onFocus={() => setPrikaziAutocomplete(pretragaKorisnika.length > 0)}
+                                            onFocus={() => setPrikaziAutocomplete(pretragaUsluga.length > 0)}
                                             onKeyDown={handleKeyDown}
                                         />
-                                        {prikaziAutocomplete && filtrirajKorisnike().length > 0 && (
+                                        {prikaziAutocomplete && filtrirajUsluge().length > 0 && (
                                             <div className="position-absolute w-100 bg-white border rounded shadow-sm" style={{ zIndex: 1000, maxHeight: '200px', overflowY: 'auto' }}>
-                                                {filtrirajKorisnike().map((korisnik, index) => (
+                                                {filtrirajUsluge().map((usluga, index) => (
                                                     <div
-                                                        key={korisnik.sifra}
+                                                        key={usluga.sifra}
                                                         className="p-2 cursor-pointer"
                                                         style={{
                                                             cursor: 'pointer',
                                                             backgroundColor: index === odabraniIndex ? '#007bff' : 'white',
                                                             color: index === odabraniIndex ? 'white' : 'black'
                                                         }}
-                                                        onClick={() => dodajKorisnika(korisnik)}
+                                                        onClick={() => dodajUslugu(usluga)}
                                                         onMouseEnter={(e) => {
                                                             setOdabraniIndex(index)
                                                         }}
                                                     >
-                                                        {korisnik.ime} {korisnik.prezime}
+                                                        {usluga.naziv} 
                                                     </div>
                                                 ))}
                                             </div>
                                         )}
                                     </Form.Group>
-                                    <Col md={6}>
-                                        <Form.Group controlId="popust" className="mb-3 mt-md-3">
-                                            <Form.Check
-                                                type="switch"
-                                                label="Usluga je na popustu"
-                                                name="popust"
-                                                className="fs-5"
-                                                checked={popust}
-                                                onChange={(e) => setPopust(e.target.checked)}
-                                            />
-                                        </Form.Group>
-                                    </Col>
+                                    
 
                                     {/* Tablica odabranih polaznika */}
-                                    {odabraniKorisnici.length > 0 && (
+                                    {odabraneUsluge.length > 0 && (
                                         <div style={{ overflow: 'auto', maxHeight: '300px' }}>
                                             <Table striped bordered hover size="sm">
                                                 <thead>
                                                     <tr>
-                                                        <th>Ime i prezime</th>
+                                                        <th>Naziv</th>
                                                         <th style={{ width: '80px' }}>Akcija</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {odabraniKorisnici.map(korisnik => (
-                                                        <tr key={korisnik.sifra}>
-                                                            <td>{korisnik.ime} {korisnik.prezime}</td>
-
-                                                            <td>{dohvatiNazivGrada(korisnik.grad)}</td>
-                                                            <td>{ponuda.popust === 0 ? '' : ponuda.popust + ' %'}</td>
-                                                            <td></td>
-
-
+                                                    {odabraneUsluge.map(usluga => (
+                                                        <tr key={usluga.sifra}>
+                                                            <td>{usluga.naziv} </td>
                                                             <td>
                                                                 <Button
                                                                     variant="danger"
                                                                     size="sm"
-                                                                    onClick={() => ukloniKorisnika(korisnik.sifra)}
+                                                                    onClick={() => ukloniUslugu(usluga.sifra)}
                                                                 >
                                                                     Obriši
                                                                 </Button>
@@ -304,8 +268,8 @@ export default function PonudaNovi() {
                                         </div>
 
                                     )}
-                                    {odabraniKorisnici.length === 0 && (
-                                        <p className="text-muted">Nema odabranih korisnika</p>
+                                    {odabraneUsluge.length === 0 && (
+                                        <p className="text-muted">Nema odabranih usluga</p>
                                     )}
                                 </Card.Body>
                             </Card>
