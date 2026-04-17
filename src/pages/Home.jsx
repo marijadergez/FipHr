@@ -91,7 +91,7 @@ export default function Home(){
                 <div style={{ width: '100%', maxWidth: '400px' }}>
                     <Card className="mb-3 shadow-lg border-0 statistikaPanel">
                         <Card.Body className="text-center">
-                            <p className="text-white">Smjerovi</p>
+                            <p className="text-white">Usluge</p>
                             <div className="statistikaTekst">
                                 {animatedUsluge}
                             </div>
@@ -100,7 +100,7 @@ export default function Home(){
 
                     <Card className="mb-3 shadow-lg border-0 statistikaPanel">
                         <Card.Body className="text-center">
-                            <p className="text-white">Polaznici</p>
+                            <p className="text-white">Korisnici</p>
                             <div className="statistikaTekst">
                                 {animatedKorisnici}
                             </div>
@@ -109,7 +109,7 @@ export default function Home(){
 
                     <Card className="shadow-lg border-0 statistikaPanel">
                         <Card.Body className="text-center">
-                            <p className="text-white">Grupe</p>
+                            <p className="text-white">Gradovi</p>
                             <div className="statistikaTekst">
                                 {animatedGradovi}
                             </div>
