@@ -11,3 +11,23 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 // faker za generiranje podataka
 npm install @faker-js/faker
+
+
+
+
+
+moje bilješke:
+
+dottie :     <DotLottieReact
+        src="https://lottie.host/671c63f5-ebe2-4a63-a4ba-11e54b67d00e/8hocp9zpl8.lottie"
+        loop
+        autoplay
+      />
+
+
+
+
+          {/*}
+      <div className="glass">
+      </div>
+  {*/}

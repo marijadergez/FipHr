@@ -5,7 +5,7 @@ import Izbornik from './components/Izbornik'
 import { Route, Routes } from 'react-router-dom'
 import { RouteNames, IME_APLIKACIJE } from './constants'
 
-import UslugePregled from './pages/usluge/UslugePregled'
+
 import Home from './pages/Home'
 import UslugeNovi from './pages/usluge/UslugeNovi'
 import UslugePromjena from './pages/usluge/UslugePromjena'
@@ -58,18 +58,10 @@ function App() {
       </Routes>
 
 
-      <DotLottieReact
-        src="https://lottie.host/671c63f5-ebe2-4a63-a4ba-11e54b67d00e/8hocp9zpl8.lottie"
-        loop
-        autoplay
-      />
+   
 
 
-      {/*}
-      <div className="glass">
-      </div>
-  {*/}
-
+  
       <hr />
 
       &copy; Marija | Edunova | 2026.

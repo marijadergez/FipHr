@@ -90,7 +90,7 @@ export default function UslugeNovi(){
                 </Form.Group>
                       
 
-                      <hr />
+                      
                                 {/* Aktivan - Switch umjesto checkboxa za moderniji izgled */}
                                 <Col md={6}>
                                     <Form.Group controlId="popust" className="mb-3 mt-md-3">

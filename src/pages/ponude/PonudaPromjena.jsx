@@ -4,11 +4,17 @@ import PonudaService from "../../services/ponude/PonudaService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
 
+
+
+
 export default function ponudaPromjena(){
 
     const navigate = useNavigate()
     const params = useParams()
     const [ponuda, setPonuda] = useState({})
+    
+    
+
     
     
 
@@ -35,6 +41,7 @@ export default function ponudaPromjena(){
         })
     }
    
+    
 
     function odradiSubmit(e){
         e.preventDefault()
