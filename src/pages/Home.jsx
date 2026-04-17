@@ -8,9 +8,8 @@ import UslugaService from "../services/usluge/UslugeService";
 import KorisnikService from "../services/korisnici/korisnikService";
 import GradService from "../services/gradovi/GradService";
 import UslugeService from "../services/usluge/UslugeService";
-import { korisnici } from "../services/korisnici/KorisnikService";
-import { gradovi } from "../services/gradovi/GradService";
-import { usluge } from "../services/usluge/UslugeService";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
 
 
 export default function Home(){
@@ -29,8 +28,8 @@ export default function Home(){
         const fetchData = async () => {
             try {
                 const uslugeRezultat = await UslugeService.get();
-                const polaznici = await KorisnikService.get();
-                const grad = await GradService.get();
+                const korisnici = await KorisnikService.get();
+                const gradovi = await GradService.get();
                 
                 setBrojUsluga(uslugeRezultat.data.length);
                 setBrojKorisnika(korisnici.data.length);
@@ -44,7 +43,7 @@ export default function Home(){
     }, []);
 
     useEffect(() => {
-        if (animatedUsluge < brojusluga) {
+        if (animatedUsluge < brojUsluga) {
             const timer = setTimeout(() => {
                 setAnimatedUsluge(prev => Math.min(prev + 1, brojUsluga));
             }, 300);
@@ -68,7 +67,7 @@ export default function Home(){
             }, 200);
             return () => clearTimeout(timer);
         }
-    }, [animatedGrradovi, brojGradova]);
+    }, [animatedGradovi, brojGradova]);
 
 
 
@@ -77,7 +76,7 @@ export default function Home(){
         <Row>
             <Col md={6}>
             <div style={{ textAlign: 'center' }}>
-                <img src={slika} />
+                <img src="" />
             </div>
             <p className="lead m-5 text-center">Dobrodošli na {IME_APLIKACIJE}</p>
             <div style={{maxWidth: '500px', margin: 'auto'}}>
@@ -122,18 +121,5 @@ export default function Home(){
         </>
     )
 }
-   return (
-        <>
-        <h1 className="mt-5">Dobrodošli u {IME_APLIKACIJE} </h1>
-     
-     <hr />
-
-
-
-        </>
-        
-    
-    )
-
 
 
