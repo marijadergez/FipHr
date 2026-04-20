@@ -115,21 +115,8 @@ export default function PonudaNovi() {
         e.preventDefault() // nemoj odraditi submit
         const podaci = new FormData(e.target)
 
-        // --- KONTROLA 1: Naziv (Postojanje) ---
-        if (!podaci.get('naziv') || podaci.get('naziv').trim().length === 0) {
-            alert("Naziv je obavezan i ne smije sadržavati samo razmake!")
-            return // Prekid
-        }
-
-        // --- KONTROLA 2: Naziv (Minimalna duljina) ---
-        if (podaci.get('naziv').trim().length < 3) {
-            alert("Naziv ponude mora imati najmanje 3 znaka!")
-            return // Prekid
-        }
-
 
         dodaj({
-            naziv: podaci.get('naziv'),
             usluge: odabraneUsluge.map(u => u.sifra),
             korisnik: parseInt(podaci.get('korisnik')),
             popust: podaci.get('popust')==='' ? 0 : parseInt(podaci.get('popust')),
@@ -148,23 +135,13 @@ export default function PonudaNovi() {
             <h3>Unos nove ponude</h3>
             <Form onSubmit={odradiSubmit}>
                 <Container className="mt-4">
+                    
                     <Row>
                         {/* Lijeva strana - Podaci o ponudi */}
                         <Col md={6}>
                             <Card className="shadow-sm">
                                 <Card.Body>
                                     <Card.Title className="mb-4">Podaci o ponudi</Card.Title>
-
-                                    {/* Naziv */}
-                                    <Form.Group controlId="naziv" className="mb-3">
-                                        <Form.Label className="fw-bold">Naziv</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            name="naziv"
-                                            placeholder="Unesite naziv ponude "
-                                            required
-                                        />
-                                    </Form.Group>
 
                                     {/*korisnici */}
                                     <Form.Group controlId="korisnik" className="mb-3">
