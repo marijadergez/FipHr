@@ -13,6 +13,9 @@ import PonudaNovi from "./PonudaNovi"
 import KorisnikService from "../../services/korisnici/KorisnikService"
 import UslugeService from "../../services/usluge/UslugeService"
 
+import GrupaPDFGenerator from "../../components/KorisniciPDFGenerator"
+import { FaEdit, FaFilePdf, FaTrash } from "react-icons/fa"
+
 export default function PonudaPregled() {
 
 
@@ -81,7 +84,41 @@ export default function PonudaPregled() {
             .filter(n => n !== null)
             .join(', '); // Spaja nazive zarezom: "Rock, Pop"
 
+            
+
     }
+        async function generirajPDFZaKorisnici(korisnici) {
+        // Dohvati smjer
+        const usluge = usluge.find(s => s.sifra === usluge.ponuda)
+        if (!usluge) {
+            alert('Usluga nije pronađena')
+            return
+        }
+
+        // Dohvati sve polaznike
+        const odgovorKorisnici = await KorisnikService.get()
+        if (!odgovorKorisnici.success) {
+            alert('Nije moguće dohvatiti polaznike')
+            return
+        }
+
+        // Filtriraj polaznike koji pripadaju ovoj grupi
+        const korisniciUsluge = odgovorKorisnici.data.filter(p =>
+            usluge.korisnici && usluge.korisnici.includes(p.sifra)
+        )
+
+        // Generiraj PDF
+        const generiraj = GrupaPDFGenerator({
+            ponude,
+            usluge,
+            korisnici: korisniciUsluge
+        })
+        await generiraj()
+    
+    
+
+
+    
 
       
     
@@ -114,12 +151,22 @@ export default function PonudaPregled() {
                                                         
                             <td>{ponuda.popust===0 ? '' : ponuda.popust + ' %'}</td>
                             <td>
-                                <Button onClick={() => { navigate(`/ponude/${ponuda.sifra}`) }}>
-                                    Promjeni
+
+                                
+                                <Button onClick={() => { navigate(`/ponude/${ponuda.sifra}`) }}title="Promjeni">
+                                   <FaEdit /> 
                                 </Button>
                                 &nbsp;&nbsp;
-                                <Button variant="danger" onClick={() => { obrisi(ponuda.sifra) }}>
-                                    Obriši
+                                <FaTrash 
+                                   onClick={() => brisanje(ponuda.sifra)} 
+                                   title="Obriši" 
+                                   style={{cursor: 'hand'}}
+                                   color="red"/>
+                                
+
+                                 &nbsp;&nbsp;
+                                <Button variant="info" onClick={() => generirajPDFZaGrupu(grupa)} title="Generiraj PDF">
+                                    <FaFilePdf />
                                 </Button>
                             </td>
                         </tr>
@@ -129,4 +176,5 @@ export default function PonudaPregled() {
         </>
     )
 
+}
 }

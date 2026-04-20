@@ -9,8 +9,9 @@ import { RouteNames, IME_APLIKACIJE } from './constants'
 import Home from './pages/Home'
 import UslugeNovi from './pages/usluge/UslugeNovi'
 import UslugePromjena from './pages/usluge/UslugePromjena'
+import UslugePregled from './pages/usluge/UslugePregled'
 
-import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+
 import './App.css'
 
 import KorisnikPregled from './pages/korisnici/KorisnikPregled'
@@ -20,11 +21,12 @@ import KorisnikNovi from './pages/korisnici/KorisnikNovi'
 import GradPromjena from './pages/gradovi/GradPromjena'
 import GradNovi from './pages/gradovi/GradNovi'
 import GradPregled from './pages/gradovi/GradPregled'
+
 import GeneriranjePodataka from './pages/GeneriranjePodataka'
+
 import PonudaPregled from './pages/ponude/PonudaPregled'
 import PonudaNovi from './pages/ponude/PonudaNovi'
 import PonudaPromjena from './pages/ponude/PonudaPromjena'
-import UslugePregled from './pages/usluge/UslugePregled'
 
 
 
