@@ -132,7 +132,7 @@ export default function PonudaNovi() {
             naziv: podaci.get('naziv'),
             usluge: odabraneUsluge.map(u => u.sifra),
             korisnik: parseInt(podaci.get('korisnik')),
-            popust: parseInt(podaci.get('popust')),
+            popust: podaci.get('popust')==='' ? 0 : parseInt(podaci.get('popust')),
             datum:  new Date().toISOString()
         })
     }
@@ -181,11 +181,12 @@ export default function PonudaNovi() {
                                     
                                 
                                         <Form.Group controlId="popust" className="mb-3 mt-md-3">
-                                            <Form.Control
+                                            
+                                            <Form.Label className="fw-bold">Popust (%)</Form.Label>
+                                        <Form.Control
                                             type="number"
                                             name="popust"
                                             placeholder="0"
-                                            required
                                         />
                                         </Form.Group>
                                   

@@ -98,6 +98,7 @@ export default function PonudaPregled() {
             <Table hover bordered responsive>
                 <thead>
                     <tr>
+                        <th>Naziv</th>
                         <th>Korisnik</th>
                         <th>Usluge</th>
                         <th>Datum</th>
@@ -108,6 +109,7 @@ export default function PonudaPregled() {
                 <tbody>
                     {ponude && ponude.map((ponuda) => (
                         <tr key={ponuda.sifra}>
+                             <td>{ponuda.naziv}</td>
                             <td>{dohvatiNazivKorisnika(ponuda.korisnik)}</td>
                             <td>{dohvatiNaziveUsluga(ponuda.usluge)}</td>
                             <td> <FormatDatuma datum={ponuda.datum} /></td>
