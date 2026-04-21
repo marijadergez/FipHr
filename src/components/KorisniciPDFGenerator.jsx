@@ -19,7 +19,7 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
             fetchFontAsBase64('/fonts/Roboto-Regular.ttf'),
             fetchFontAsBase64('/fonts/Roboto-Bold.ttf')
         ]);
-       
+
         const doc = new jsPDF();
 
         // 2. Registracija REGULAR verzije
@@ -60,11 +60,21 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
         doc.setFont(undefined, 'bold');
         doc.text('Podaci o usluzi:', 20, yPosition);
         yPosition += 10;
+        doc.setFontSize(11);
+        doc.setFont(undefined, 'normal');
+        doc.text(`Naziv usluge: ${usluge.naziv}`, 25, yPosition);
+        yPosition += 7;
+        doc.text(`Datum pokretanja: ${new Date(usluge.datumPokretanja).toLocaleDateString('hr-HR')}`, 25, yPosition);
+        yPosition += 7;
+
+
 
         doc.setFontSize(11);
         doc.setFont(undefined, 'normal');
-        doc.text(`Popust: ${ponuda.popust}`, 25, yPosition);
-       yPosition += 15;
+        doc.text(`Popust: ${ponuda.popust}  %`, 25, yPosition); // sama dodala % shvatila kako
+        yPosition += 15;
+
+
 
         // Podaci o korisniku
         doc.setFontSize(14);
@@ -74,64 +84,77 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
 
         doc.setFontSize(11);
         doc.setFont(undefined, 'normal');
-        doc.text(`Naziv: ${korisnik.naziv}`, 25, yPosition);
+        doc.text(`Ime: ${korisnik.ime}`, 25, yPosition);
         yPosition += 7;
-        // doc.text(`Trajanje: ${usluge.trajanje} sati`, 25, yPosition);
-        // yPosition += 7;
-        // doc.text(`Cijena: ${ponude.cijena} EUR`, 25, yPosition);
-        // yPosition += 7;
-        // doc.text(`Datum pokretanja: ${new Date(usluge.datumPokretanja).toLocaleDateString('hr-HR')}`, 25, yPosition);
-        // yPosition += 7;
-        // doc.text(`Aktivan: ${usluge.aktivan ? 'Da' : 'Ne'}`, 25, yPosition);
-        // yPosition += 15;
+        doc.text(`Prezime: ${korisnik.prezime}`, 25, yPosition);
+        yPosition += 7;
+        doc.text(`Grad: ${korisnik.grad}`, 25, yPosition);
+        yPosition += 7;
+        doc.text(`Email: ${korisnik.email}`, 25, yPosition);
+        yPosition += 7;
+        
 
-        // Popis polaznika
+
+
+
+
+
+
+
         doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
-        doc.text('Popis usluga:', 20, yPosition);
-        yPosition += 10;
+        doc.text('Popis usluga:', 20, yPosition +10);
+        doc.setDrawColor(46, 125, 50);
+        doc.setLineWidth(0.5);
+        doc.line(20, yPosition + 3, 190, yPosition + 3);
+        yPosition += 20;
 
         if (usluge && usluge.length > 0) {
             // Tablica s polaznicima
             const tableData = usluge.map(usluga => [
                 usluga.naziv,
-                usluga.cijena
+                usluga.cijena,
+                usluga.popust,
+                
+
             ]);
 
-            autoTable(doc,{
+            autoTable(doc, {
                 startY: yPosition,
-                head: [['Naziv', 'Cijena']],
+                head: [['Naziv', 'Cijena', 'Popust']],
                 body: tableData,
-               // 1. Postavi ukupnu širinu tablice na širinu dostupnog prostora (npr. 180mm)
-    tableWidth: 'auto', 
-    
-    // 2. Margine (lijevo, desno) - osiguraj da ima mjesta
-    margin: { left: 15, right: 15 },
+                // 1. Postavi ukupnu širinu tablice na širinu dostupnog prostora (npr. 180mm)
+                tableWidth: 'auto',
 
-    styles: { 
-        font: 'Roboto', 
-        fontStyle: 'normal',
-        fontSize: 10, // Smanji malo font ako i dalje ne stane (default je 12)
-        overflow: 'linebreak' // Prebaci dugački tekst u novi red
-    },
-    
-    headStyles: { 
-        font: 'Roboto', 
-        fontStyle: 'bold',
-        fillColor: [46, 125, 50] 
-    },
+                // 2. Margine (lijevo, desno) - osiguraj da ima mjesta
+                margin: { left: 20, right: 15 },
 
-    // 3. Ručno podešavanje širine stupaca (ukupno cca 180mm za A4)
-    columnStyles: {
-        0: { cellWidth: 35 }, // Naziv
-        1: { cellWidth: 35 }, // Cijena
-    }
+                styles: {
+                    font: 'Roboto',
+                    fontStyle: 'normal',
+                    fontSize: 10, // Smanji malo font ako i dalje ne stane (default je 12)
+                    overflow: 'linebreak' // Prebaci dugački tekst u novi red
+                },
+
+                headStyles: {
+                    font: 'Roboto',
+                    fontStyle: 'bold',
+                    fillColor: [46, 125, 50]
+                },
+
+                // 3. Ručno podešavanje širine stupaca (ukupno cca 180mm za A4)
+                columnStyles: {
+                    0: { cellWidth: 35 }, // Naziv
+                    1: { cellWidth: 35 }, // Cijena
+                    2: { cellWidth: 50 }, // Email (njemu treba najviše mjesta)
+                }
             });
         } else {
             doc.setFontSize(11);
             doc.setFont(undefined, 'italic');
             doc.text('Nema usluga u ovoj ponudi.', 25, yPosition);
         }
+
 
         // Footer
         const pageCount = doc.internal.getNumberOfPages();

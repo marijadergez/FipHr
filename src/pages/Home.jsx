@@ -1,5 +1,5 @@
 import { IME_APLIKACIJE } from "../constants";
-        
+
 
 
 import { Col, Row, Card } from "react-bootstrap";
@@ -12,8 +12,8 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 
 
-export default function Home(){
- 
+export default function Home() {
+
 
 
 
@@ -30,7 +30,7 @@ export default function Home(){
                 const uslugeRezultat = await UslugeService.get();
                 const korisnici = await KorisnikService.get();
                 const gradovi = await GradService.get();
-                
+
                 setBrojUsluga(uslugeRezultat.data.length);
                 setBrojKorisnika(korisnici.data.length);
                 setBrojGradova(gradovi.data.length);
@@ -73,51 +73,65 @@ export default function Home(){
 
     return (
         <>
-        <Row>
-            <Col md={6}>
-            <div style={{ textAlign: 'center' }}>
-                <img src="" />
-            </div>
-            <p className="lead m-5 text-center">Dobrodošli na {IME_APLIKACIJE}</p>
-            <div style={{maxWidth: '500px', margin: 'auto'}}>
-                <DotLottieReact
-                    src="/AISpark_InteractiveAssistant.lottie"
-                    loop
-                    autoplay
-                />
-            </div>
-            </Col>
-            <Col className="d-flex align-items-center justify-content-center">
-                <div style={{ width: '100%', maxWidth: '400px' }}>
-                    <Card className="mb-3 shadow-lg border-0 statistikaPanel">
-                        <Card.Body className="text-center">
-                            <p className="text-white">Usluge</p>
-                            <div className="statistikaTekst">
-                                {animatedUsluge}
-                            </div>
-                        </Card.Body>
-                    </Card>
+            <Row>
+                <Col md={6}>
+                    <div style={{ textAlign: 'center' }}>
+                        <img src="" />
+                    </div>
+                    <p className="lead m-5 text-center">Dobrodošli na {IME_APLIKACIJE}</p>
+                    <div style={{ maxWidth: '500px', margin: 'auto' }}>
+                        <DotLottieReact
+                            src="/AISpark_InteractiveAssistant.lottie"
+                            loop
+                            autoplay
+                        />
+                    </div>
 
-                    <Card className="mb-3 shadow-lg border-0 statistikaPanel">
-                        <Card.Body className="text-center">
-                            <p className="text-white">Korisnici</p>
-                            <div className="statistikaTekst">
-                                {animatedKorisnici}
-                            </div>
-                        </Card.Body>
-                    </Card>
 
-                    <Card className="shadow-lg border-0 statistikaPanel">
-                        <Card.Body className="text-center">
-                            <p className="text-white">Gradovi</p>
-                            <div className="statistikaTekst">
-                                {animatedGradovi}
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </div>
-            </Col>
-        </Row>
+                    <dotlottie-wc
+                        src="https://lottie.host/510411c5-d9ea-4e75-8829-efc1a022a9a6/mGH3ToWnVo.lottie"
+                        style="width: 300px;height: 300px"
+                        autoplay
+                        loop
+                    ></dotlottie-wc>
+
+
+
+                </Col>
+                <Col className="d-flex align-items-center justify-content-center">
+                    <div style={{ width: '100%', maxWidth: '400px' }}>
+                        <Card className="mb-3 shadow-lg border-0 statistikaPanel">
+                            <Card.Body className="text-center">
+                                <p className="text-white">Usluge</p>
+                                <div className="statistikaTekst">
+                                    {animatedUsluge}
+                                </div>
+                            </Card.Body>
+                        </Card>
+
+                        <Card className="mb-3 shadow-lg border-0 statistikaPanel">
+                            <Card.Body className="text-center">
+                                <p className="text-white">Korisnici</p>
+                                <div className="statistikaTekst">
+                                    {animatedKorisnici}
+                                </div>
+                            </Card.Body>
+                        </Card>
+
+                        <Card className="shadow-lg border-0 statistikaPanel">
+                            <Card.Body className="text-center">
+                                <p className="text-white">Gradovi</p>
+                                <div className="statistikaTekst">
+                                    {animatedGradovi}
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                </Col>
+            </Row>
+
+
+
         </>
     )
 }
