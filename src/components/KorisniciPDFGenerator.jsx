@@ -1,7 +1,7 @@
 import { jsPDF } from 'jspdf';
 import { autoTable } from 'jspdf-autotable';
 
-export default function KorisniciPDFGenerator({ usluge, ponude, korisnici }) {
+export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
 
     const fetchFontAsBase64 = async (url) => {
         const response = await fetch(url);
@@ -19,7 +19,7 @@ export default function KorisniciPDFGenerator({ usluge, ponude, korisnici }) {
             fetchFontAsBase64('/fonts/Roboto-Regular.ttf'),
             fetchFontAsBase64('/fonts/Roboto-Bold.ttf')
         ]);
-
+       
         const doc = new jsPDF();
 
         // 2. Registracija REGULAR verzije
@@ -40,7 +40,7 @@ export default function KorisniciPDFGenerator({ usluge, ponude, korisnici }) {
 
         doc.setFontSize(10);
         doc.setTextColor(102, 102, 102);
-        doc.text('EVIDENCIJA USLUZGA,PONUDA I KORISNIKA', 20, 27);
+        doc.text('EVIDENCIJA USLUGA,PONUDA I KORISNIKA', 20, 27);
 
         // Naslov dokumenta
         doc.setFont('Roboto', 'bold');
@@ -63,48 +63,44 @@ export default function KorisniciPDFGenerator({ usluge, ponude, korisnici }) {
 
         doc.setFontSize(11);
         doc.setFont(undefined, 'normal');
-        doc.text(`Naziv: ${usluge.naziv}`, 25, yPosition);
-        yPosition += 7;
-        doc.text(`Broj korisnia: ${usluge.korisnici ? usluge.korisnici.length : 0}`, 25, yPosition);
-        yPosition += 15;
+        doc.text(`Popust: ${ponuda.popust}`, 25, yPosition);
+       yPosition += 15;
 
-        // Podaci o smjeru
+        // Podaci o korisniku
         doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
-        doc.text('Podaci o ponudi:', 20, yPosition);
+        doc.text('Podaci o korisniku:', 20, yPosition);
         yPosition += 10;
 
         doc.setFontSize(11);
         doc.setFont(undefined, 'normal');
-        doc.text(`Naziv: ${usluge.naziv}`, 25, yPosition);
+        doc.text(`Naziv: ${korisnik.naziv}`, 25, yPosition);
         yPosition += 7;
-        doc.text(`Trajanje: ${usluge.trajanje} sati`, 25, yPosition);
-        yPosition += 7;
-        doc.text(`Cijena: ${ponude.cijena} EUR`, 25, yPosition);
-        yPosition += 7;
-        doc.text(`Datum pokretanja: ${new Date(usluge.datumPokretanja).toLocaleDateString('hr-HR')}`, 25, yPosition);
-        yPosition += 7;
-        doc.text(`Aktivan: ${usluge.aktivan ? 'Da' : 'Ne'}`, 25, yPosition);
-        yPosition += 15;
+        // doc.text(`Trajanje: ${usluge.trajanje} sati`, 25, yPosition);
+        // yPosition += 7;
+        // doc.text(`Cijena: ${ponude.cijena} EUR`, 25, yPosition);
+        // yPosition += 7;
+        // doc.text(`Datum pokretanja: ${new Date(usluge.datumPokretanja).toLocaleDateString('hr-HR')}`, 25, yPosition);
+        // yPosition += 7;
+        // doc.text(`Aktivan: ${usluge.aktivan ? 'Da' : 'Ne'}`, 25, yPosition);
+        // yPosition += 15;
 
         // Popis polaznika
         doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
-        doc.text('Popis korisnika:', 20, yPosition);
+        doc.text('Popis usluga:', 20, yPosition);
         yPosition += 10;
 
-        if (korisnici && korisnici.length > 0) {
+        if (usluge && usluge.length > 0) {
             // Tablica s polaznicima
-            const tableData = korisnici.map(korisnik => [
-                korisnik.ime,
-                korisnik.prezime,
-                korisnik.email,
-                korisnik.oib
+            const tableData = usluge.map(usluga => [
+                usluga.naziv,
+                usluga.cijena
             ]);
 
             autoTable(doc,{
                 startY: yPosition,
-                head: [['podatak1', 'podatak2', 'podatak3', 'podatak4']],
+                head: [['Naziv', 'Cijena']],
                 body: tableData,
                // 1. Postavi ukupnu širinu tablice na širinu dostupnog prostora (npr. 180mm)
     tableWidth: 'auto', 
@@ -127,16 +123,14 @@ export default function KorisniciPDFGenerator({ usluge, ponude, korisnici }) {
 
     // 3. Ručno podešavanje širine stupaca (ukupno cca 180mm za A4)
     columnStyles: {
-        0: { cellWidth: 35 }, // Ime
-        1: { cellWidth: 35 }, // Prezime
-        2: { cellWidth: 70 }, // Email (njemu treba najviše mjesta)
-        3: { cellWidth: 40 }, // OIB (uvijek je fiksne dužine)
+        0: { cellWidth: 35 }, // Naziv
+        1: { cellWidth: 35 }, // Cijena
     }
             });
         } else {
             doc.setFontSize(11);
             doc.setFont(undefined, 'italic');
-            doc.text('Nema polaznika u ovoj grupi.', 25, yPosition);
+            doc.text('Nema usluga u ovoj ponudi.', 25, yPosition);
         }
 
         // Footer

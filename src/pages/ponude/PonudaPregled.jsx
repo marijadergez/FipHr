@@ -87,37 +87,38 @@ export default function PonudaPregled() {
             
 
     }
-        async function generirajPDFZaKorisnici(korisnici) {
+        async function generirajPDFZaPonudu(ponuda) {
         // Dohvati smjer
-        const usluge = usluge.find(s => s.sifra === usluge.ponuda)
+        const korisnik = korisnici.find(s => s.sifra === ponuda.korisnik)
         if (!usluge) {
-            alert('Usluga nije pronađena')
+            alert('Korisnik nije pronađen')
             return
         }
 
         // Dohvati sve polaznike
-        const odgovorKorisnici = await KorisnikService.get()
-        if (!odgovorKorisnici.success) {
-            alert('Nije moguće dohvatiti polaznike')
+        const odgovorUsluge = await UslugeService.get()
+        if (!odgovorUsluge.success) {
+            alert('Nije moguće dohvatiti usluge')
             return
         }
 
         // Filtriraj polaznike koji pripadaju ovoj grupi
-        const korisniciUsluge = odgovorKorisnici.data.filter(p =>
-            usluge.korisnici && usluge.korisnici.includes(p.sifra)
+        const uslugePonude = odgovorUsluge.data.filter(p =>
+            ponuda.usluge && ponuda.usluge.includes(p.sifra)
         )
 
         // Generiraj PDF
         const generiraj = GrupaPDFGenerator({
-            ponude,
-            usluge,
-            korisnici: korisniciUsluge
+            ponuda,
+            korisnik,
+            usluge: uslugePonude
+            
         })
         await generiraj()
     
     
 
-
+    }
     
 
       
@@ -165,7 +166,7 @@ export default function PonudaPregled() {
                                 
 
                                  &nbsp;&nbsp;
-                                <Button variant="info" onClick={() => generirajPDFZaGrupu(grupa)} title="Generiraj PDF">
+                                <Button variant="info" onClick={() => generirajPDFZaPonudu(ponuda)} title="Generiraj PDF">
                                     <FaFilePdf />
                                 </Button>
                             </td>
@@ -175,6 +176,4 @@ export default function PonudaPregled() {
             </Table>
         </>
     )
-
-}
 }
