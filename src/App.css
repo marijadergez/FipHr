@@ -1,6 +1,6 @@
 body{
   background-color: rgb(241, 233, 223);
-  background: linear-gradient(90deg, #9dc4e4 0,#73d6b5 40%);
+  background: linear-gradient(90deg, #9dc4e4 0,#afebd7 40%);
 }
 
 
@@ -18,10 +18,14 @@ h1{
   color: rgb(40, 131, 131);
 
 }
+h2{
+  color: rgb(85, 87, 87);
+  font-size: 19px;
+}
 
 
 .statistikaPanel{
-  background: linear-gradient(135deg, #cb72dd 0%, #663a94 100%);
+  background: linear-gradient(135deg, #cb72dd 0%, #9163c2 100%);
   transform: translateY(0);
   transition: transform 0.3s ease;
 }

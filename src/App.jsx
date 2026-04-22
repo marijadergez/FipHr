@@ -65,7 +65,7 @@ function App() {
 
 
   
-      <hr />
+      
 
       &copy; Marija | Edunova | 2026.
     </Container>

@@ -73,9 +73,10 @@ export default function Home() {
         <>
             <Row>
                 <Col md={6}>
-                    <p className="lead m-5 text-center">Dobrodošli na {IME_APLIKACIJE}</p>
+                    <p className="lead m-5 text-center"><h1>Dobrodošli na {IME_APLIKACIJE}</h1></p>
+                    <h2>Knjigovodstvo i računovodstvo za velike i male tvrtke i obrtnike.</h2>
 
-                    <hr />
+                    
 
                     <DotLottieReact
                         src="https://lottie.host/510411c5-d9ea-4e75-8829-efc1a022a9a6/mGH3ToWnVo.lottie"
@@ -93,6 +94,8 @@ export default function Home() {
                             autoplay
                         />
                     </div>
+
+                    
 
                 </Col>
                 <Col className="d-flex align-items-center justify-content-center">
