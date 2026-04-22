@@ -1,19 +1,17 @@
 import { IME_APLIKACIJE } from "../constants";
 
-
-
 import { Col, Row, Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import UslugaService from "../services/usluge/UslugeService";
 import KorisnikService from "../services/korisnici/korisnikService";
 import GradService from "../services/gradovi/GradService";
 import UslugeService from "../services/usluge/UslugeService";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import React from 'react';
 
 
 export default function Home() {
-
 
 
 
@@ -75,27 +73,26 @@ export default function Home() {
         <>
             <Row>
                 <Col md={6}>
-                    <div style={{ textAlign: 'center' }}>
-                        <img src="" />
-                    </div>
                     <p className="lead m-5 text-center">Dobrodošli na {IME_APLIKACIJE}</p>
-                    <div style={{ maxWidth: '500px', margin: 'auto' }}>
+
+                    <hr />
+
+                    <DotLottieReact
+                        src="https://lottie.host/510411c5-d9ea-4e75-8829-efc1a022a9a6/mGH3ToWnVo.lottie"
+                        loop
+                        autoplay
+                    />
+                    {/*<div style={{ textAlign: 'center' }}>
+                        <img src="" />
+                    </div>*/}
+
+                    <div style={{ maxWidth: '2px', margin: 'auto' }}>
                         <DotLottieReact
                             src="/AISpark_InteractiveAssistant.lottie"
                             loop
                             autoplay
                         />
                     </div>
-
-
-                    <dotlottie-wc
-                        src="https://lottie.host/510411c5-d9ea-4e75-8829-efc1a022a9a6/mGH3ToWnVo.lottie"
-                        style="width: 300px;height: 300px"
-                        autoplay
-                        loop
-                    ></dotlottie-wc>
-
-
 
                 </Col>
                 <Col className="d-flex align-items-center justify-content-center">
