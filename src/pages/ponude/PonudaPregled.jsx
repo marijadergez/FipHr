@@ -15,6 +15,7 @@ import UslugeService from "../../services/usluge/UslugeService"
 
 import GrupaPDFGenerator from "../../components/KorisniciPDFGenerator"
 import { FaEdit, FaFilePdf, FaTrash } from "react-icons/fa"
+import GradService from "../../services/gradovi/GradService"
 
 export default function PonudaPregled() {
 
@@ -107,10 +108,19 @@ export default function PonudaPregled() {
             ponuda.usluge && ponuda.usluge.includes(p.sifra)
         )
 
+    
+    const gradoviPodaci = await GradService.get()
+
+    const gradovi = gradoviPodaci.data
+
+    const imeGrada = gradovi.find(g=>g.sifra = korisnik.grad).naziv
+    const dtoKorisnik = {...korisnik, grad: imeGrada}
+    //console.table(korisnik)
+    //console.table(dtoKorisnik)
         // Generiraj PDF
         const generiraj = GrupaPDFGenerator({
             ponuda,
-            korisnik,
+            korisnik: dtoKorisnik,
             usluge: uslugePonude
             
         })

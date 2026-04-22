@@ -46,7 +46,7 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
         doc.setFont('Roboto', 'bold');
         doc.setFontSize(16);
         doc.setTextColor(0, 0, 0);
-        doc.text('POPIS USLUGA', 20, 45);
+        doc.text('Ponuda', 20, 45);
 
         // Linija ispod naslova
         doc.setDrawColor(46, 125, 50);
@@ -58,13 +58,13 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
         // Podaci o grupi
         doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
-        doc.text('Podaci o usluzi:', 20, yPosition);
+        doc.text('Ponuda', 20, yPosition);
         yPosition += 10;
         doc.setFontSize(11);
         doc.setFont(undefined, 'normal');
-        doc.text(`Naziv usluge: ${usluge.naziv}`, 25, yPosition);
+        doc.text(`Broj ponude: ${ponuda.sifra}`, 25, yPosition);
         yPosition += 7;
-        doc.text(`Datum pokretanja: ${new Date(usluge.datumPokretanja).toLocaleDateString('hr-HR')}`, 25, yPosition);
+        doc.text(`Datum ponude: ${new Date(ponuda.datum).toLocaleDateString('hr-HR')}`, 25, yPosition);
         yPosition += 7;
 
 
