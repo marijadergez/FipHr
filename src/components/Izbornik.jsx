@@ -25,23 +25,24 @@ export default function Izbornik() {
 
                         <NavDropdown title="Program" id="basic-nav-dropdown">
                             
+                            <NavDropdown.Item
+                                onClick={() => navigate(RouteNames.GRADOVI)}
+                            >Gradovi</NavDropdown.Item>
                            
                             
                             <NavDropdown.Item
                                 onClick={() => navigate(RouteNames.USLUGE)}
                             >Usluge</NavDropdown.Item>
 
-                             <NavDropdown.Item
-                                onClick={() => navigate(RouteNames.PONUDE)}
-                            >Ponude</NavDropdown.Item>
 
                             <NavDropdown.Item
                                 onClick={() => navigate(RouteNames.KORISNICI)}
                             >Korisnici</NavDropdown.Item>
 
+                             
                              <NavDropdown.Item
-                                onClick={() => navigate(RouteNames.GRADOVI)}
-                            >Gradovi</NavDropdown.Item>
+                                onClick={() => navigate(RouteNames.PONUDE)}
+                            >Ponude</NavDropdown.Item>
 
 
                              <NavDropdown.Divider />

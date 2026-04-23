@@ -5,13 +5,15 @@ import UslugeService from '../services/usluge/UslugeService';
 import GradService from '../services/gradovi/GradService';
 import KorisnikService from '../services/korisnici/KorisnikService';
 import { gradovi } from '../services/gradovi/GradPodaci';
-
+import PonudaService from '../services/ponude/PonudaService'
+import { ponude } from '../services/ponude/PonudaPodaci';
 
 
 export default function GeneriranjePodataka() {
     const [brojUsluga, setBrojUsluga] = useState(5);
     const [brojKorisnika, setBrojKorisnika] = useState(20);
     const [brojGradova, setBrojGradova] = useState(10);
+    const [brojPonuda, setBrojPonuda] = useState(50)
     const [poruka, setPoruka] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -28,16 +30,20 @@ export default function GeneriranjePodataka() {
             
         ];
 
+       
+
         for (let i = 0; i < broj; i++) {
             await UslugeService.dodaj({
                 naziv: naziviUsluga[i % naziviUsluga.length] + (i >= naziviUsluga.length ? ` ${Math.floor(i / naziviUsluga.length) + 1}` : ''),
                 
-                cijena: faker.number.float({ min: 1100, max: 5000, precision: 0.01 }).toFixed(2),
+                cijena: parseFloat(faker.number.float({ min: 1100, max: 5000, precision: 0.01 }).toFixed(2)),
                 datumPokretanja: faker.date.soon().toISOString().split('T')[0],
                 popust: faker.datatype.boolean()
             });
         }
     };
+
+     
 
     const generirajKorisnike = async (broj) => {
         for (let i = 0; i < broj; i++) {
@@ -75,6 +81,30 @@ export default function GeneriranjePodataka() {
         }
     };
 
+       const generirajPonude = async (broj) => {
+
+        
+           // Dohvati sve korisnike i zmi za svakog slučajnog
+        // dohvati sve usluge i odaberi slučajni broj od 1-5 iz popisa usluga i dodaj na ponudi
+        const slucajniKorisnik =1
+        const slucajneUsluge = [1,2]
+
+        
+
+        
+        for (let i = 0; i < broj; i++) {
+   
+            const ponuda = {
+                korisnik: slucajniKorisnik  ,
+                usluge: slucajneUsluge,
+                datum: faker.date.soon().toISOString().split('T')[0],
+                popust: faker.number.int({ min: 0, max: 50 })
+            };
+            
+            await PonudaService.dodaj(ponuda);
+        }
+    };
+
     const handleGenerirajUsluge = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -91,6 +121,27 @@ export default function GeneriranjePodataka() {
             setPoruka({
                 tip: 'danger',
                 tekst: 'Greška pri generiranju usluga: ' + error.message
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+    const handleGenerirajPonude = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+            await generirajPonude(brojPonuda);
+
+            setPoruka({
+                tip: 'success',
+                tekst: `Uspješno generirano ${brojPonuda} usluga!`
+            });
+        } catch (error) {
+            setPoruka({
+                tip: 'danger',
+                tekst: 'Greška pri generiranju ponuda: ' + error.message
             });
         } finally {
             setLoading(false);
@@ -231,6 +282,35 @@ export default function GeneriranjePodataka() {
             setLoading(false);
         }
     };
+       const handleObrisiPonude = async () => {
+        if (!window.confirm('Jeste li sigurni da želite obrisati sve ponude?')) {
+            return;
+        }
+
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+            const rezultat = await PonudaService.get();
+            const ponuda = rezultat.data;
+            
+            for (const ponuda of ponude) {
+                await PonudaService.obrisi(ponuda.sifra);
+            }
+
+            setPoruka({
+                tip: 'success',
+                tekst: `Uspješno obrisana ${ponuda.length} grad!`
+            });
+        } catch (error) {
+            setPoruka({
+                tip: 'danger',
+                tekst: 'Greška pri brisanju ponuda: ' + error.message
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <Container className="mt-4">
@@ -324,6 +404,32 @@ export default function GeneriranjePodataka() {
                         </Button>
                     </Form>
                 </Col>
+                <Col md={4}>
+                    <Form onSubmit={handleGenerirajPonude}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Broj ponuda</Form.Label>
+                            <Form.Control
+                                type="number"
+                                min="1"
+                                max="50"
+                                value={brojPonuda}
+                                onChange={(e) => setBrojPonuda(parseInt(e.target.value))}
+                                disabled={loading}
+                            />
+                            <Form.Text className="text-muted">
+                                Unesite broj Ponuda (1-50)
+                            </Form.Text>
+                        </Form.Group>
+                        <Button 
+                            variant="primary" 
+                            type="submit" 
+                            disabled={loading}
+                            className="w-100"
+                        >
+                            {loading ? 'Generiranje...' : 'Generiraj Ponude'}
+                        </Button>
+                    </Form>
+                </Col>
             </Row>
 
             <Alert variant="warning" className="mt-3">
@@ -367,6 +473,16 @@ export default function GeneriranjePodataka() {
                         className="w-100 mb-2"
                     >
                         {loading ? 'Brisanje...' : 'Obriši sve gradove'}
+                    </Button>
+                </Col>
+                <Col md={4}>
+                    <Button 
+                        variant="danger" 
+                        onClick={handleObrisiPonude}
+                        disabled={loading}
+                        className="w-100 mb-2"
+                    >
+                        {loading ? 'Brisanje...' : 'Obriši sve Ponude'}
                     </Button>
                 </Col>
             </Row>
