@@ -23,7 +23,7 @@ export default function Home() {
     const [animatedGradovi, setAnimatedGradovi] = useState(0);
 
     const lottieStyle = {
-        marginTop: '20px',
+        marginTop: '10px',
         width: ',',
         high: 'auto',
         display: 'block'
