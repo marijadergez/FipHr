@@ -25,7 +25,7 @@ async function getBySifra(sifra) {
 async function dodaj(ponuda) {
     const ponude = dohvatiSveIzStorage();
 
-    if (ponuda.length === 0) {
+    if (ponude.length === 0) {
        ponuda.sifra = 1;
     }else {
         const maxSifra = Math.max(...ponude.map(s => s.sifra));

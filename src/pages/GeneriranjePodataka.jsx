@@ -7,6 +7,7 @@ import KorisnikService from '../services/korisnici/KorisnikService';
 import { gradovi } from '../services/gradovi/GradPodaci';
 import PonudaService from '../services/ponude/PonudaService'
 import { ponude } from '../services/ponude/PonudaPodaci';
+import UslugeServiceLocalStorage from '../services/usluge/UslugeServiceLocalStorage';
 
 
 export default function GeneriranjePodataka() {
@@ -45,18 +46,7 @@ export default function GeneriranjePodataka() {
 
      
 
-    const generirajKorisnike = async (broj) => {
-        for (let i = 0; i < broj; i++) {
-            const korisnik = {
-                ime: i%2===0? faker.person.firstName('male') : faker.person.firstName('female'),
-                prezime: faker.person.lastName(),
-                email: faker.internet.email(),
-                
-            };
-            await KorisnikService.dodaj(korisnik);
-        }
-    };
-
+   
     const generirajGradove = async (broj) => {
 
         // Dohvati sve smjerove
@@ -74,25 +64,54 @@ export default function GeneriranjePodataka() {
   
             const grad = {
                 naziv: randomUsluge.naziv.trim().split(/\s+/).slice(0, 2).map(rijec => rijec[0]).join('').toUpperCase(),   
-                usluga: randomUsluge.sifra
             };
             
             await GradService.dodaj(grad);
         }
     };
 
+
+     const generirajKorisnike = async (broj) => {
+        for (let i = 0; i < broj; i++) {
+            const korisnik = {
+                ime: i%2===0? faker.person.firstName('male') : faker.person.firstName('female'),
+                prezime: faker.person.lastName(),
+                email: faker.internet.email(),
+                grad: 1 // ovdje dovuci slučajni grad
+            };
+            await KorisnikService.dodaj(korisnik);
+        }
+    };
+
+
        const generirajPonude = async (broj) => {
 
         
            // Dohvati sve korisnike i zmi za svakog slučajnog
         // dohvati sve usluge i odaberi slučajni broj od 1-5 iz popisa usluga i dodaj na ponudi
-        const slucajniKorisnik =1
-        const slucajneUsluge = [1,2]
+
+        const korisnikData = await KorisnikService.get()
+        const rezultatiKorisnik = korisnikData.data
 
         
+        
+
+         const uslugaData = await UslugeService.get()
+         let rezultati = uslugaData.data
+
+         //console.table(rezultati)
+
 
         
         for (let i = 0; i < broj; i++) {
+
+            const slucajniKorisnik = faker.number.int({ min: 0, max: rezultatiKorisnik.length - 1 })
+
+            let slucajneUsluge = []
+
+            for(let i=0;i<faker.number.int({ min: 4, max: 4 });i++){
+                slucajneUsluge.push(rezultati[faker.number.int({ min: 0, max: rezultati.length - 1 })].sifra)
+            }
    
             const ponuda = {
                 korisnik: slucajniKorisnik  ,
@@ -136,7 +155,7 @@ export default function GeneriranjePodataka() {
 
             setPoruka({
                 tip: 'success',
-                tekst: `Uspješno generirano ${brojPonuda} usluga!`
+                tekst: `Uspješno generirano ${brojPonuda} ponuda!`
             });
         } catch (error) {
             setPoruka({
@@ -300,7 +319,7 @@ export default function GeneriranjePodataka() {
 
             setPoruka({
                 tip: 'success',
-                tekst: `Uspješno obrisana ${ponuda.length} grad!`
+                tekst: `Uspješno obrisan ${ponuda.length} grad!`
             });
         } catch (error) {
             setPoruka({

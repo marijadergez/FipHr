@@ -29,7 +29,7 @@ async function dodaj(korisnik) {
         korisnik.sifra = 1;
     }else {
         const maxSifra = Math.max(...korisnici.map(s => s.sifra));
-        korisnici.sifra = maxSifra + 1;
+        korisnik.sifra = maxSifra + 1;
     }
 
   korisnici.push(korisnik);
