@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react"
-
 import { Button, Table } from "react-bootstrap"
 import { NumericFormat } from "react-number-format"
-
 import { GrAdd, GrValidate } from "react-icons/gr"
 import FormatDatuma from "../../components/FormatDatuma"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import GradService from "../../services/gradovi/GradService"
-
-
+import { IME_APLIKACIJE } from "../../constants"
 
 
 
@@ -17,6 +14,9 @@ export default function gradoviPregled() {
 
     const navigate = useNavigate()
     const [gradovi, setGradovi] = useState([])
+
+     useEffect(()=>{document.title='Gradovi, ' + IME_APLIKACIJE})
+
 
     useEffect(() => {
         ucitajgradovi()

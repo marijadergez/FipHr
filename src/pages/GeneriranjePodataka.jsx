@@ -8,7 +8,7 @@ import { gradovi } from '../services/gradovi/GradPodaci';
 import PonudaService from '../services/ponude/PonudaService'
 import { ponude } from '../services/ponude/PonudaPodaci';
 import UslugeServiceLocalStorage from '../services/usluge/UslugeServiceLocalStorage';
-
+import { IME_APLIKACIJE } from '../constants';
 
 export default function GeneriranjePodataka() {
     const [brojUsluga, setBrojUsluga] = useState(5);
@@ -17,6 +17,11 @@ export default function GeneriranjePodataka() {
     const [brojPonuda, setBrojPonuda] = useState(50)
     const [poruka, setPoruka] = useState(null);
     const [loading, setLoading] = useState(false);
+
+
+    useEffect(()=>{document.title='Generiranje podataka, ' + IME_APLIKACIJE})
+
+
 
     // Postavi faker na hrvatski jezik
     const faker = new Faker({
@@ -27,16 +32,16 @@ export default function GeneriranjePodataka() {
         const naziviUsluga = [
             'Knjigovodstvo obrtnika',
             'Knjigovodstvo trgovačkih društava',
-            
-            
+
+
         ];
 
-       
+
 
         for (let i = 0; i < broj; i++) {
             await UslugeService.dodaj({
                 naziv: naziviUsluga[i % naziviUsluga.length] + (i >= naziviUsluga.length ? ` ${Math.floor(i / naziviUsluga.length) + 1}` : ''),
-                
+
                 cijena: parseFloat(faker.number.float({ min: 1100, max: 5000, precision: 0.01 }).toFixed(2)),
                 datumPokretanja: faker.date.soon().toISOString().split('T')[0],
                 popust: faker.datatype.boolean()
@@ -44,37 +49,35 @@ export default function GeneriranjePodataka() {
         }
     };
 
-     
 
-   
     const generirajGradove = async (broj) => {
 
         // Dohvati sve smjerove
         const rezultatUsluge = await UslugeService.get();
         const usluge = rezultatUsluge.data;
 
-        
+
         if (usluge.length === 0) {
             throw new Error('Nema dostupnih usluga. Prvo generirajte usluge.');
         }
-        
+
         for (let i = 0; i < broj; i++) {
             // Odaberi nasumični smjer
             const randomUsluge = usluge[faker.number.int({ min: 0, max: usluge.length - 1 })];
-  
+
             const grad = {
-                naziv: randomUsluge.naziv.trim().split(/\s+/).slice(0, 2).map(rijec => rijec[0]).join('').toUpperCase(),   
+                naziv: randomUsluge.naziv.trim().split(/\s+/).slice(0, 2).map(rijec => rijec[0]).join('').toUpperCase(),
             };
-            
+
             await GradService.dodaj(grad);
         }
     };
 
 
-     const generirajKorisnike = async (broj) => {
+    const generirajKorisnike = async (broj) => {
         for (let i = 0; i < broj; i++) {
             const korisnik = {
-                ime: i%2===0? faker.person.firstName('male') : faker.person.firstName('female'),
+                ime: i % 2 === 0 ? faker.person.firstName('male') : faker.person.firstName('female'),
                 prezime: faker.person.lastName(),
                 email: faker.internet.email(),
                 grad: 1 // ovdje dovuci slučajni grad
@@ -84,42 +87,42 @@ export default function GeneriranjePodataka() {
     };
 
 
-       const generirajPonude = async (broj) => {
+    const generirajPonude = async (broj) => {
 
-        
-           // Dohvati sve korisnike i zmi za svakog slučajnog
+
+        // Dohvati sve korisnike i zmi za svakog slučajnog
         // dohvati sve usluge i odaberi slučajni broj od 1-5 iz popisa usluga i dodaj na ponudi
 
         const korisnikData = await KorisnikService.get()
         const rezultatiKorisnik = korisnikData.data
 
-        
-        
-
-         const uslugaData = await UslugeService.get()
-         let rezultati = uslugaData.data
-
-         //console.table(rezultati)
 
 
-        
+
+        const uslugaData = await UslugeService.get()
+        let rezultati = uslugaData.data
+
+        //console.table(rezultati)
+
+
+
         for (let i = 0; i < broj; i++) {
 
             const slucajniKorisnik = faker.number.int({ min: 0, max: rezultatiKorisnik.length - 1 })
 
             let slucajneUsluge = []
 
-            for(let i=0;i<faker.number.int({ min: 4, max: 4 });i++){
+            for (let i = 0; i < faker.number.int({ min: 4, max: 4 }); i++) {
                 slucajneUsluge.push(rezultati[faker.number.int({ min: 0, max: rezultati.length - 1 })].sifra)
             }
-   
+
             const ponuda = {
-                korisnik: slucajniKorisnik  ,
+                korisnik: slucajniKorisnik,
                 usluge: slucajneUsluge,
                 datum: faker.date.soon().toISOString().split('T')[0],
                 popust: faker.number.int({ min: 0, max: 50 })
             };
-            
+
             await PonudaService.dodaj(ponuda);
         }
     };
@@ -167,13 +170,13 @@ export default function GeneriranjePodataka() {
         }
     };
 
-    const handleGenerirajKorisnike= async (e) => {
+    const handleGenerirajKorisnike = async (e) => {
         e.preventDefault();
         setLoading(true);
         setPoruka(null);
 
         try {
-            
+
             await generirajKorisnike(brojKorisnika);
 
             setPoruka({
@@ -201,14 +204,14 @@ export default function GeneriranjePodataka() {
         try {
             const rezultat = await KorisnikService.get();
             const korisnici = rezultat.data;
-            
-            for (const  korisnik of  korisnici) {
-                await  KorisnikService.obrisi( korisnik.sifra);
+
+            for (const korisnik of korisnici) {
+                await KorisnikService.obrisi(korisnik.sifra);
             }
 
             setPoruka({
                 tip: 'success',
-                tekst: `Uspješno obrisano ${ korisnici.length}  korisnika!`
+                tekst: `Uspješno obrisano ${korisnici.length}  korisnika!`
             });
         } catch (error) {
             setPoruka({
@@ -231,7 +234,7 @@ export default function GeneriranjePodataka() {
         try {
             const rezultat = await UslugeService.get();
             const usluge = rezultat.data;
-            
+
             for (const usluga of usluge) {
                 await UslugeService.obrisi(usluga.sifra);
             }
@@ -283,7 +286,7 @@ export default function GeneriranjePodataka() {
         try {
             const rezultat = await GradService.get();
             const grad = rezultat.data;
-            
+
             for (const grad of gradovi) {
                 await GradService.obrisi(grad.sifra);
             }
@@ -301,7 +304,7 @@ export default function GeneriranjePodataka() {
             setLoading(false);
         }
     };
-       const handleObrisiPonude = async () => {
+    const handleObrisiPonude = async () => {
         if (!window.confirm('Jeste li sigurni da želite obrisati sve ponude?')) {
             return;
         }
@@ -312,7 +315,7 @@ export default function GeneriranjePodataka() {
         try {
             const rezultat = await PonudaService.get();
             const ponuda = rezultat.data;
-            
+
             for (const ponuda of ponude) {
                 await PonudaService.obrisi(ponuda.sifra);
             }
@@ -361,9 +364,9 @@ export default function GeneriranjePodataka() {
                                 Unesite broj usluga (1-50)
                             </Form.Text>
                         </Form.Group>
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
+                        <Button
+                            variant="primary"
+                            type="submit"
                             disabled={loading}
                             className="w-100"
                         >
@@ -387,9 +390,9 @@ export default function GeneriranjePodataka() {
                                 Unesite broj korisnika (1-200)
                             </Form.Text>
                         </Form.Group>
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
+                        <Button
+                            variant="primary"
+                            type="submit"
                             disabled={loading}
                             className="w-100"
                         >
@@ -413,9 +416,9 @@ export default function GeneriranjePodataka() {
                                 Unesite broj gradova (1-100)
                             </Form.Text>
                         </Form.Group>
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
+                        <Button
+                            variant="primary"
+                            type="submit"
                             disabled={loading}
                             className="w-100"
                         >
@@ -439,9 +442,9 @@ export default function GeneriranjePodataka() {
                                 Unesite broj Ponuda (1-50)
                             </Form.Text>
                         </Form.Group>
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
+                        <Button
+                            variant="primary"
+                            type="submit"
                             disabled={loading}
                             className="w-100"
                         >
@@ -452,7 +455,7 @@ export default function GeneriranjePodataka() {
             </Row>
 
             <Alert variant="warning" className="mt-3">
-                <strong>Upozorenje:</strong> Ove akcije će dodati nove podatke u postojeće. 
+                <strong>Upozorenje:</strong> Ove akcije će dodati nove podatke u postojeće.
                 Ako želite početi ispočetka, prvo obrišite postojeće podatke.
             </Alert>
 
@@ -465,8 +468,8 @@ export default function GeneriranjePodataka() {
 
             <Row className="mt-3">
                 <Col md={4}>
-                    <Button 
-                        variant="danger" 
+                    <Button
+                        variant="danger"
                         onClick={handleObrisiUsluge}
                         disabled={loading}
                         className="w-100 mb-2"
@@ -475,8 +478,8 @@ export default function GeneriranjePodataka() {
                     </Button>
                 </Col>
                 <Col md={4}>
-                    <Button 
-                        variant="danger" 
+                    <Button
+                        variant="danger"
                         onClick={handleObrisiKorisnike}
                         disabled={loading}
                         className="w-100 mb-2"
@@ -485,8 +488,8 @@ export default function GeneriranjePodataka() {
                     </Button>
                 </Col>
                 <Col md={4}>
-                    <Button 
-                        variant="danger" 
+                    <Button
+                        variant="danger"
                         onClick={handleObrisiGradove}
                         disabled={loading}
                         className="w-100 mb-2"
@@ -495,8 +498,8 @@ export default function GeneriranjePodataka() {
                     </Button>
                 </Col>
                 <Col md={4}>
-                    <Button 
-                        variant="danger" 
+                    <Button
+                        variant="danger"
                         onClick={handleObrisiPonude}
                         disabled={loading}
                         className="w-100 mb-2"

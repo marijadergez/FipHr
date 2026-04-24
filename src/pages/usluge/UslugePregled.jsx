@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import UslugeService from "../../services/usluge/UslugeService"
 import { Button, Table } from "react-bootstrap"
 import { NumericFormat } from "react-number-format"
-
 import { GrAdd, GrValidate } from "react-icons/gr"
 import FormatDatuma from "../../components/FormatDatuma"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
+import { IME_APLIKACIJE } from "../../constants"
 
 
 
@@ -16,6 +16,8 @@ export default function UslugePregled() {
 
     const navigate = useNavigate()
     const [usluge, setUsluge] = useState([])
+
+     useEffect(()=>{document.title='Usluge, ' + IME_APLIKACIJE})
 
     useEffect(() => {
         ucitajUsluge()

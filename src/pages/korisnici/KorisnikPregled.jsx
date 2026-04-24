@@ -4,7 +4,7 @@ import { Button, Table } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import GradService from "../../services/gradovi/GradService"
-
+import { IME_APLIKACIJE } from "../../constants"
 
 
 export default function KorisnikPregled(){
@@ -12,6 +12,9 @@ export default function KorisnikPregled(){
     const navigate = useNavigate()
      const [gradovi, setGradovi] = useState([])
     const [korisnici,setKorisnici] = useState([])
+
+
+     useEffect(()=>{document.title='Korisnici, ' + IME_APLIKACIJE})
 
     useEffect(()=>{
         ucitajKorisnike()

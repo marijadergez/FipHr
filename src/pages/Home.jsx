@@ -22,6 +22,17 @@ export default function Home() {
     const [animatedKorisnici, setAnimatedKorisnici] = useState(0);
     const [animatedGradovi, setAnimatedGradovi] = useState(0);
 
+    const lottieStyle = {
+        marginTop: '20px',
+        width: ',',
+        high: 'auto',
+        display: 'block'
+    }
+                                       
+    
+
+    useEffect(()=>{document.title='Početna, ' + IME_APLIKACIJE})
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -73,29 +84,19 @@ export default function Home() {
         <>
             <Row>
                 <Col md={6}>
-                    <p className="lead m-5 text-center"><h1>Dobrodošli na {IME_APLIKACIJE}</h1></p>
-                    <h2>Knjigovodstvo i računovodstvo za velike i male tvrtke i obrtnike.</h2>
-
+                    <p className="lead m-5 text-center">Dobrodošli na {IME_APLIKACIJE}</p>
                     
+                    <p>Knjigovodstvo i računovodstvo za velike i male tvrtke i obrtnike.</p>
 
                     <DotLottieReact
                         src="https://lottie.host/510411c5-d9ea-4e75-8829-efc1a022a9a6/mGH3ToWnVo.lottie"
                         loop
                         autoplay
+                        style={lottieStyle}
                     />
                     {/*<div style={{ textAlign: 'center' }}>
                         <img src="" />
                     </div>*/}
-
-                    <div style={{ maxWidth: '2px', margin: 'auto' }}>
-                        <DotLottieReact
-                            src="/AISpark_InteractiveAssistant.lottie"
-                            loop
-                            autoplay
-                        />
-                    </div>
-
-                    
 
                 </Col>
                 <Col className="d-flex align-items-center justify-content-center">
@@ -135,5 +136,8 @@ export default function Home() {
         </>
     )
 }
+
+
+
 
 
