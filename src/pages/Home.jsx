@@ -88,12 +88,14 @@ export default function Home() {
                     
                     <p>Knjigovodstvo i računovodstvo za velike i male tvrtke i obrtnike.</p>
 
+                    <div>
                     <DotLottieReact
                         src="https://lottie.host/510411c5-d9ea-4e75-8829-efc1a022a9a6/mGH3ToWnVo.lottie"
                         loop
                         autoplay
                         style={lottieStyle}
                     />
+                    </div>
                     {/*<div style={{ textAlign: 'center' }}>
                         <img src="" />
                     </div>*/}
