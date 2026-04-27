@@ -11,10 +11,10 @@ import UslugeServiceLocalStorage from '../services/usluge/UslugeServiceLocalStor
 import { IME_APLIKACIJE } from '../constants';
 
 export default function GeneriranjePodataka() {
-    const [brojUsluga, setBrojUsluga] = useState(5);
+    const [brojUsluga, setBrojUsluga] = useState(10);
     const [brojKorisnika, setBrojKorisnika] = useState(20);
     const [brojGradova, setBrojGradova] = useState(10);
-    const [brojPonuda, setBrojPonuda] = useState(50)
+    const [brojPonuda, setBrojPonuda] = useState(5)
     const [poruka, setPoruka] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -52,21 +52,11 @@ export default function GeneriranjePodataka() {
 
     const generirajGradove = async (broj) => {
 
-        // Dohvati sve smjerove
-        const rezultatUsluge = await UslugeService.get();
-        const usluge = rezultatUsluge.data;
-
-
-        if (usluge.length === 0) {
-            throw new Error('Nema dostupnih usluga. Prvo generirajte usluge.');
-        }
 
         for (let i = 0; i < broj; i++) {
-            // Odaberi nasumični smjer
-            const randomUsluge = usluge[faker.number.int({ min: 0, max: usluge.length - 1 })];
-
+   
             const grad = {
-                naziv: randomUsluge.naziv.trim().split(/\s+/).slice(0, 2).map(rijec => rijec[0]).join('').toUpperCase(),
+                naziv: 'Grad ' + (i+1),
             };
 
             await GradService.dodaj(grad);
@@ -75,13 +65,21 @@ export default function GeneriranjePodataka() {
 
 
     const generirajKorisnike = async (broj) => {
+
+        const rezultatGradovi = await GradService.get();
+
+        const gradoviPodaci = rezultatGradovi.data
+        console.table(gradoviPodaci)
+
+
         for (let i = 0; i < broj; i++) {
             const korisnik = {
                 ime: i % 2 === 0 ? faker.person.firstName('male') : faker.person.firstName('female'),
                 prezime: faker.person.lastName(),
                 email: faker.internet.email(),
-                grad: 1 // ovdje dovuci slučajni grad
+                grad: gradoviPodaci[faker.number.int({min: 0, max: gradoviPodaci.length-1})].sifra
             };
+            //console.table(korisnik)
             await KorisnikService.dodaj(korisnik);
         }
     };
@@ -285,7 +283,7 @@ export default function GeneriranjePodataka() {
 
         try {
             const rezultat = await GradService.get();
-            const grad = rezultat.data;
+            const gradovi = rezultat.data;
 
             for (const grad of gradovi) {
                 await GradService.obrisi(grad.sifra);
@@ -293,7 +291,7 @@ export default function GeneriranjePodataka() {
 
             setPoruka({
                 tip: 'success',
-                tekst: `Uspješno obrisan ${grad.length} grad!`
+                tekst: `Uspješno obrisan ${gradovi.length} grad!`
             });
         } catch (error) {
             setPoruka({
@@ -304,6 +302,7 @@ export default function GeneriranjePodataka() {
             setLoading(false);
         }
     };
+
     const handleObrisiPonude = async () => {
         if (!window.confirm('Jeste li sigurni da želite obrisati sve ponude?')) {
             return;
@@ -322,7 +321,7 @@ export default function GeneriranjePodataka() {
 
             setPoruka({
                 tip: 'success',
-                tekst: `Uspješno obrisan ${ponuda.length} grad!`
+                tekst: `Uspješno obrisano ${ponuda.length} ponuda!`
             });
         } catch (error) {
             setPoruka({
@@ -349,6 +348,58 @@ export default function GeneriranjePodataka() {
 
             <Row>
                 <Col md={4}>
+                    <Form onSubmit={handleGenerirajGradove}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Broj Gradova</Form.Label>
+                            <Form.Control
+                                type="number"
+                                min="1"
+                                max="100"
+                                value={brojGradova}
+                                onChange={(e) => setBrojGradova(parseInt(e.target.value))}
+                                disabled={loading}
+                            />
+                            <Form.Text className="text-muted">
+                                Unesite broj gradova (1-100)
+                            </Form.Text>
+                        </Form.Group>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={loading}
+                            className="w-100"
+                        >
+                            {loading ? 'Generiranje...' : 'Generiraj gradove'}
+                        </Button>
+                    </Form>
+                </Col>
+                <Col md={4}>
+                    <Form onSubmit={handleGenerirajKorisnike}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Broj Korisnika</Form.Label>
+                            <Form.Control
+                                type="number"
+                                min="1"
+                                max="200"
+                                value={brojKorisnika}
+                                onChange={(e) => setBrojKorisnika(parseInt(e.target.value))}
+                                disabled={loading}
+                            />
+                            <Form.Text className="text-muted">
+                                Unesite broj korisnika (1-200)
+                            </Form.Text>
+                        </Form.Group>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={loading}
+                            className="w-100"
+                        >
+                            {loading ? 'Generiranje...' : 'Generiraj korisnike'}
+                        </Button>
+                    </Form>
+                </Col>
+                <Col md={4}>
                     <Form onSubmit={handleGenerirajUsluge}>
                         <Form.Group className="mb-3">
                             <Form.Label>Broj usluga</Form.Label>
@@ -374,58 +425,8 @@ export default function GeneriranjePodataka() {
                         </Button>
                     </Form>
                 </Col>
-                <Col md={4}>
-                    <Form onSubmit={handleGenerirajKorisnike}>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Broj korisnika</Form.Label>
-                            <Form.Control
-                                type="number"
-                                min="1"
-                                max="200"
-                                value={brojKorisnika}
-                                onChange={(e) => setBrojKorisnika(parseInt(e.target.value))}
-                                disabled={loading}
-                            />
-                            <Form.Text className="text-muted">
-                                Unesite broj korisnika (1-200)
-                            </Form.Text>
-                        </Form.Group>
-                        <Button
-                            variant="primary"
-                            type="submit"
-                            disabled={loading}
-                            className="w-100"
-                        >
-                            {loading ? 'Generiranje...' : 'Generiraj korisnike'}
-                        </Button>
-                    </Form>
-                </Col>
-                <Col md={4}>
-                    <Form onSubmit={handleGenerirajGradove}>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Broj gradova</Form.Label>
-                            <Form.Control
-                                type="number"
-                                min="1"
-                                max="100"
-                                value={brojGradova}
-                                onChange={(e) => setBrojGradova(parseInt(e.target.value))}
-                                disabled={loading}
-                            />
-                            <Form.Text className="text-muted">
-                                Unesite broj gradova (1-100)
-                            </Form.Text>
-                        </Form.Group>
-                        <Button
-                            variant="primary"
-                            type="submit"
-                            disabled={loading}
-                            className="w-100"
-                        >
-                            {loading ? 'Generiranje...' : 'Generiraj gradove'}
-                        </Button>
-                    </Form>
-                </Col>
+                
+                
                 <Col md={4}>
                     <Form onSubmit={handleGenerirajPonude}>
                         <Form.Group className="mb-3">
@@ -470,11 +471,11 @@ export default function GeneriranjePodataka() {
                 <Col md={4}>
                     <Button
                         variant="danger"
-                        onClick={handleObrisiUsluge}
+                        onClick={handleObrisiGradove}
                         disabled={loading}
                         className="w-100 mb-2"
                     >
-                        {loading ? 'Brisanje...' : 'Obriši sve usluge'}
+                        {loading ? 'Brisanje...' : 'Obriši sve gradove'}
                     </Button>
                 </Col>
                 <Col md={4}>
@@ -490,13 +491,15 @@ export default function GeneriranjePodataka() {
                 <Col md={4}>
                     <Button
                         variant="danger"
-                        onClick={handleObrisiGradove}
+                        onClick={handleObrisiUsluge}
                         disabled={loading}
                         className="w-100 mb-2"
                     >
-                        {loading ? 'Brisanje...' : 'Obriši sve gradove'}
+                        {loading ? 'Brisanje...' : 'Obriši sve usluge'}
                     </Button>
                 </Col>
+                
+                
                 <Col md={4}>
                     <Button
                         variant="danger"

@@ -29,7 +29,7 @@ async function dodaj(grad) {
         grad.sifra = 1;
     }else {
         const maxSifra = Math.max(...gradovi.map(s => s.sifra));
-        gradovi.sifra = maxSifra + 1;
+        grad.sifra = maxSifra + 1;
     }
 
     gradovi.push(grad);
@@ -52,6 +52,7 @@ async function promjeni(sifra, grad) {
 async function obrisi(sifra) {
     let gradovi = dohvatiSveIzStorage();
     gradovi = gradovi.filter(s => s.sifra !== parseInt(sifra));
+    console.table(gradovi)
     spremiUStorage(gradovi);
     return { message: 'Obrisano' };
     
