@@ -56,11 +56,49 @@ async function obrisi(sifra) {
     return { message: 'Obrisano' };
     
 }
+// Straničenje - dohvati stranicu polaznika
+async function getPage(page = 1, pageSize = 8, searchTerm = '') {
+    let filteredKorisnici = [...korisnici];
+    
+    // Filtriranje prema search termu
+    if (searchTerm && searchTerm.trim() !== '') {
+        const lowerSearchTerm = searchTerm.toLowerCase().trim();
+        filteredKorisnici = filteredKorisnici.filter(korisnik => {
+            const ime = (korisnik.ime || '').toLowerCase();
+            const prezime = (korisnik.prezime || '').toLowerCase();
+            const email = (korisnik.email || '').toLowerCase();
+            const grad = (korisnik.grad || '').toLowerCase();
+            
+            return ime.includes(lowerSearchTerm) ||
+                   prezime.includes(lowerSearchTerm) ||
+                   email.includes(lowerSearchTerm) ||
+                   grad.includes(lowerSearchTerm);
+        });
+    }
+    
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedData = filteredKorisnici.slice(startIndex, endIndex);
+    const totalItems = filteredKorisnici.length;
+    const totalPages = Math.ceil(totalItems / pageSize);
 
-export default {
+    return {
+        success: true,
+        data: paginatedData,
+        currentPage: page,
+        pageSize: pageSize,
+        totalPages: totalPages,
+        totalItems: totalItems
+    };
+}
+
+
+export default{
     get,
     dodaj,
     getBySifra,
     promjeni,
-    obrisi
+    obrisi,
+    getPage
 }
+

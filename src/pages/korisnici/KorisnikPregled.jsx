@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import GradService from "../../services/gradovi/GradService"
 import { IME_APLIKACIJE } from "../../constants"
+import { FaEdit, FaTrash, FaSearch } from "react-icons/fa"
 
 
 export default function KorisnikPregled(){
@@ -12,6 +13,12 @@ export default function KorisnikPregled(){
     const navigate = useNavigate()
      const [gradovi, setGradovi] = useState([])
     const [korisnici,setKorisnici] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(0)
+    const [totalItems, setTotalItems] = useState(0)
+    const [searchTerm, setSearchTerm] = useState('')
+    const pageSize = 8
+
 
 
      useEffect(()=>{document.title='Korisnici, ' + IME_APLIKACIJE})

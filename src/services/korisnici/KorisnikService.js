@@ -27,11 +27,9 @@ const PrazanServis = {
     getBySifra: async (sifra) => ({ success: false, data: {} }),
     dodaj: async (korisnik) => { console.error("Servis nije učitan"); },
   
-    obrisi: async (sifra) => { console.error("Servis nije dostupan"); }
-
-
-}
-
+    obrisi: async (sifra) => { console.error("Servis nije dostupan"); },
+    getPage: async (page, pageSize, searchTerm) => ({ success: false, data: [], totalPages: 0, totalItems: 0 })
+};
 
 const AktivniServis = Servis || PrazanServis;
 
@@ -40,5 +38,7 @@ export default {
     getBySifra: (sifra) => AktivniServis.getBySifra(sifra),
     dodaj: (korisnik) => AktivniServis.dodaj(korisnik),
     promjeni: (sifra, korisnik) => AktivniServis.promjeni(sifra,korisnik),
-    obrisi: (sifra) => AktivniServis.obrisi(sifra)
+    obrisi: (sifra) => AktivniServis.obrisi(sifra),
+    getPage: (page, pageSize, searchTerm) => AktivniServis.getPage(page, pageSize, searchTerm)
+
 }
