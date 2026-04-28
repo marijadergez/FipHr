@@ -69,6 +69,11 @@ export default function GeneriranjePodataka() {
         const rezultatGradovi = await GradService.get();
 
         const gradoviPodaci = rezultatGradovi.data
+
+        if(gradoviPodaci.length==0){
+             throw new Error('Da bi generirali korisnike prvo generirajte gradove')
+        }
+
         //console.table(gradoviPodaci)
 
 
