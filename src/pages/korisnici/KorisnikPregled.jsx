@@ -6,6 +6,8 @@ import { RouteNames } from "../../constants"
 import GradService from "../../services/gradovi/GradService"
 import { IME_APLIKACIJE } from "../../constants"
 import { FaEdit, FaTrash, FaSearch } from "react-icons/fa"
+import { Row, Col, Card, Container, Pagination, Form, InputGroup } from "react-bootstrap"
+
 
 
 export default function KorisnikPregled(){
@@ -24,24 +26,28 @@ export default function KorisnikPregled(){
      useEffect(()=>{document.title='Korisnici, ' + IME_APLIKACIJE})
 
     useEffect(()=>{
-        ucitajKorisnike()
-        ucitajGradovi()
-    },[])
+        ucitajKorisnike(currentPage, searchTerm)
+       ucitajGradovi(currentPage, searchTerm)
+        
+        
+    },[currentPage, searchTerm])
 
-     async function ucitajGradovi() {
-            await GradService.get().then((odgovor) => {
-                setGradovi(odgovor.data)
+
+
+     async function ucitajGradovi(  page, search) {
+            await GradService.getPage(page, pageSize, search).then((odgovor) => {
+                setGradovi(odgovor.totalPages)
             })
     
         }
 
-    async function ucitajKorisnike() {
-        await KorisnikService.get().then((odgovor)=>{
+    async function ucitajKorisnike(page, search) {
+        await KorisnikService.getPage(page, pageSize, search).then((odgovor)=>{
             if(!odgovor.success){
                 alert('Nije implementiran servis')
                 return
             }
-            setKorisnici(odgovor.data)
+            setKorisnici(odgovor.totalPages > 0 ? odgovor.data : [])
         })
     }
     function dohvatiNazivGrada(sifraGrada) {
@@ -52,12 +58,20 @@ export default function KorisnikPregled(){
     async function brisanje(sifra) {
         if (!confirm('Sigurno obrisati?')) return;
         await KorisnikService.obrisi(sifra);
+
         await KorisnikService.get().then((odgovor)=>{
             setKorisnici(odgovor.data)
         })
     }
         
+     function handlePageChange(page) {
+        setCurrentPage(page)
+    }
 
+    function handleSearchChange(e) {
+        setSearchTerm(e.target.value)
+        setCurrentPage(1) // Reset na prvu stranicu pri pretraživanju
+    }
 
 
     return(
@@ -66,6 +80,22 @@ export default function KorisnikPregled(){
         className="btn btn-success w-100 my-3">
             Dodavanje novog korisnika
         </Link>
+
+         {/* Search input */}
+            <InputGroup className="mb-3">
+                <InputGroup.Text>
+                    <FaSearch />
+                </InputGroup.Text>
+                <Form.Control
+                    type="text"
+                    placeholder="Pretraži polaznike (ime, prezime, email, OIB)..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
+            </InputGroup>
+
+
+
         <Table striped bordered hover>
             <thead>
                 <tr>

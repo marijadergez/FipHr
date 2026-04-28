@@ -1,3 +1,5 @@
+import { korisnici } from "./KorisnikPodaci";
+
 const STORAGE_KEY = 'korisnici';
 
 function dohvatiSveIzStorage() {
