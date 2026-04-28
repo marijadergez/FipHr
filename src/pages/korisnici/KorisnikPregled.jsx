@@ -94,6 +94,7 @@ export default function KorisnikPregled(){
                 />
             </InputGroup>
 
+            
 
 
         <Table striped bordered hover>
@@ -127,7 +128,63 @@ export default function KorisnikPregled(){
                     </tr>
                 ))}
             </tbody>
-        </Table>
+        </Table> 
+
+         {/* Pagination komponenta */}
+            {totalPages
+             > 1 && (
+
+                <div className="d-flex justify-content-center">
+                    <Pagination>
+                        <Pagination.First
+                            onClick={() => handlePageChange(1)}
+                            disabled={currentPage === 1}
+                        />
+                        <Pagination.Prev
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        />
+
+                        {[...Array(totalPages)].map((_, index) => {
+                            const pageNumber = index + 1;
+                            // Prikaži samo stranice blizu trenutne stranice
+                            if (
+                                pageNumber === 1 ||
+                                pageNumber === totalPages ||
+                                (pageNumber >= currentPage - 2 && pageNumber <= currentPage + 2)
+                            ) {
+                                return (
+                                    <Pagination.Item
+                                        key={pageNumber}
+                                        active={pageNumber === currentPage}
+                                        onClick={() => handlePageChange(pageNumber)}
+                                    >
+                                        {pageNumber}
+                                    </Pagination.Item>
+                                );
+                            } else if (
+                                pageNumber === currentPage - 3 ||
+                                pageNumber === currentPage + 3
+                            ) {
+                                return <Pagination.Ellipsis key={pageNumber} disabled />;
+                            }
+                            return null;
+                        })}
+
+                        <Pagination.Next
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                        />
+                        <Pagination.Last
+                            onClick={() => handlePageChange(totalPages)}
+                            disabled={currentPage === totalPages}
+                        />
+                    </Pagination>
+                </div>
+
+            )}
+
+
         </>
     )
 
