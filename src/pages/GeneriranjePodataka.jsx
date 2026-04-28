@@ -69,7 +69,7 @@ export default function GeneriranjePodataka() {
         const rezultatGradovi = await GradService.get();
 
         const gradoviPodaci = rezultatGradovi.data
-        console.table(gradoviPodaci)
+        //console.table(gradoviPodaci)
 
 
         for (let i = 0; i < broj; i++) {

@@ -27,7 +27,7 @@ export default function KorisnikPregled(){
 
     useEffect(()=>{
         ucitajKorisnike(currentPage, searchTerm)
-       ucitajGradovi(currentPage, searchTerm)
+       ucitajGradovi()
         
         
     },[currentPage, searchTerm])
@@ -47,7 +47,10 @@ export default function KorisnikPregled(){
                 alert('Nije implementiran servis')
                 return
             }
-            setKorisnici(odgovor.totalPages > 0 ? odgovor.data : [])
+           // console.table(odgovor)
+            setKorisnici(odgovor.data)
+            setTotalPages(odgovor.totalPages)
+            setTotalItems(odgovor.totalItems)
         })
     }
     function dohvatiNazivGrada(sifraGrada) {
@@ -131,8 +134,7 @@ export default function KorisnikPregled(){
         </Table> 
 
          {/* Pagination komponenta */}
-            {totalPages
-             > 1 && (
+            {totalPages > 1 && (
 
                 <div className="d-flex justify-content-center">
                     <Pagination>
