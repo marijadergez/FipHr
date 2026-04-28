@@ -35,8 +35,8 @@ export default function KorisnikPregled(){
 
 
      async function ucitajGradovi(  page, search) {
-            await GradService.getPage(page, pageSize, search).then((odgovor) => {
-                setGradovi(odgovor.totalPages)
+            await GradService.get(page, pageSize, search).then((odgovor) => {
+                setGradovi(odgovor.data)
             })
     
         }

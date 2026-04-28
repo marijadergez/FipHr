@@ -69,7 +69,7 @@ async function getPage(page = 1, pageSize = 8, searchTerm = '') {
             const ime = (korisnik.ime || '').toLowerCase();
             const prezime = (korisnik.prezime || '').toLowerCase();
             const email = (korisnik.email || '').toLowerCase();
-            const grad = (korisnik.grad || '').toLowerCase();
+            const grad = (korisnik.gradovi || '').toLowerCase();
             
             return ime.includes(lowerSearchTerm) ||
                    prezime.includes(lowerSearchTerm) ||
