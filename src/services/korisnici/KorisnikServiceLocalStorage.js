@@ -1,5 +1,3 @@
-import { korisnici } from "./KorisnikPodaci";
-
 const STORAGE_KEY = 'korisnici';
 
 function dohvatiSveIzStorage() {
@@ -60,7 +58,7 @@ async function obrisi(sifra) {
 }
 // Straničenje - dohvati stranicu polaznika
 async function getPage(page = 1, pageSize = 8, searchTerm = '') {
-    let filteredKorisnici = [...korisnici];
+    let filteredKorisnici = [...dohvatiSveIzStorage()];
     
     // Filtriranje prema search termu
     if (searchTerm && searchTerm.trim() !== '') {
@@ -69,12 +67,10 @@ async function getPage(page = 1, pageSize = 8, searchTerm = '') {
             const ime = (korisnik.ime || '').toLowerCase();
             const prezime = (korisnik.prezime || '').toLowerCase();
             const email = (korisnik.email || '').toLowerCase();
-            const grad = (korisnik.gradovi || '').toLowerCase();
             
             return ime.includes(lowerSearchTerm) ||
                    prezime.includes(lowerSearchTerm) ||
-                   email.includes(lowerSearchTerm) ||
-                   grad.includes(lowerSearchTerm);
+                   email.includes(lowerSearchTerm) ;
         });
     }
     

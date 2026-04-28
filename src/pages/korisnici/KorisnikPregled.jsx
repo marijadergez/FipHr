@@ -88,7 +88,7 @@ export default function KorisnikPregled(){
                 </InputGroup.Text>
                 <Form.Control
                     type="text"
-                    placeholder="Pretraži polaznike (ime, prezime, email, OIB)..."
+                    placeholder="Pretraži polaznike (ime, prezime, email)..."
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
