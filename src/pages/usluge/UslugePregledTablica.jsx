@@ -5,7 +5,7 @@ import FormatDatuma from "../../components/FormatDatuma";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { useState } from "react";
-import { usluge } from "../../services/usluge/UslugePodaci";
+
 
 export default function UslugePregledTablica({ usluge, navigate, brisanje }) {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: null });

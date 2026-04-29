@@ -99,7 +99,7 @@ export default function SmjerPregledTablica({ smjerovi, navigate, brisanje }) {
             <tbody>
                 {sortedPonude() && sortedPonude().map((ponuda) => (
                     <tr key={ponuda.sifra}>
-                        <td className="lead">{smjer.naziv}</td>
+                        <td className="lead">{ponuda.naziv}</td>
                         <td className='text-end'>{ponuda.trajanje} h</td>
                         <td className='text-end'>
                             <NumericFormat

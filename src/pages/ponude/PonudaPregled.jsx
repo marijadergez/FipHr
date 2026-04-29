@@ -148,7 +148,7 @@ export default function PonudaPregled() {
                               brisanje={brisanje}
                           />
                       ) : (
-                          <PonudePregledTablica
+                          <PonudaPregledTablica
                               ponude={ponude}
                               navigate={navigate}
                               brisanje={brisanje}
