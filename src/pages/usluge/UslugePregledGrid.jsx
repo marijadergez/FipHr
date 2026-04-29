@@ -3,7 +3,6 @@ import { NumericFormat } from "react-number-format";
 import { GrValidate } from "react-icons/gr";
 import FormatDatuma from "../../components/FormatDatuma";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { usluge } from "../../services/usluge/UslugePodaci";
 
 export default function UslugePregledGrid({ usluge, navigate, brisanje }) {
     return (
@@ -14,7 +13,7 @@ export default function UslugePregledGrid({ usluge, navigate, brisanje }) {
                         <Card className="shadow-sm h-100">
                             <Card.Header className="d-flex justify-content-between align-items-center bg-white py-3">
                                 <span className="fw-bold text-primary" style={{ fontSize: '1.1rem' }}>
-                                    {usluga.naziv}
+                                    {usluga.naziv} 
                                 </span>
                                 <GrValidate
                                     size={22}

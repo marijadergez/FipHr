@@ -9,8 +9,9 @@ import { RouteNames } from "../../constants"
 import { IME_APLIKACIJE } from "../../constants"
 import { gradovi } from "../../services/gradovi/GradPodaci"
 
-import {UslugePregledTablica} from "../usluge/UslugePregledTablica"
-import {UslugePregledGrid} from "../usluge/UslugePregledGrid"
+import UslugePregledTablica from "../usluge/UslugePregledTablica"
+import UslugePregledGrid  from "../usluge/UslugePregledGrid"
+
 import useLoading from "../../hooks/useLoading"
 import useBreakpoint from "../../hooks/useBreakpoint"
 
@@ -41,16 +42,16 @@ export default function UslugePregled() {
 
     }
 
-    async function obrisi(sifra) {
+    async function brisanje(sifra) {
         if(!confirm('Sigurno obrisati?')){
             return
 
-            const gradRezultat = await GradService.get();
-        if (gradRezultat.success) {
-            const gradKojiKoristiUslugu = gradRezultat.data.filter(gradovi => grad.usluga === sifra);
+            const uslugaRezultat = await Service.get();
+        if (uslugaRezultat.success) {
+            const uslugaKojaKoristiponudu = uslugaRezultat.data.filter(usluge => ponuda.usluga === sifra);
 
             if (gradKojiKoristiUslugu.length > 0) {
-                alert(`Ne možete obrisati ovaj smjer jer je postavljen na ${gradKojiKoristiUslugu.length} grupa/e. Prvo obrišite ili promijenite smjer u tim grupama.`);
+                alert(`Ne možete obrisati ovu uslugu ili ponudu jer je postavljen na ${ponudaKojaKoristiUslugu.length} ponude. Prvo obrišite ili promijenite usluge u tim ponudama.`);
                 return;
             }
         }

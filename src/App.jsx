@@ -20,12 +20,15 @@ import GeneriranjePodataka from './pages/GeneriranjePodataka'
 import PonudaPregled from './pages/ponude/PonudaPregled'
 import PonudaNovi from './pages/ponude/PonudaNovi'
 import PonudaPromjena from './pages/ponude/PonudaPromjena'
+import LoadingSpinner from './components/LoadingSpinner'
 
 
 
 function App() {
 
   return (
+    <>
+    <LoadingSpinner />
     <Container>
       <Izbornik />
       <Routes>
@@ -55,6 +58,7 @@ function App() {
       
       &copy; Marija | Edunova | 2026.
     </Container>
+    </>
   )
 }
 
