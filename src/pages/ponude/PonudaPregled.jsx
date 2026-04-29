@@ -16,6 +16,9 @@ import UslugeService from "../../services/usluge/UslugeService"
 import GrupaPDFGenerator from "../../components/KorisniciPDFGenerator"
 import { FaEdit, FaFilePdf, FaTrash } from "react-icons/fa"
 import GradService from "../../services/gradovi/GradService"
+import PonudaPregledGrid from "./PonudaPregledGrid"
+import PonudaPregledTablica from "./PonudaPregledTablica"
+import useBreakpoint from "../../hooks/useBreakpoint"
 
 export default function PonudaPregled() {
 
@@ -25,7 +28,7 @@ export default function PonudaPregled() {
     const [ponude, setPonuda] = useState([])
     const [korisnici, setKorisnici] = useState([])
     const [usluge, setUsluge] = useState([])
-
+     const sirina = useBreakpoint();
 
 
     useEffect(() => {
@@ -60,7 +63,7 @@ export default function PonudaPregled() {
             setKorisnici(odgovor.data)
         })
     }
-    async function obrisi(sifra) {
+    async function brisanje(sifra) {
         if (!confirm('Sigurno obrisati?')) {
             return
         }
@@ -131,15 +134,32 @@ export default function PonudaPregled() {
     }
     
 
-      
-    
-
-
-
-
     return (
         <>
-            <Link to={RouteNames.PONUDE_NOVI}
+           <Link to={RouteNames.PONUDE_NOVI}
+                          className="btn btn-success w-100 my-3">
+                          Dodavanje nove ponude
+                      </Link>
+                      {/* tableti prema manje */}
+                      {['xs', 'sm', 'md'].includes(sirina) ? (
+                          <PonudaPregledGrid
+                              ponude={ponude}
+                              navigate={navigate}
+                              brisanje={brisanje}
+                          />
+                      ) : (
+                          <PonudePregledTablica
+                              ponude={ponude}
+                              navigate={navigate}
+                              brisanje={brisanje}
+                          />
+                      )}
+        </>
+    )
+}
+
+
+ {/*} <Link to={RouteNames.PONUDE_NOVI}
                 className="btn btn-success w-100 my-3">
                 <GrAdd /> Dodaj novu ponudu
             </Link>
@@ -183,7 +203,4 @@ export default function PonudaPregled() {
                         </tr>
                     ))}
                 </tbody>
-            </Table>
-        </>
-    )
-}
+            </Table>*/}

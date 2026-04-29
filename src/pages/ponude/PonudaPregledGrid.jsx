@@ -3,37 +3,36 @@ import { NumericFormat } from "react-number-format";
 import { GrValidate } from "react-icons/gr";
 import FormatDatuma from "../../components/FormatDatuma";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { korisnici } from "../../services/korisnici/KorisnikPodaci";
 
-export default function KorisnikPregledGrid({ korisnik, navigate, brisanje }) {
+export default function PonudaPregledGrid({ ponude, navigate, brisanje }) {
     return (
         <Container className="py-3 px-0">
             <Row>
-                {korisnici && korisnici.map((korisnik) => (
-                    <Col key={korisnik.sifra} xs={12} md={6} className="mb-4">
+                {ponude && ponude.map((ponuda) => (
+                    <Col key={ponuda.sifra} xs={12} md={6} className="mb-4">
                         <Card className="shadow-sm h-100">
                             <Card.Header className="d-flex justify-content-between align-items-center bg-white py-3">
                                 <span className="fw-bold text-primary" style={{ fontSize: '1.1rem' }}>
-                                    {korisnik.naziv} 
+                                    {ponuda.naziv}
                                 </span>
                                 <GrValidate
                                     size={22}
-                                    color={korisnik.aktivan ? 'green' : 'red'}
-                                    title={korisnik.aktivan ? "Aktivan" : "Neaktivan"}
+                                    color={ponuda.aktivan ? 'green' : 'red'}
+                                    title={ponuda.aktivan ? "Aktivan" : "Neaktivan"}
                                 />
                             </Card.Header>
 
                             <Card.Body>
                                 <div className="d-flex justify-content-between mb-2">
                                     <span className="text-muted">Trajanje:</span>
-                                    <span className="fw-semibold">{korisnik.trajanje} h</span>
+                                    <span className="fw-semibold">{ponuda.trajanje} h</span>
                                 </div>
 
-                              {/*}  <div className="d-flex justify-content-between mb-2">
+                                <div className="d-flex justify-content-between mb-2">
                                     <span className="text-muted">Cijena:</span>
                                     <span className="fw-bold text-dark">
                                         <NumericFormat
-                                            value={korisnik.cijena}
+                                            value={ponuda.cijena}
                                             displayType={'text'}
                                             thousandSeparator='.'
                                             decimalSeparator=','
@@ -42,12 +41,12 @@ export default function KorisnikPregledGrid({ korisnik, navigate, brisanje }) {
                                             fixedDecimalScale
                                         />
                                     </span>
-                                </div>*/}
+                                </div>
 
                                 <div className="d-flex justify-content-between">
                                     <span className="text-muted">Početak:</span>
                                     <span>
-                                        <FormatDatuma datum={korisnik.datumPokretanja} />
+                                        <FormatDatuma datum={ponuda.datumPokretanja} />
                                     </span>
                                 </div>
                             </Card.Body>
@@ -56,7 +55,7 @@ export default function KorisnikPregledGrid({ korisnik, navigate, brisanje }) {
                                 <Button
                                     variant="outline-primary"
                                     className="flex-fill"
-                                    onClick={() => navigate(`/korisnici/${korisnik.sifra}`)}
+                                    onClick={() => navigate(`/ponude/${ponuda.sifra}`)}
                                     title="Promjeni"
                                 >
                                     <FaEdit />
@@ -64,7 +63,7 @@ export default function KorisnikPregledGrid({ korisnik, navigate, brisanje }) {
                                 <Button
                                     variant="outline-danger"
                                     className="flex-fill"
-                                    onClick={() => brisanje(korisnik.sifra)}
+                                    onClick={() => brisanje(ponuda.sifra)}
                                     title="Obriši"
                                 >
                                     <FaTrash />

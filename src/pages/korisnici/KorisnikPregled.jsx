@@ -76,17 +76,6 @@ export default function KorisnikPregled(){
         })
     }
 
-    const newTotalItems = totalItems - 1;
-        const newTotalPages = Math.ceil(newTotalItems / pageSize);
-
-        if (currentPage > newTotalPages && newTotalPages > 0) {
-            setCurrentPage(newTotalPages);
-        } else {
-            ucitajKorisnike(currentPage, searchTerm);
-        }
-        hideLoading()
-    
-
         
      function handlePageChange(page) {
         setCurrentPage(page)
