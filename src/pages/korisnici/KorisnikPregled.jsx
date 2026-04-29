@@ -8,7 +8,10 @@ import { IME_APLIKACIJE } from "../../constants"
 import { FaEdit, FaTrash, FaSearch } from "react-icons/fa"
 import { Row, Col, Card, Container, Pagination, Form, InputGroup } from "react-bootstrap"
 
-
+import useLoading from "../../hooks/useLoading"
+import KorisnikiPregledTablica from "./KorisnikPregledTablica"
+import KorisnikPregledGrid from "./KorisnikPregledGrid"
+import useBreakpoint from "../../hooks/useBreakpoint"
 
 export default function KorisnikPregled(){
 
@@ -20,8 +23,9 @@ export default function KorisnikPregled(){
     const [totalItems, setTotalItems] = useState(0)
     const [searchTerm, setSearchTerm] = useState('')
     const pageSize = 8
+    const sirina = useBreakpoint();
 
-
+ const { showLoading, hideLoading } = useLoading()
 
      useEffect(()=>{document.title='Korisnici, ' + IME_APLIKACIJE})
 
@@ -60,12 +64,29 @@ export default function KorisnikPregled(){
 
     async function brisanje(sifra) {
         if (!confirm('Sigurno obrisati?')) return;
+
+          showLoading()
+         // samo za potrebe testa prikaza rada loading
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
         await KorisnikService.obrisi(sifra);
 
         await KorisnikService.get().then((odgovor)=>{
             setKorisnici(odgovor.data)
         })
     }
+
+    const newTotalItems = totalItems - 1;
+        const newTotalPages = Math.ceil(newTotalItems / pageSize);
+
+        if (currentPage > newTotalPages && newTotalPages > 0) {
+            setCurrentPage(newTotalPages);
+        } else {
+            ucitajKorisnike(currentPage, searchTerm);
+        }
+        hideLoading()
+    
+
         
      function handlePageChange(page) {
         setCurrentPage(page)
@@ -97,41 +118,26 @@ export default function KorisnikPregled(){
                 />
             </InputGroup>
 
-            
+             <Link to={RouteNames.KORISNICI_NOVI}
+                            className="btn btn-success w-100 my-3">
+                            Dodavanje novog korisnika
+                        </Link>
+                        {/* tableti prema manje */}
+                        {['xs', 'sm', 'md'].includes(sirina) ? (
+                            <KorisnikPregledGrid
+                                korisnici={korisnici} 
+                                navigate={navigate} 
+                                brisanje={brisanje} 
+                            />
+                        ) : (
+                            <KorisnikiPregledTablica
+                                korisnici={korisnici}   
+                                navigate={navigate} 
+                                brisanje={brisanje} 
+                            />
+                        )}
 
-
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>Ime</th>
-                    <th>Prezime</th>
-                    <th>Email</th>
-                    <th>Grad</th>
-                    <th>Akcija</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                {korisnici && korisnici.map((korisnik)=>(
-                    <tr key={korisnik.sifra}>
-                        <td className="lead">{korisnik.ime}</td>
-                        <td className="lead">{korisnik.prezime}</td>
-                        <td>{korisnik.email}</td>
-                        <td>{dohvatiNazivGrada(korisnik.grad)}</td>
-                        <td>
-                            
-                            <Button onClick={()=>{navigate(`/korisnici/${korisnik.sifra}`)}}>
-                                Promjeni
-                            </Button>
-                            &nbsp;&nbsp;
-                            <Button variant="danger" onClick={() => brisanje(korisnik.sifra)}>
-                                Obriši
-                            </Button>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </Table> 
+    
 
          {/* Pagination komponenta */}
             {totalPages > 1 && (
@@ -191,3 +197,38 @@ export default function KorisnikPregled(){
     )
 
 }
+
+
+  {/*
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Email</th>
+                    <th>Grad</th>
+                    <th>Akcija</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {korisnici && korisnici.map((korisnik)=>(
+                    <tr key={korisnik.sifra}>
+                        <td className="lead">{korisnik.ime}</td>
+                        <td className="lead">{korisnik.prezime}</td>
+                        <td>{korisnik.email}</td>
+                        <td>{dohvatiNazivGrada(korisnik.grad)}</td>
+                        <td>
+                            
+                            <Button onClick={()=>{navigate(`/korisnici/${korisnik.sifra}`)}}>
+                                Promjeni
+                            </Button>
+                            &nbsp;&nbsp;
+                            <Button variant="danger" onClick={() => brisanje(korisnik.sifra)}>
+                                Obriši
+                            </Button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </Table> */}
