@@ -8,9 +8,11 @@ import Home from './pages/Home'
 import UslugeNovi from './pages/usluge/UslugeNovi'
 import UslugePromjena from './pages/usluge/UslugePromjena'
 import UslugePregled from './pages/usluge/UslugePregled'
+
 import KorisnikPregled from './pages/korisnici/KorisnikPregled'
 import KorisnikPromjena from './pages/korisnici/KorisnikPromjena'
 import KorisnikNovi from './pages/korisnici/KorisnikNovi'
+
 import GradPromjena from './pages/gradovi/GradPromjena'
 import GradNovi from './pages/gradovi/GradNovi'
 import GradPregled from './pages/gradovi/GradPregled'

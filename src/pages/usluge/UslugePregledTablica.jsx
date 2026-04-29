@@ -29,7 +29,7 @@ export default function UslugePregledTablica({ usluge, navigate, brisanje }) {
 
         const sortedUsluge = () => {
         if (!usluge || sortConfig.direction === null) {
-            return susluge;
+            return usluge;
         }
 
         const sorted = [...usluge].sort((a, b) => {
@@ -119,11 +119,11 @@ export default function UslugePregledTablica({ usluge, navigate, brisanje }) {
                         <td style={{ textAlign: 'center' }}>
                             <GrValidate
                                 size={25}
-                                color={uslugar.aktivan ? 'green' : 'red'}
+                                color={usluga.aktivan ? 'green' : 'red'}
                             />
                         </td>
                         <td>
-                            <Button onClick={() => navigate(`/smjerovi/${usluga.sifra}`)} title="Promjeni">
+                            <Button onClick={() => navigate(`/usluge/${usluga.sifra}`)} title="Promjeni">
                                  <FaEdit />
                             </Button>
                             &nbsp;&nbsp;

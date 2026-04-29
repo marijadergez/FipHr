@@ -56,7 +56,7 @@ export default function UslugePregledGrid({ usluge, navigate, brisanje }) {
                                 <Button
                                     variant="outline-primary"
                                     className="flex-fill"
-                                    onClick={() => navigate(`/smjerovi/${usluga.sifra}`)}
+                                    onClick={() => navigate(`/usluge/${usluga.sifra}`)}
                                     title="Promjeni"
                                 >
                                     <FaEdit />

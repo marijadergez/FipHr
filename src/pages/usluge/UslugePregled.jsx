@@ -16,10 +16,11 @@ import useBreakpoint from "../../hooks/useBreakpoint"
 
 export default function UslugePregled() {
 
-    const navigate = useNavigate()
-     const sirina = useBreakpoint();
+   
     const [usluge, setUsluge] = useState([])
     const { showLoading, hideLoading } = useLoading()
+     const navigate = useNavigate()
+     const sirina = useBreakpoint();
 
      useEffect(()=>{document.title='Usluge, ' + IME_APLIKACIJE})
 
