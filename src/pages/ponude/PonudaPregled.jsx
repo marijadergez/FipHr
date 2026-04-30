@@ -141,6 +141,7 @@ export default function PonudaPregled() {
                 <GrAdd /> Dodaj novu ponudu
             </Link>
             <div className="table-responsive" >
+                
             <Table hover bordered className="align-middle">
                 <thead>
                     <tr>
@@ -155,7 +156,7 @@ export default function PonudaPregled() {
                     {ponude && ponude.map((ponuda) => (
                         <tr key={ponuda.sifra}>
                             <td>{dohvatiNazivKorisnika(ponuda.korisnik)}</td>
-                            <td>{dohvatiNaziveUsluga(ponuda.usluge)}</td>
+                            <td>{dohvatiNaziveUsluga(ponuda.šifra)}</td>
                             <td> <FormatDatuma datum={ponuda.datum} /></td>
 
                             <td>{ponuda.popust === 0 ? '' : ponuda.popust + ' %'}</td>
