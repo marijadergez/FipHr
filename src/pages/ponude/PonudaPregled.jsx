@@ -140,8 +140,9 @@ export default function PonudaPregled() {
                 className="btn btn-success w-100 my-3">
                 <GrAdd /> Dodaj novu ponudu
             </Link>
+                 <div className="mobile-actions" style={{ display: 'flex', gap: '4px', alignItems: 'center', justifyContent: 'center' }}>
             <div className="table-responsive" >
-                
+               
             <Table hover bordered className="align-middle">
                 <thead>
                     <tr>
@@ -183,6 +184,7 @@ export default function PonudaPregled() {
                     ))}
                 </tbody>
             </Table>
+            </div>
             </div>
         </>
 
