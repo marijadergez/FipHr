@@ -12,12 +12,14 @@ import useLoading from "../../hooks/useLoading"
 import KorisnikiPregledTablica from "./KorisnikPregledTablica"
 import KorisnikPregledGrid from "./KorisnikPregledGrid"
 import useBreakpoint from "../../hooks/useBreakpoint"
+import GradPregledGrid from "../gradovi/GradPregledGrid"
+import GradPregledTablica from "../gradovi/GradPregledTablica"
 
-export default function KorisnikPregled(){
+export default function KorisnikPregled() {
 
     const navigate = useNavigate()
-     const [gradovi, setGradovi] = useState([])
-    const [korisnici,setKorisnici] = useState([])
+    const [gradovi, setGradovi] = useState([])
+    const [korisnici, setKorisnici] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
     const [totalItems, setTotalItems] = useState(0)
@@ -25,33 +27,33 @@ export default function KorisnikPregled(){
     const pageSize = 8
     const sirina = useBreakpoint();
 
- const { showLoading, hideLoading } = useLoading()
+    const { showLoading, hideLoading } = useLoading()
 
-     useEffect(()=>{document.title='Korisnici, ' + IME_APLIKACIJE})
+    useEffect(() => { document.title = 'Korisnici, ' + IME_APLIKACIJE })
 
-    useEffect(()=>{
+    useEffect(() => {
         ucitajKorisnike(currentPage, searchTerm)
-       ucitajGradovi()
-        
-        
-    },[currentPage, searchTerm])
+        ucitajGradovi()
+
+
+    }, [currentPage, searchTerm])
 
 
 
-     async function ucitajGradovi(  page, search) {
-            await GradService.get(page, pageSize, search).then((odgovor) => {
-                setGradovi(odgovor.data)
-            })
-    
-        }
+    async function ucitajGradovi(page, search) {
+        await GradService.get(page, pageSize, search).then((odgovor) => {
+            setGradovi(odgovor.data)
+        })
+
+    }
 
     async function ucitajKorisnike(page, search) {
-        await KorisnikService.getPage(page, pageSize, search).then((odgovor)=>{
-            if(!odgovor.success){
+        await KorisnikService.getPage(page, pageSize, search).then((odgovor) => {
+            if (!odgovor.success) {
                 alert('Nije implementiran servis')
                 return
             }
-           // console.table(odgovor)
+            // console.table(odgovor)
             setKorisnici(odgovor.data)
             setTotalPages(odgovor.totalPages)
             setTotalItems(odgovor.totalItems)
@@ -59,25 +61,25 @@ export default function KorisnikPregled(){
     }
     function dohvatiNazivGrada(sifraGrada) {
         const grad = gradovi.find(s => s.sifra === sifraGrada)
-        return grad!=null ? grad.naziv : 'Nije definirano'
+        return grad != null ? grad.naziv : 'Nije definirano'
     }
 
     async function brisanje(sifra) {
         if (!confirm('Sigurno obrisati?')) return;
 
-          showLoading()
-         // samo za potrebe testa prikaza rada loading
+        showLoading()
+        // samo za potrebe testa prikaza rada loading
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         await KorisnikService.obrisi(sifra);
 
-        await KorisnikService.get().then((odgovor)=>{
+        await KorisnikService.get().then((odgovor) => {
             setKorisnici(odgovor.data)
         })
     }
 
-        
-     function handlePageChange(page) {
+
+    function handlePageChange(page) {
         setCurrentPage(page)
     }
 
@@ -87,14 +89,14 @@ export default function KorisnikPregled(){
     }
 
 
-    return(
+    return (
         <>
-        <Link to={RouteNames.KORISNICI_NOVI}
-        className="btn btn-success w-100 my-3">
-            Dodavanje novog korisnika
-        </Link>
+            <Link to={RouteNames.KORISNICI_NOVI}
+                className="btn btn-success w-100 my-3">
+                Dodavanje novog korisnika
+            </Link>
 
-         {/* Search input */}
+            {/* Search input */}
             <InputGroup className="mb-3">
                 <InputGroup.Text>
                     <FaSearch />
@@ -107,28 +109,25 @@ export default function KorisnikPregled(){
                 />
             </InputGroup>
 
-             <Link to={RouteNames.KORISNICI_NOVI}
-                            className="btn btn-success w-100 my-3">
-                            Dodavanje novog korisnika
-                        </Link>
-                        {/* tableti prema manje */}
-                        {['xs', 'sm', 'md'].includes(sirina) ? (
-                            <KorisnikPregledGrid
-                                korisnici={korisnici} 
-                                navigate={navigate} 
-                                brisanje={brisanje} 
-                            />
-                        ) : (
-                            <KorisnikiPregledTablica
-                                korisnici={korisnici}   
-                                navigate={navigate} 
-                                brisanje={brisanje} 
-                            />
-                        )}
 
-    
+            {/* tableti prema manje */}
+            {['xs', 'sm', 'md'].includes(sirina) ? (
+                <KorisnikPregledGrid
+                    korisnici={korisnici}
+                    navigate={navigate}
+                    brisanje={brisanje}
+                />
+            ) : (
+                <KorisnikiPregledTablica
+                    korisnici={korisnici}
+                    navigate={navigate}
+                    brisanje={brisanje}
+                />
+            )}
 
-         {/* Pagination komponenta */}
+
+
+            {/* Pagination komponenta */}
             {totalPages > 1 && (
 
                 <div className="d-flex justify-content-center">
@@ -188,7 +187,7 @@ export default function KorisnikPregled(){
 }
 
 
-  {/*
+{/*
         <Table striped bordered hover>
             <thead>
                 <tr>

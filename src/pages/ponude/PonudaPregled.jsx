@@ -28,7 +28,7 @@ export default function PonudaPregled() {
     const [ponude, setPonuda] = useState([])
     const [korisnici, setKorisnici] = useState([])
     const [usluge, setUsluge] = useState([])
-     const sirina = useBreakpoint();
+    const sirina = useBreakpoint();
 
 
     useEffect(() => {
@@ -88,10 +88,10 @@ export default function PonudaPregled() {
             .filter(n => n !== null)
             .join(', '); // Spaja nazive zarezom: "Rock, Pop"
 
-            
+
 
     }
-        async function generirajPDFZaPonudu(ponuda) {
+    async function generirajPDFZaPonudu(ponuda) {
         // Dohvati smjer
         const korisnik = korisnici.find(s => s.sifra === ponuda.korisnik)
         if (!usluge) {
@@ -111,59 +111,37 @@ export default function PonudaPregled() {
             ponuda.usluge && ponuda.usluge.includes(p.sifra)
         )
 
-    
-    const gradoviPodaci = await GradService.get()
 
-    const gradovi = gradoviPodaci.data
+        const gradoviPodaci = await GradService.get()
 
-    const imeGrada = gradovi.find(g=>g.sifra = korisnik.grad).naziv
-    const dtoKorisnik = {...korisnik, grad: imeGrada}
-    //console.table(korisnik)
-    //console.table(dtoKorisnik)
+        const gradovi = gradoviPodaci.data
+
+        const imeGrada = gradovi.find(g => g.sifra = korisnik.grad).naziv
+        const dtoKorisnik = { ...korisnik, grad: imeGrada }
+        //console.table(korisnik)
+        //console.table(dtoKorisnik)
         // Generiraj PDF
         const generiraj = GrupaPDFGenerator({
             ponuda,
             korisnik: dtoKorisnik,
             usluge: uslugePonude
-            
+
         })
         await generiraj()
-    
-    
+
+
 
     }
-    
+
 
     return (
         <>
-           <Link to={RouteNames.PONUDE_NOVI}
-                          className="btn btn-success w-100 my-3">
-                          Dodavanje nove ponude
-                      </Link>
-                      {/* tableti prema manje */}
-                      {['xs', 'sm', 'md'].includes(sirina) ? (
-                          <PonudaPregledGrid
-                              ponude={ponude}
-                              navigate={navigate}
-                              brisanje={brisanje}
-                          />
-                      ) : (
-                          <PonudaPregledTablica
-                              ponude={ponude}
-                              navigate={navigate}
-                              brisanje={brisanje}
-                          />
-                      )}
-        </>
-    )
-}
-
-
- {/*} <Link to={RouteNames.PONUDE_NOVI}
+            <Link to={RouteNames.PONUDE_NOVI}
                 className="btn btn-success w-100 my-3">
                 <GrAdd /> Dodaj novu ponudu
             </Link>
-            <Table hover bordered responsive>
+            <div className="table-responsive" >
+            <Table hover bordered className="align-middle">
                 <thead>
                     <tr>
                         <th>Korisnik</th>
@@ -179,28 +157,55 @@ export default function PonudaPregled() {
                             <td>{dohvatiNazivKorisnika(ponuda.korisnik)}</td>
                             <td>{dohvatiNaziveUsluga(ponuda.usluge)}</td>
                             <td> <FormatDatuma datum={ponuda.datum} /></td>
-                                                        
-                            <td>{ponuda.popust===0 ? '' : ponuda.popust + ' %'}</td>
+
+                            <td>{ponuda.popust === 0 ? '' : ponuda.popust + ' %'}</td>
                             <td>
 
-                                
-                                <Button onClick={() => { navigate(`/ponude/${ponuda.sifra}`) }}title="Promjeni">
-                                   <FaEdit /> 
+
+                                <Button onClick={() => { navigate(`/ponude/${ponuda.sifra}`) }} title="Promjeni">
+                                    <FaEdit />
                                 </Button>
                                 &nbsp;&nbsp;
-                                <FaTrash 
-                                   onClick={() => brisanje(ponuda.sifra)} 
-                                   title="Obriši" 
-                                   style={{cursor: 'hand'}}
-                                   color="red"/>
-                                
+                                <FaTrash
+                                    onClick={() => brisanje(ponuda.sifra)}
+                                    title="Obriši"
+                                    style={{ cursor: 'hand' }}
+                                    color="red" />
 
-                                 &nbsp;&nbsp;
-                                <Button variant="info" onClick={() => generirajPDFZaPonudu(ponuda)} title="Generiraj PDF">
+
+                                &nbsp;&nbsp;
+                                <Button variant="info"  onClick={() => generirajPDFZaPonudu(ponuda)} title="Generiraj PDF">
                                     <FaFilePdf />
                                 </Button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
-            </Table>*/}
+            </Table>
+            </div>
+        </>
+
+    )
+}
+
+
+{/* <Link to={RouteNames.PONUDE_NOVI}
+                          className="btn btn-success w-100 my-3">
+                          Dodavanje nove ponude
+                      </Link>
+                     /* tableti prema manje 
+                      {['xs', 'sm', 'md'].includes(sirina) ? (
+                          <PonudaPregledGrid
+                              ponude={ponude}
+                              navigate={navigate}
+                              brisanje={brisanje}
+                          />
+                      ) : (
+                          <PonudaPregledTablica
+                              ponude={ponude}
+                              navigate={navigate}
+                              brisanje={brisanje}
+                          />
+                      */}
+
+
