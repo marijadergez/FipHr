@@ -162,7 +162,7 @@ export default function PonudaPregled() {
                             <td>
 
 
-                                <Button onClick={() => { navigate(`/ponude/${ponuda.sifra}`) }} title="Promjeni">
+                                <Button size="sm" onClick={() => { navigate(`/ponude/${ponuda.sifra}`) }} title="Promjeni">
                                     <FaEdit />
                                 </Button>
                                 &nbsp;&nbsp;
@@ -174,7 +174,7 @@ export default function PonudaPregled() {
 
 
                                 &nbsp;&nbsp;
-                                <Button variant="info"  onClick={() => generirajPDFZaPonudu(ponuda)} title="Generiraj PDF">
+                                <Button variant="info" size="sm" onClick={() => generirajPDFZaPonudu(ponuda)} title="Generiraj PDF">
                                     <FaFilePdf />
                                 </Button>
                             </td>

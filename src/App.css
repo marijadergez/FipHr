@@ -50,8 +50,34 @@ h2{
   justify-content: center;
 }
 
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Glatko skrolanje na iOS-u */
+}
 
+/* Mobilni prikaz (ekrani manji od 768px) */
+@media (max-width: 767.98px) {                                      
+  
+  /* Smanji veličinu teksta i paddinga u cijeloj tablici */
+  .table-responsive .table {
+    font-size: 0.85rem !important;
+  }
 
+  .table-responsive .table th,
+  .table-responsive .table td {
+    padding: 0.4rem !important; /* Smanji praznine u ćelijama */
+    white-space: nowrap; /* Spreči prelazak teksta u novi red */
+  }
+
+  /* Posebno za stupac "Akcija" (gumbi) */
+  .table-responsive .table .mobile-actions {
+    display: flex;
+    flex-direction: column; /* Gumbi jedan ispod drugog */
+    gap: 4px; /* Razmak između gumba */
+    align-items: stretch; /* Gumbi širine ćelije */
+    min-width: 120px; /* Minimalna širina da se stane tekst */
+  }
 /*.glass {
   position: absolute;
   text-align: center;
@@ -63,4 +89,4 @@ h2{
   backdrop-filter: blur(1px);
 }*/
 
-
+}
