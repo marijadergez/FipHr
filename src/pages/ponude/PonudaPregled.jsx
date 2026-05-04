@@ -143,7 +143,7 @@ export default function PonudaPregled() {
                  <div className="mobile-actions" style={{ display: 'flex', gap: '4px', alignItems: 'center', justifyContent: 'center' }}>
             <div className="table-responsive" >
                
-            <Table hover bordered className="align-middle">
+            <Table hover bordered responsive className="align-middle">
                 <thead>
                     <tr>
                         <th>Korisnik</th>
@@ -157,7 +157,7 @@ export default function PonudaPregled() {
                     {ponude && ponude.map((ponuda) => (
                         <tr key={ponuda.sifra}>
                             <td>{dohvatiNazivKorisnika(ponuda.korisnik)}</td>
-                            <td>{dohvatiNaziveUsluga(ponuda.šifra)}</td>
+                            <td title={dohvatiNaziveUsluga(ponuda.usluge)}>{ponuda.usluge ? ponuda.usluge.length : ''}</td>
                             <td> <FormatDatuma datum={ponuda.datum} /></td>
 
                             <td>{ponuda.popust === 0 ? '' : ponuda.popust + ' %'}</td>
