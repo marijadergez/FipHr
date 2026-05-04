@@ -9,6 +9,7 @@ import UslugeService from "../services/usluge/UslugeService";
 
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React from 'react';
+import PonudaService from "../services/ponude/PonudaService";
 
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
     const [animatedUsluge, setAnimatedUsluge] = useState(0);
     const [animatedKorisnici, setAnimatedKorisnici] = useState(0);
     const [animatedGradovi, setAnimatedGradovi] = useState(0);
+    const [animatedPonude, setAnimatedPonude] = useState (0)
 
     const lottieStyle = {
         marginTop: '10px',
@@ -39,10 +41,12 @@ export default function Home() {
                 const uslugeRezultat = await UslugeService.get();
                 const korisnici = await KorisnikService.get();
                 const gradovi = await GradService.get();
+                const ponude = await PonudaService.get();
 
                 setBrojUsluga(uslugeRezultat.data.length);
                 setBrojKorisnika(korisnici.data.length);
                 setBrojGradova(gradovi.data.length);
+                setBrojPonuda(ponude.data.length);
             } catch (error) {
                 console.error('Greška pri dohvaćanju podataka:', error);
             }
@@ -77,6 +81,15 @@ export default function Home() {
             return () => clearTimeout(timer);
         }
     }, [animatedGradovi, brojGradova]);
+
+    useEffect(() => {
+        if (animatedPonude < brojPonuda) {
+            const timer = setTimeout(() => {
+                setAnimatedPonude(prev => Math.min(prev + 1, brojPonuda));
+            }, 200);
+            return () => clearTimeout(timer);
+        }
+    }, [animatedPonude, brojPonude]);
 
 
 
@@ -128,6 +141,16 @@ export default function Home() {
                                     {animatedGradovi}
                                 </div>
                             </Card.Body>
+                            
+                        </Card>
+                        <Card className="shadow-lg border-0 statistikaPanel">
+                            <Card.Body className="text-center">
+                                <p className="text-white">Ponude</p>
+                                <div className="statistikaTekst">
+                                    {animatedPonude}
+                                </div>
+                            </Card.Body>
+                            
                         </Card>
                     </div>
                 </Col>

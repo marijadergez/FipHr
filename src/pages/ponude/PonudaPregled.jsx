@@ -16,8 +16,8 @@ import UslugeService from "../../services/usluge/UslugeService"
 import GrupaPDFGenerator from "../../components/KorisniciPDFGenerator"
 import { FaEdit, FaFilePdf, FaTrash } from "react-icons/fa"
 import GradService from "../../services/gradovi/GradService"
-import PonudaPregledGrid from "./PonudaPregledGrid"
-import PonudaPregledTablica from "./PonudaPregledTablica"
+
+
 import useBreakpoint from "../../hooks/useBreakpoint"
 
 export default function PonudaPregled() {
