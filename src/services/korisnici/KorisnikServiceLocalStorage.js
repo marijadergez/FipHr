@@ -1,4 +1,5 @@
 import { PrefixStorage } from "../../constants";
+import GradService from "../gradovi/GradService";
 
 function dohvatiSveIzStorage() {
     const podaci = localStorage.getItem(PrefixStorage.KORISNICI);
@@ -59,6 +60,25 @@ async function obrisi(sifra) {
 // Straničenje - dohvati stranicu polaznika
 async function getPage(page = 1, pageSize = 8, searchTerm = '') {
     let filteredKorisnici = [...dohvatiSveIzStorage()];
+
+
+    const gradoviOdgovor = await GradService.get();
+
+    const gradoviPodaci = gradoviOdgovor.data
+
+    filteredKorisnici = filteredKorisnici.map(korisnik => {
+        // Pronađi izvođača čija se šifra podudara s onom u albumu
+        const pronadjeniGrad = gradoviPodaci.find(i => i.sifra === korisnik.grad);
+        
+        return {
+            ...korisnik,
+            // Ako je izvođač pronađen, stavi njegov naziv, inače zadrži staru vrijednost ili stavi 'Nepoznato'
+            grad: pronadjeniGrad ? pronadjeniGrad.naziv : korisnik.grad
+        };
+    });
+
+
+
     
     // Filtriranje prema search termu
     if (searchTerm && searchTerm.trim() !== '') {

@@ -53,7 +53,7 @@ export default function KorisnikPregled() {
                 alert('Nije implementiran servis')
                 return
             }
-            // console.table(odgovor)
+             //console.table(odgovor)
             setKorisnici(odgovor.data)
             setTotalPages(odgovor.totalPages)
             setTotalItems(odgovor.totalItems)
@@ -73,9 +73,8 @@ export default function KorisnikPregled() {
 
         await KorisnikService.obrisi(sifra);
 
-        await KorisnikService.get().then((odgovor) => {
-            setKorisnici(odgovor.data)
-        })
+        ucitajKorisnike(currentPage, searchTerm)
+        hideLoading()
     }
 
 
@@ -185,38 +184,3 @@ export default function KorisnikPregled() {
     )
 
 }
-
-
-{/*
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>Ime</th>
-                    <th>Prezime</th>
-                    <th>Email</th>
-                    <th>Grad</th>
-                    <th>Akcija</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                {korisnici && korisnici.map((korisnik)=>(
-                    <tr key={korisnik.sifra}>
-                        <td className="lead">{korisnik.ime}</td>
-                        <td className="lead">{korisnik.prezime}</td>
-                        <td>{korisnik.email}</td>
-                        <td>{dohvatiNazivGrada(korisnik.grad)}</td>
-                        <td>
-                            
-                            <Button onClick={()=>{navigate(`/korisnici/${korisnik.sifra}`)}}>
-                                Promjeni
-                            </Button>
-                            &nbsp;&nbsp;
-                            <Button variant="danger" onClick={() => brisanje(korisnik.sifra)}>
-                                Obriši
-                            </Button>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </Table> */}

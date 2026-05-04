@@ -3,9 +3,9 @@ import { NumericFormat } from "react-number-format";
 import { GrValidate } from "react-icons/gr";
 import FormatDatuma from "../../components/FormatDatuma";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { korisnici } from "../../services/korisnici/KorisnikPodaci";
 
-export default function KorisnikPregledGrid({ korisnik, navigate, brisanje }) {
+
+export default function KorisnikPregledGrid({ korisnici, navigate, brisanje }) {
     return (
         <Container className="py-3 px-0">
             <Row>
@@ -14,40 +14,23 @@ export default function KorisnikPregledGrid({ korisnik, navigate, brisanje }) {
                         <Card className="shadow-sm h-100">
                             <Card.Header className="d-flex justify-content-between align-items-center bg-white py-3">
                                 <span className="fw-bold text-primary" style={{ fontSize: '1.1rem' }}>
-                                    {korisnik.naziv} 
+                                    {korisnik.ime} {korisnik.prezime}
                                 </span>
-                                <GrValidate
-                                    size={22}
-                                    color={korisnik.aktivan ? 'green' : 'red'}
-                                    title={korisnik.aktivan ? "Aktivan" : "Neaktivan"}
-                                />
+                               
                             </Card.Header>
 
                             <Card.Body>
                                 <div className="d-flex justify-content-between mb-2">
-                                    <span className="text-muted">Trajanje:</span>
-                                    <span className="fw-semibold">{korisnik.trajanje} h</span>
+                                    <span className="text-muted">Email:</span>
+                                    <span className="fw-semibold">{korisnik.email} h</span>
                                 </div>
 
-                              {/*}  <div className="d-flex justify-content-between mb-2">
-                                    <span className="text-muted">Cijena:</span>
-                                    <span className="fw-bold text-dark">
-                                        <NumericFormat
-                                            value={korisnik.cijena}
-                                            displayType={'text'}
-                                            thousandSeparator='.'
-                                            decimalSeparator=','
-                                            suffix=' €'
-                                            decimalScale={2}
-                                            fixedDecimalScale
-                                        />
-                                    </span>
-                                </div>*/}
+                             
 
                                 <div className="d-flex justify-content-between">
-                                    <span className="text-muted">Početak:</span>
+                                    <span className="text-muted">Grad:</span>
                                     <span>
-                                        <FormatDatuma datum={korisnik.datumPokretanja} />
+                                        {korisnik.grad}
                                     </span>
                                 </div>
                             </Card.Body>

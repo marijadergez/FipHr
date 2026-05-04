@@ -8,7 +8,7 @@ import { useState } from "react";
 import { usluge } from "../../services/usluge/UslugePodaci";
 import { korisnici } from "../../services/korisnici/KorisnikPodaci";
 
-export default function KorisnikiPregledTablica({ korisnik, navigate, brisanje }) {
+export default function KorisnikiPregledTablica({ korisnici, navigate, brisanje }) {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
     const handleSort = (key) => {
@@ -32,7 +32,7 @@ export default function KorisnikiPregledTablica({ korisnik, navigate, brisanje }
         if (!korisnici || sortConfig.direction === null) {
             return korisnici;
         }
-
+        //console.table(korisnici)
         const sorted = [...korisnici].sort((a, b) => {
             let aValue = a[sortConfig.key];
             let bValue = b[sortConfig.key];
@@ -41,19 +41,7 @@ export default function KorisnikiPregledTablica({ korisnik, navigate, brisanje }
             if (aValue === null || aValue === undefined) return 1;
             if (bValue === null || bValue === undefined) return -1;
 
-            // Sortiranje prema tipu podatka: Date
-            if (sortConfig.key === 'datumPokretanja') {
-                const dateA = new Date(aValue);
-                const dateB = new Date(bValue);
-                return sortConfig.direction === 'asc' ? dateA - dateB : dateB - dateA;
-            }
-
-            // Sortiranje prema tipu podatka: boolean
-            if (sortConfig.key === 'aktivan') {
-                const valA = aValue ? 1 : 0;
-                const valB = bValue ? 1 : 0;
-                return sortConfig.direction === 'asc' ? valA - valB : valB - valA;
-            }
+           
 
             // Sortiranje prema tipu podatka: string
             if (typeof aValue === 'string') {
@@ -79,20 +67,17 @@ export default function KorisnikiPregledTablica({ korisnik, navigate, brisanje }
         <Table striped bordered hover responsive>
             <thead>
                 <tr>
-                    <th onClick={() => handleSort('naziv')} style={{ cursor: 'pointer' }}>
-                        Naziv {getSortIcon('naziv')}
+                    <th onClick={() => handleSort('ime')} style={{ cursor: 'pointer' }}>
+                        Ime {getSortIcon('ime')}
                     </th>
-                    <th onClick={() => handleSort('trajanje')} style={{ cursor: 'pointer' }}>
-                        Trajanje {getSortIcon('trajanje')}
+                    <th onClick={() => handleSort('prezime')} style={{ cursor: 'pointer' }}>
+                        Prezime {getSortIcon('prezime')}
                     </th>
-                    <th onClick={() => handleSort('cijena')} style={{ cursor: 'pointer' }}>
-                        Cijena {getSortIcon('cijena')}
+                    <th onClick={() => handleSort('email')} style={{ cursor: 'pointer' }}>
+                        Email {getSortIcon('email')}
                     </th>
-                    <th onClick={() => handleSort('datumPokretanja')} style={{ cursor: 'pointer' }}>
-                        Datum pokretanja {getSortIcon('datumPokretanja')}
-                    </th>
-                    <th onClick={() => handleSort('aktivan')} style={{ cursor: 'pointer' }}>
-                        Aktivan {getSortIcon('aktivan')}
+                    <th onClick={() => handleSort('grad')} style={{ cursor: 'pointer' }}>
+                        Grad {getSortIcon('grad')}
                     </th>
                     <th>Akcija</th>
                 </tr>
@@ -100,31 +85,17 @@ export default function KorisnikiPregledTablica({ korisnik, navigate, brisanje }
             <tbody>
                 {sortedKorisnici() && sortedKorisnici().map((korisnik) => (
                     <tr key={korisnik.sifra}>
-                        <td className="lead">{korisnik.naziv}</td>
-                        <td className='text-end'>{korisnik.trajanje} h</td>
+                        <td className="lead">{korisnik.ime}</td>
+                        <td className='text-end'>{korisnik.prezime}</td>
                         <td className='text-end'>
-                            <NumericFormat
-                                value={korisnik.cijena}
-                                displayType={'text'}
-                                thousandSeparator='.'
-                                decimalSeparator=','
-                                suffix=' €'
-                                prefix='='
-                                decimalScale={2}
-                                fixedDecimalScale
-                            />
+                          {korisnik.email}
                         </td>
                         <td>
-                            <FormatDatuma datum={korisnik.datumPokretanja} />
+                            {korisnik.grad}
                         </td>
-                        <td style={{ textAlign: 'center' }}>
-                            <GrValidate
-                                size={25}
-                                color={korisnik.aktivan ? 'green' : 'red'}
-                            />
-                        </td>
+                        
                         <td>
-                            <Button onClick={() => navigate(`/korisnik/${korisnik.sifra}`)} title="Promjeni">
+                            <Button onClick={() => navigate(`/korisnici/${korisnik.sifra}`)} title="Promjeni">
                                  <FaEdit />
                             </Button>
                             &nbsp;&nbsp;
