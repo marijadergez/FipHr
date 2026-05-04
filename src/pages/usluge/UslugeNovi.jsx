@@ -56,7 +56,7 @@ export default function UslugeNovi(){
           
             cijena: parseFloat(podaci.get('cijena')),
             datumPokretanja: new Date().toISOString(),
-            popust: podaci.get('popust') === 'on'
+            popust: parseInt(podaci.get('popust')) 
         })
     }
 
@@ -64,41 +64,51 @@ export default function UslugeNovi(){
         <>
             <h3>Unos nove usluge</h3>
             <Form onSubmit={odradiSubmit}>
-
-
                 <Container className="mt-4">
                     <Card className="shadow-sm">
                         <Card.Body>
                             <Card.Title className="mb-4">Podaci o usluzi</Card.Title>
 
                             {/* Naziv - Pun širina na svim ekranima */}
-                          
+                            <Row>
+                                <Col xs={12}>
+                                    <Form.Group controlId="naziv" className="mb-3">
+                                        <Form.Label className="fw-bold">Naziv</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="naziv"
+                                            placeholder="Unesite naziv usluga"
+                                            required
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
                             {/* Trajanje i Cijena - Jedno pored drugog na md+, jedno ispod drugog na mobitelu */}
                             <Row>
                                
-                               <Form.Group controlId="usluge">
-                    <Form.Label>Usluge</Form.Label>
-                    <Form.Select name="usluge" required>
-                        <option key={0} value="">Odaberite usluge za ponudu</option>
-                        {usluge && usluge.map((usluga) => (
-                            <option key={usluga.sifra} value={usluga.sifra}>
-                                {usluga.naziv}
-                            </option>
-                        ))}
-                    </Form.Select>
-                </Form.Group>
-                      
+                                <Col md={6}>
+                                    <Form.Group controlId="cijena" className="mb-3">
+                                        <Form.Label className="fw-bold">Cijena (€)</Form.Label>
+                                        <Form.Control
+                                            type="number"
+                                            name="cijena"
+                                            step={0.01}
+                                            placeholder="0,00"
+                                        />
+                                    </Form.Group>
+                                </Col>
+                        
 
-                      
                                 {/* Aktivan - Switch umjesto checkboxa za moderniji izgled */}
                                 <Col md={6}>
-                                    <Form.Group controlId="popust" className="mb-3 mt-md-3">
-                                        <Form.Check
-                                            type="switch"
-                                            label="Usluga je na popustu"
+                                    <Form.Group controlId="popust" className="mb-3">
+                                        <Form.Label className="fw-bold">Popus (%)</Form.Label>
+                                        <Form.Control
+                                            type="number"
                                             name="popust"
-                                            className="fs-5"
+                                            step={1}
+                                            placeholder="0"
                                         />
                                     </Form.Group>
                                 </Col>
@@ -112,12 +122,13 @@ export default function UslugeNovi(){
                                     Odustani
                                 </Link>
                                 <Button type="submit" variant="success">
-                                    Dodaj novu uslugu
+                                    Dodaj uslugu
                                 </Button>
                             </div>
                         </Card.Body>
                     </Card>
                 </Container>
+
 
             </Form>
         </>

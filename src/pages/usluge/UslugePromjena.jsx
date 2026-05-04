@@ -71,7 +71,7 @@ export default function UslugePromjena(){
             naziv: podaci.get('naziv'),
             cijena: parseFloat(podaci.get('cijena')),
             datumPokretanja: usluga.datumPokretanja,
-            popust: popust
+            popust: parseInt(podaci.get('popust'))
         })
     }
 
@@ -119,14 +119,14 @@ export default function UslugePromjena(){
 
                                 {/* Aktivan - Switch umjesto checkboxa za moderniji izgled */}
                                 <Col md={6}>
-                                    <Form.Group controlId="popust" className="mb-3 mt-md-3">
-                                        <Form.Check
-                                            type="switch"
-                                            label="Usluga je na popustu"
+                                    <Form.Group controlId="popust" className="mb-3">
+                                        <Form.Label className="fw-bold">Popus (%)</Form.Label>
+                                        <Form.Control
+                                            type="number"
                                             name="popust"
-                                            className="fs-5"
-                                            checked={popust}
-                                            onChange={(e) => setPopust(e.target.checked)}
+                                            step={1}
+                                            placeholder="0"
+                                            defaultValue={usluga.popust}
                                         />
                                     </Form.Group>
                                 </Col>

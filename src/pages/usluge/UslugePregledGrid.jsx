@@ -23,10 +23,6 @@ export default function UslugePregledGrid({ usluge, navigate, brisanje }) {
                             </Card.Header>
 
                             <Card.Body>
-                                <div className="d-flex justify-content-between mb-2">
-                                    <span className="text-muted">Trajanje:</span>
-                                    <span className="fw-semibold">{usluga.trajanje} h</span>
-                                </div>
 
                                 <div className="d-flex justify-content-between mb-2">
                                     <span className="text-muted">Cijena:</span>
@@ -43,12 +39,7 @@ export default function UslugePregledGrid({ usluge, navigate, brisanje }) {
                                     </span>
                                 </div>
 
-                                <div className="d-flex justify-content-between">
-                                    <span className="text-muted">Početak:</span>
-                                    <span>
-                                        <FormatDatuma datum={usluga.datumPokretanja} />
-                                    </span>
-                                </div>
+                               
                             </Card.Body>
 
                             <Card.Footer className="bg-light d-flex gap-2">

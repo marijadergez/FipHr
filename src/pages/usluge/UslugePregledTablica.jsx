@@ -81,17 +81,11 @@ export default function UslugePregledTablica({ usluge, navigate, brisanje }) {
                     <th onClick={() => handleSort('naziv')} style={{ cursor: 'pointer' }}>
                         Naziv {getSortIcon('naziv')}
                     </th>
-                    <th onClick={() => handleSort('trajanje')} style={{ cursor: 'pointer' }}>
-                        Trajanje {getSortIcon('trajanje')}
-                    </th>
                     <th onClick={() => handleSort('cijena')} style={{ cursor: 'pointer' }}>
                         Cijena {getSortIcon('cijena')}
                     </th>
-                    <th onClick={() => handleSort('datumPokretanja')} style={{ cursor: 'pointer' }}>
-                        Datum pokretanja {getSortIcon('datumPokretanja')}
-                    </th>
-                    <th onClick={() => handleSort('aktivan')} style={{ cursor: 'pointer' }}>
-                        Aktivan {getSortIcon('aktivan')}
+                    <th onClick={() => handleSort('popust')} style={{ cursor: 'pointer' }}>
+                        Popust {getSortIcon('popust')}
                     </th>
                     <th>Akcija</th>
                 </tr>
@@ -100,7 +94,6 @@ export default function UslugePregledTablica({ usluge, navigate, brisanje }) {
                 {sortedUsluge() && sortedUsluge().map((usluga) => (
                     <tr key={usluga.sifra}>
                         <td className="lead">{usluga.naziv}</td>
-                        <td className='text-end'>{usluga.trajanje} h</td>
                         <td className='text-end'>
                             <NumericFormat
                                 value={usluga.cijena}
@@ -113,14 +106,11 @@ export default function UslugePregledTablica({ usluge, navigate, brisanje }) {
                                 fixedDecimalScale
                             />
                         </td>
-                        <td>
-                            <FormatDatuma datum={usluga.datumPokretanja} />
-                        </td>
-                        <td style={{ textAlign: 'center' }}>
-                            <GrValidate
-                                size={25}
-                                color={usluga.aktivan ? 'green' : 'red'}
-                            />
+                        <td style={{ textAlign: 'right' }}>
+                            {usluga.popust>0 && (<>
+                            {usluga.popust} %
+                            </>)}
+                            
                         </td>
                         <td>
                             <Button onClick={() => navigate(`/usluge/${usluga.sifra}`)} title="Promjeni">
