@@ -1,12 +1,15 @@
-const STORAGE_KEY = 'gradovi';
+import { PrefixStorage } from "../../constants";
+
+
+
 
 function dohvatiSveIzStorage() {
-    const podaci = localStorage.getItem(STORAGE_KEY);
+    const podaci = localStorage.getItem((PrefixStorage.GRADOVI));
     return podaci ? JSON.parse(podaci) : [];
 }
 
 function spremiUStorage(podaci) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(podaci));
+    localStorage.setItem(PrefixStorage.GRADOVI, JSON.stringify(podaci));
 }
 
 async function get() {

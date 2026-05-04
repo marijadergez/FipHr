@@ -15,3 +15,6 @@ export const gradovi = [
 
     }
 ]
+export default{
+    gradovi
+}

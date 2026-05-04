@@ -8,7 +8,10 @@ import { gradovi } from '../services/gradovi/GradPodaci';
 import PonudaService from '../services/ponude/PonudaService'
 import { ponude } from '../services/ponude/PonudaPodaci';
 import UslugeServiceLocalStorage from '../services/usluge/UslugeServiceLocalStorage';
-import { IME_APLIKACIJE } from '../constants';
+import { DATA_SOURCE, IME_APLIKACIJE, PrefixStorage } from '../constants';
+import gradoviMemorija from '../services/gradovi/GradPodaci'
+import korisniciMemorija from '../services/korisnici/KorisnikPodaci'
+import uslugeMemorija from '../services/usluge/UslugePodaci'
 
 export default function GeneriranjePodataka() {
     const [brojUsluga, setBrojUsluga] = useState(10);
@@ -41,7 +44,6 @@ export default function GeneriranjePodataka() {
         for (let i = 0; i < broj; i++) {
             await UslugeService.dodaj({
                 naziv: naziviUsluga[i % naziviUsluga.length] + (i >= naziviUsluga.length ? ` ${Math.floor(i / naziviUsluga.length) + 1}` : ''),
-
                 cijena: parseFloat(faker.number.float({ min: 1100, max: 5000, precision: 0.01 }).toFixed(2)),
                 datumPokretanja: faker.date.soon().toISOString().split('T')[0],
                 popust: faker.datatype.boolean()
@@ -338,6 +340,122 @@ export default function GeneriranjePodataka() {
         }
     };
 
+     const generirajOperatere = async (broj) => {
+        // Prvo obriši admin operatera ako postoji
+        const rezultat = await OperaterService.get();
+        const operateri = rezultat.data;
+        const adminOperater = operateri.find(op => op.email === 'admin@edunova.hr');
+        
+        if (adminOperater) {
+            await OperaterService.obrisi(adminOperater.sifra);
+        }
+
+        // Dodaj admin operatera
+        await OperaterService.dodaj({
+            email: 'admin@edunova.hr',
+            lozinka: 'Edunova123!',
+            uloga: 'admin'
+        });
+
+        // Generiraj korisnik operatere
+        for (let i = 0; i < broj; i++) {
+            await OperaterService.dodaj({
+                email: faker.internet.email(),
+                lozinka: 'Edunova123!',
+                uloga: 'korisnik'
+            });
+        }
+    };
+
+    const handleGenerirajOperatere = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+            await generirajOperatere(brojOperatera);
+
+            setPoruka({
+                tip: 'success',
+                tekst: `Uspješno generirano ${brojOperatera + 1} operatera (1 admin + ${brojOperatera} korisnika)!`
+            });
+        } catch (error) {
+            setPoruka({
+                tip: 'danger',
+                tekst: 'Greška pri generiranju operatera: ' + error.message
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleObrisiOperatere = async () => {
+        if (!window.confirm('Jeste li sigurni da želite obrisati sve operatere?')) {
+            return;
+        }
+
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+            const rezultat = await OperaterService.get();
+            const operateri = rezultat.data;
+            
+            for (const operater of operateri) {
+                await OperaterService.obrisi(operater.sifra);
+            }
+
+            setPoruka({
+                tip: 'success',
+                tekst: `Uspješno obrisano ${operateri.length} operatera!`
+            });
+        } catch (error) {
+            setPoruka({
+                tip: 'danger',
+                tekst: 'Greška pri brisanju operatera: ' + error.message
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+ const handleMemorijaULocalStorage = async () => {
+        if (!window.confirm('Jeste li sigurni da želite pretočiti iz memorije u localStorage?')) {
+            return;
+        }
+
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+
+            localStorage.setItem(PrefixStorage.GRADOVI, JSON.stringify(gradoviMemorija.gradovi));
+            localStorage.setItem(PrefixStorage.KORISNICI, JSON.stringify(korisniciMemorija.korisnici));
+            localStorage.setItem(PrefixStorage.USLUGE, JSON.stringify(uslugeMemorija.usluge));
+
+            setPoruka({
+                tip: 'success',
+                tekst: `Uspješno presipano`
+            });
+        } catch (error) {
+            setPoruka({
+                tip: 'danger',
+                tekst: 'Greška pri presipavanju memorija - localStorage: ' + error.message
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    const handleMemorijaUFirebase = async () => {
+        // kasnije
+    };
+
+
+
+
+
     return (
         <Container className="mt-4">
             <h1>Generiranje podataka</h1>
@@ -520,6 +638,38 @@ export default function GeneriranjePodataka() {
             <Alert variant="danger" className="mt-3">
                 <strong>Oprez!</strong> Brisanje podataka je trajna akcija i ne može se poništiti.
             </Alert>
+
+
+
+            {DATA_SOURCE != 'memorija' && (
+                <>
+                    <hr />
+                    <h3>Pretakanje podataka iz jednog izvora u drugi</h3>
+                    <Row className="mt-3">
+                        <Col md={6}>
+                            <Button
+                                variant="success"
+                                onClick={handleMemorijaULocalStorage}
+                                disabled={loading}
+                                className="w-100 mb-2"
+                            >
+                                {loading ? 'Pretakanje...' : 'Iz memorije u localStorage'}
+                            </Button>
+                        </Col>
+                        <Col md={6}>
+                            <Button
+                                variant="success"
+                                onClick={handleMemorijaUFirebase}
+                                disabled={loading}
+                                className="w-100 mb-2"
+                            >
+                                {loading ? 'Pretakanje...' : 'Iz memorije u firebase'}
+                            </Button>
+                        </Col>
+
+                    </Row>
+                </>
+            )}
         </Container>
     );
 }

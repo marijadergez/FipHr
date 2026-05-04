@@ -16,3 +16,7 @@ export const korisnici = [
 }
 
 ]
+
+export default{
+    korisnici
+}
