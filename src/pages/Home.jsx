@@ -1,15 +1,13 @@
 import { IME_APLIKACIJE } from "../constants";
-
-import { Col, Row, Card } from "react-bootstrap";
+import { Col, Row, Card, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
-
 import KorisnikService from "../services/korisnici/korisnikService";
 import GradService from "../services/gradovi/GradService";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React from 'react';
 import PonudaService from "../services/ponude/PonudaService";
 import UslugeService from "../services/usluge/UslugeService";
-
+import OperaterService from "../services/operateri/OperaterService";
 
 export default function Home() {
 
@@ -23,6 +21,7 @@ export default function Home() {
     const [animatedGradovi, setAnimatedGradovi] = useState(0);
     const [brojPonuda, setBrojPonuda] = useState(0);
     const [animatedPonude, setAnimatedPonude] = useState(0)
+     const [animatedOperateri, setAnimatedOperateri] = useState(0);
 
     const lottieStyle = {
         marginTop: '10px',
@@ -30,7 +29,6 @@ export default function Home() {
         high: 'auto',
         display: 'block'
     }
-
 
 
     useEffect(() => { document.title = 'Početna, ' + IME_APLIKACIJE })
@@ -92,9 +90,10 @@ export default function Home() {
     }, [animatedPonude, brojPonuda]);
 
 
+    
 
     return (
-        <>
+        <Container>
             <Row>
                 <Col md={6}>
                     <p className="lead m-5 text-center">Dobrodošli na {IME_APLIKACIJE}</p>
@@ -116,52 +115,78 @@ export default function Home() {
                 </Col>
                 <Col className="d-flex align-items-center justify-content-center">
                     <div style={{ width: '100%', maxWidth: '400px' }}>
-                        <Card className="mb-3 shadow-lg border-0 statistikaPanel">
-                            <Card.Body className="text-center">
-                                <p className="text-white">Usluge</p>
-                                <div className="statistikaTekst">
-                                    {animatedUsluge}
-                                </div>
-                            </Card.Body>
-                        </Card>
+                        <Row>
+                            <Col md={6} className="mb-3">
+                                <Card className="mb-3 shadow-lg border-0 statistikaPanel">
+                                    <Card.Body className="text-center">
+                                        <p className="text-white">Usluge</p>
+                                        <div className="statistikaTekst">
+                                            {animatedUsluge}
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        
+                            <Col md={6} className="mb-3">
+                                <Card className="mb-3 shadow-lg border-0 statistikaPanel">
+                                    <Card.Body className="text-center">
+                                        <p className="text-white">Korisnici</p>
+                                        <div className="statistikaTekst">
+                                            {animatedKorisnici}
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={6} className="mb-3">
+                                <Card className="shadow-lg border-0 statistikaPanel">
+                                    <Card.Body className="text-center">
+                                        <p className="text-white">Gradovi</p>
+                                        <div className="statistikaTekst">
+                                            {animatedGradovi}
+                                        </div>
+                                    </Card.Body>
 
-                        <Card className="mb-3 shadow-lg border-0 statistikaPanel">
-                            <Card.Body className="text-center">
-                                <p className="text-white">Korisnici</p>
-                                <div className="statistikaTekst">
-                                    {animatedKorisnici}
-                                </div>
-                            </Card.Body>
-                        </Card>
-
-                        <Card className="shadow-lg border-0 statistikaPanel">
-                            <Card.Body className="text-center">
-                                <p className="text-white">Gradovi</p>
-                                <div className="statistikaTekst">
-                                    {animatedGradovi}
-                                </div>
-                            </Card.Body>
-
-                        </Card>
-                        <Card className="shadow-lg border-0 statistikaPanel">
-                            <Card.Body className="text-center">
-                                <p className="text-white">Ponude</p>
-                                <div className="statistikaTekst">
-                                    {animatedPonude}
-                                </div>
-                            </Card.Body>
-
-                        </Card>
+                                </Card>
+                            </Col>
+                        
+                            <Col md={6} className="mb-3">
+                                <Card className="shadow-lg border-0 statistikaPanel">
+                                    <Card.Body className="text-center">
+                                        <p className="text-white">Ponude</p>
+                                        <div className="statistikaTekst">
+                                            {animatedPonude}
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                            </Col>                            
+                        </Row>
+                        <Row>
+                            <div style={{ width: '100%', maxWidth: '500px' }}>
+                           <Col md={6} className="mb-3">
+                            <Card className="shadow-lg border-0 statistikaPanel h-100">
+                                <Card.Body className="text-center">
+                                    <p className="text-white">Operateri</p>
+                                    <div className="statistikaTekst">
+                                        {animatedOperateri}
+                                    </div>
+                                    <div style={{ fontSize: '0.9rem', marginTop: '10px' }}>
+                                        <span className="badge bg-danger me-2">Admin: {brojAdmina}</span>
+                                        <span className="badge bg-primary">Korisnik: {brojKorisnika}</span>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </Col> 
+                        </div>
+                        </Row>
                     </div>
+         
                 </Col>
             </Row>
-
-
-
-        </>
+        </Container>
     )
 }
-
 
 
 
