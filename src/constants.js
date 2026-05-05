@@ -18,8 +18,14 @@ export const RouteNames = {
 
     PONUDE: '/ponude',
     PONUDE_NOVI: '/ponude/novi',
-    PONUDE_PROMJENA: '/ponude/:sifra'
-   
+    PONUDE_PROMJENA: '/ponude/:sifra',
+
+    LOGIN: '/login',
+    REGISTRACIJA: '/registracija',
+
+    NADZORNA_PLOCA: '/nadzorna-ploca',
+
+    TEST: 'test'
 
 
 }
@@ -31,5 +37,6 @@ export const PrefixStorage = {
     USLUGE: 'usluge',
     KORISNICI: 'korisnici',
     GRADOVI: 'gradovi',
-    PONUDE: 'ponude'
+    PONUDE: 'ponude',
+    OPERATERI: 'operateri'
 }

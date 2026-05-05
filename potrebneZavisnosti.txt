@@ -15,6 +15,22 @@ npm install @faker-js/faker
 // PDF
 npm install jspdf jspdf-autotable
 
+
+// generiranje wod dokumenta
+npm install docx
+
+// RIVE animacije
+npm install @rive-app/react-canvas
+
+// za hash lozinki
+
+
+
+
+
+
+
+
 // lottie animacija
 npm install @lottiefiles/dotlottie-react
 

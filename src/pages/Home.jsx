@@ -15,6 +15,8 @@ export default function Home() {
 
     const [brojUsluga, setBrojUsluga] = useState(0);
     const [brojKorisnika, setBrojKorisnika] = useState(0);
+    const [brojAdmina, setBrojAdmina] = useState(0);
+    const [brojOperaterKorisnika, setBrojOperaterKorisnika] = useState(0);
     const [brojGradova, setBrojGradova] = useState(0);
     const [animatedUsluge, setAnimatedUsluge] = useState(0);
     const [animatedKorisnici, setAnimatedKorisnici] = useState(0);
@@ -22,6 +24,7 @@ export default function Home() {
     const [brojPonuda, setBrojPonuda] = useState(0);
     const [animatedPonude, setAnimatedPonude] = useState(0)
      const [animatedOperateri, setAnimatedOperateri] = useState(0);
+     const [brojOperatera, setBrojOperatera] = useState(0);
 
     const lottieStyle = {
         marginTop: '10px',
@@ -40,11 +43,19 @@ export default function Home() {
                 const korisnici = await KorisnikService.get();
                 const gradovi = await GradService.get();
                 const ponude = await PonudaService.get();
+                const operateri = await OperaterService.get();
 
                 setBrojUsluga(uslugeRezultat.data.length);
                 setBrojKorisnika(korisnici.data.length);
                 setBrojGradova(gradovi.data.length);
                 setBrojPonuda(ponude.data.length);
+                setBrojOperatera(operateri.data.length);
+
+                const admini = operateri.data.filter(op => op.uloga === 'admin').length;
+                const korisniciBroj = operateri.data.filter(op => op.uloga === 'korisnik').length;
+                setBrojAdmina(admini);
+                setBrojOperaterKorisnika(korisniciBroj);
+
             } catch (error) {
                 console.error('Greška pri dohvaćanju podataka:', error);
             }
@@ -88,6 +99,15 @@ export default function Home() {
             return () => clearTimeout(timer);
         }
     }, [animatedPonude, brojPonuda]);
+
+    useEffect(() => {
+        if (animatedOperateri < brojOperatera) {
+            const timer = setTimeout(() => {
+                setAnimatedOperateri(prev => Math.min(prev + 1, brojOperatera));
+            }, 200);
+            return () => clearTimeout(timer);
+        }
+    }, [animatedOperateri, brojOperatera]);
 
 
     
@@ -173,7 +193,7 @@ export default function Home() {
                                     </div>
                                     <div style={{ fontSize: '0.9rem', marginTop: '10px' }}>
                                         <span className="badge bg-danger me-2">Admin: {brojAdmina}</span>
-                                        <span className="badge bg-primary">Korisnik: {brojKorisnika}</span>
+                                        <span className="badge bg-primary">Korisnik: {brojOperaterKorisnika}</span>
                                     </div>
                                 </Card.Body>
                             </Card>

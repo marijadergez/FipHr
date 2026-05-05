@@ -12,6 +12,8 @@ import { DATA_SOURCE, IME_APLIKACIJE, PrefixStorage } from '../constants';
 import gradoviMemorija from '../services/gradovi/GradPodaci'
 import korisniciMemorija from '../services/korisnici/KorisnikPodaci'
 import uslugeMemorija from '../services/usluge/UslugePodaci'
+import OperaterService from '../services/operateri/OperaterService';
+import operateriMemorija from '../services/operateri/OperaterPodaci'
 
 export default function GeneriranjePodataka() {
     const [brojUsluga, setBrojUsluga] = useState(10);
@@ -20,6 +22,7 @@ export default function GeneriranjePodataka() {
     const [brojPonuda, setBrojPonuda] = useState(5)
     const [poruka, setPoruka] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [brojOperatera, setBrojOperatera] = useState(5);
 
 
     useEffect(()=>{document.title='Generiranje podataka, ' + IME_APLIKACIJE})
@@ -340,7 +343,38 @@ export default function GeneriranjePodataka() {
         }
     };
 
-     const generirajOperatere = async (broj) => {
+
+    const handleObrisiOperatere = async () => {
+        if (!window.confirm('Jeste li sigurni da želite obrisati sve operatere?')) {
+            return;
+        }
+
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+            const rezultat = await OperaterService.get();
+            const operateri = rezultat.data;
+            
+            for (const operater of operateri) {
+                await OperaterService.obrisi(operater.sifra);
+            }
+
+            setPoruka({
+                tip: 'success',
+                tekst: `Uspješno obrisano ${operateri.length} operatera!`
+            });
+        } catch (error) {
+            setPoruka({
+                tip: 'danger',
+                tekst: 'Greška pri brisanju operatera: ' + error.message
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+       const generirajOperatere = async (broj) => {
         // Prvo obriši admin operatera ako postoji
         const rezultat = await OperaterService.get();
         const operateri = rezultat.data;
@@ -389,35 +423,11 @@ export default function GeneriranjePodataka() {
         }
     };
 
-    const handleObrisiOperatere = async () => {
-        if (!window.confirm('Jeste li sigurni da želite obrisati sve operatere?')) {
-            return;
-        }
 
-        setLoading(true);
-        setPoruka(null);
 
-        try {
-            const rezultat = await OperaterService.get();
-            const operateri = rezultat.data;
-            
-            for (const operater of operateri) {
-                await OperaterService.obrisi(operater.sifra);
-            }
 
-            setPoruka({
-                tip: 'success',
-                tekst: `Uspješno obrisano ${operateri.length} operatera!`
-            });
-        } catch (error) {
-            setPoruka({
-                tip: 'danger',
-                tekst: 'Greška pri brisanju operatera: ' + error.message
-            });
-        } finally {
-            setLoading(false);
-        }
-    };
+
+
 
  const handleMemorijaULocalStorage = async () => {
         if (!window.confirm('Jeste li sigurni da želite pretočiti iz memorije u localStorage?')) {
@@ -432,6 +442,7 @@ export default function GeneriranjePodataka() {
             localStorage.setItem(PrefixStorage.GRADOVI, JSON.stringify(gradoviMemorija.gradovi));
             localStorage.setItem(PrefixStorage.KORISNICI, JSON.stringify(korisniciMemorija.korisnici));
             localStorage.setItem(PrefixStorage.USLUGE, JSON.stringify(uslugeMemorija.usluge));
+            localStorage.setItem(PrefixStorage.OPERATERI, JSON.stringify(operateriMemorija.operateri));
 
             setPoruka({
                 tip: 'success',
@@ -470,7 +481,7 @@ export default function GeneriranjePodataka() {
             )}
 
             <Row>
-                <Col md={4}>
+                <Col md={3}>
                     <Form onSubmit={handleGenerirajGradove}>
                         <Form.Group className="mb-3">
                             <Form.Label>Broj Gradova</Form.Label>
@@ -496,7 +507,7 @@ export default function GeneriranjePodataka() {
                         </Button>
                     </Form>
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                     <Form onSubmit={handleGenerirajKorisnike}>
                         <Form.Group className="mb-3">
                             <Form.Label>Broj Korisnika</Form.Label>
@@ -522,7 +533,7 @@ export default function GeneriranjePodataka() {
                         </Button>
                     </Form>
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                     <Form onSubmit={handleGenerirajUsluge}>
                         <Form.Group className="mb-3">
                             <Form.Label>Broj usluga</Form.Label>
@@ -550,7 +561,7 @@ export default function GeneriranjePodataka() {
                 </Col>
                 
                 
-                <Col md={4}>
+                <Col md={5}>
                     <Form onSubmit={handleGenerirajPonude}>
                         <Form.Group className="mb-3">
                             <Form.Label>Broj ponuda</Form.Label>
@@ -641,7 +652,7 @@ export default function GeneriranjePodataka() {
 
 
 
-            {DATA_SOURCE != 'memorija' && (
+            {(DATA_SOURCE == 'memorija' || DATA_SOURCE == 'localStorage' ) && (
                 <>
                     <hr />
                     <h3>Pretakanje podataka iz jednog izvora u drugi</h3>
