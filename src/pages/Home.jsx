@@ -2,14 +2,13 @@ import { IME_APLIKACIJE } from "../constants";
 
 import { Col, Row, Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import UslugaService from "../services/usluge/UslugeService";
+
 import KorisnikService from "../services/korisnici/korisnikService";
 import GradService from "../services/gradovi/GradService";
-import UslugeService from "../services/usluge/UslugeService";
-
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React from 'react';
 import PonudaService from "../services/ponude/PonudaService";
+import UslugeService from "../services/usluge/UslugeService";
 
 
 export default function Home() {
@@ -22,7 +21,8 @@ export default function Home() {
     const [animatedUsluge, setAnimatedUsluge] = useState(0);
     const [animatedKorisnici, setAnimatedKorisnici] = useState(0);
     const [animatedGradovi, setAnimatedGradovi] = useState(0);
-    const [animatedPonude, setAnimatedPonude] = useState (0)
+    const [brojPonuda, setBrojPonuda] = useState(0);
+    const [animatedPonude, setAnimatedPonude] = useState(0)
 
     const lottieStyle = {
         marginTop: '10px',
@@ -30,10 +30,10 @@ export default function Home() {
         high: 'auto',
         display: 'block'
     }
-                                       
-    
 
-    useEffect(()=>{document.title='Početna, ' + IME_APLIKACIJE})
+
+
+    useEffect(() => { document.title = 'Početna, ' + IME_APLIKACIJE })
 
     useEffect(() => {
         const fetchData = async () => {
@@ -89,7 +89,7 @@ export default function Home() {
             }, 200);
             return () => clearTimeout(timer);
         }
-    }, [animatedPonude, brojPonude]);
+    }, [animatedPonude, brojPonuda]);
 
 
 
@@ -98,16 +98,16 @@ export default function Home() {
             <Row>
                 <Col md={6}>
                     <p className="lead m-5 text-center">Dobrodošli na {IME_APLIKACIJE}</p>
-                    
+
                     <p>Knjigovodstvo i računovodstvo za velike i male tvrtke i obrtnike.</p>
 
                     <div>
-                    <DotLottieReact
-                        src="https://lottie.host/510411c5-d9ea-4e75-8829-efc1a022a9a6/mGH3ToWnVo.lottie"
-                        loop
-                        autoplay
-                        style={lottieStyle}
-                    />
+                        <DotLottieReact
+                            src="https://lottie.host/510411c5-d9ea-4e75-8829-efc1a022a9a6/mGH3ToWnVo.lottie"
+                            loop
+                            autoplay
+                            style={lottieStyle}
+                        />
                     </div>
                     {/*<div style={{ textAlign: 'center' }}>
                         <img src="" />
@@ -141,7 +141,7 @@ export default function Home() {
                                     {animatedGradovi}
                                 </div>
                             </Card.Body>
-                            
+
                         </Card>
                         <Card className="shadow-lg border-0 statistikaPanel">
                             <Card.Body className="text-center">
@@ -150,7 +150,7 @@ export default function Home() {
                                     {animatedPonude}
                                 </div>
                             </Card.Body>
-                            
+
                         </Card>
                     </div>
                 </Col>
