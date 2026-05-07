@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { IME_APLIKACIJE, RouteNames } from "../../constants"
 import { FaEdit, FaTrash, FaKey } from "react-icons/fa"
 
+
 export default function OperaterPregled() {
 
     const navigate = useNavigate()

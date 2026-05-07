@@ -14,6 +14,10 @@ export const RouteNames = {
     GRADOVI_NOVI: '/gradovi/novi',
     GRADOVI_PROMJENA: '/gradovi/:sifra',
     
+    OPERATERI: '/operateri',
+    OPERATERI_NOVI: '/operateri/novi',
+    OPERATERI_PROMJENA: '/operateri/:sifra',
+    OPERATERI_PROMJENA_LOZINKE: '/operateri/:sifra/lozinka',
     GENERIRANJE_PODATAKA: '/generiraj-podatke',
 
     PONUDE: '/ponude',
