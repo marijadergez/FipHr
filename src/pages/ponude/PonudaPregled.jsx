@@ -33,7 +33,7 @@ export default function PonudaPregled() {
 
     useEffect(() => {
         ucitajUsluge()
-        ucitajKorisnika()
+        ucitajKorisnike()
         ucitajPonude()
     }, [])
 
@@ -54,7 +54,7 @@ export default function PonudaPregled() {
 
     }
 
-    async function ucitajKorisnika() {
+    async function ucitajKorisnike() {
         await KorisnikService.get().then((odgovor) => {
             if (!odgovor.success) {
                 alert('Nije implementiran servis')

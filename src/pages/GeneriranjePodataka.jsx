@@ -14,7 +14,7 @@ import korisniciMemorija from '../services/korisnici/KorisnikPodaci'
 import uslugeMemorija from '../services/usluge/UslugePodaci'
 import OperaterService from '../services/operateri/OperaterService';
 import operateriMemorija from '../services/operateri/OperaterPodaci'
-
+import ponudeMemorija from '../services/ponude/PonudaPodaci'
 export default function GeneriranjePodataka() {
     const [brojUsluga, setBrojUsluga] = useState(10);
     const [brojKorisnika, setBrojKorisnika] = useState(20);
@@ -443,6 +443,7 @@ export default function GeneriranjePodataka() {
             localStorage.setItem(PrefixStorage.KORISNICI, JSON.stringify(korisniciMemorija.korisnici));
             localStorage.setItem(PrefixStorage.USLUGE, JSON.stringify(uslugeMemorija.usluge));
             localStorage.setItem(PrefixStorage.OPERATERI, JSON.stringify(operateriMemorija.operateri));
+            localStorage.setItem(PrefixStorage.PONUDE, JSON.stringify(ponudeMemorija.ponude));
 
             setPoruka({
                 tip: 'success',
