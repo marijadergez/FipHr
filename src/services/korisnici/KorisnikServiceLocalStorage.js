@@ -18,7 +18,7 @@ async function get() {
 
 async function getBySifra(sifra) {
     const korisnici = dohvatiSveIzStorage();
-    const korisnik = korisnici.find(s => s.sifra === parseInt(sifra));
+    const korisnik = korisnici.find(s => s.sifra === sifra);
     return {success: true, data: korisnik};
     
 }
@@ -27,10 +27,9 @@ async function dodaj(korisnik) {
     const korisnici = dohvatiSveIzStorage();
 
     if (korisnici.length === 0) {
-        korisnik.sifra = 1;
+        korisnik.sifra = '1';
     }else {
-        const maxSifra = Math.max(...korisnici.map(s => s.sifra));
-        korisnik.sifra = maxSifra + 1;
+        korisnik.sifra = String(parseInt(korisnici[korisnici.length - 1].sifra) +1)
     }
 
   korisnici.push(korisnik);
@@ -40,7 +39,7 @@ async function dodaj(korisnik) {
 
 async function promjeni(sifra,korisnik) {
      const korisnici = dohvatiSveIzStorage();
-     const index = korisnici.findIndex( s => s.sifra === parseInt(sifra));
+     const index = korisnici.findIndex( s => s.sifra === sifra);
 
      if (index !== -1) {
         korisnici[index] = { ...korisnici[index], ...korisnik};
@@ -52,7 +51,7 @@ async function promjeni(sifra,korisnik) {
 
 async function obrisi(sifra) {
     let korisnici = dohvatiSveIzStorage();
-    korisnici = korisnici.filter(p => p.sifra !== parseInt(sifra));
+    korisnici = korisnici.filter(p => p.sifra !== sifra);
     spremiUStorage(korisnici);
     return { message: 'Obrisano' };
     

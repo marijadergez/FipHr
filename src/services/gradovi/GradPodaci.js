@@ -3,12 +3,13 @@ export const gradovi = [
 
 
     {
-        sifra: 1,
+        sifra: '1',
         naziv: 'Osijek'
+        
     },
 
     {
-        sifra: 2,
+        sifra: '2',
         naziv: 'Donji Miholjac'
 
 

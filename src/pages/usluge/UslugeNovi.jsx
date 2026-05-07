@@ -8,7 +8,8 @@ import { usluge } from "../../services/usluge/UslugePodaci";
 export default function UslugeNovi(){
 
     const navigate = useNavigate()
-    
+       const [numLook, setNumLook] = useState(null);
+    const [isChecking, setIsChecking] = useState(false);
 
     async function dodaj(uslugu){
         //console.table(smjer)

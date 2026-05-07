@@ -8,15 +8,16 @@ async function get(){
 }
 
 async function getBySifra(sifra) {
-    return {success: true, data: gradovi.find(s => s.sifra === parseInt(sifra))}
+    return {success: true, data: gradovi.find(s => s.sifra === sifra)}
 }
 
 // 2/4 Create od CRUD
 async function dodaj(grad){
     if(grad.length===0){
-        grad.sifra=1
+        grad.sifra='1'
     }else{
-        grad.sifra = gradovi[gradovi.length - 1].sifra + 1
+        grad.sifra = String(parseInt(gradovi[gradovi.length -1].sifra) +1)
+        gradovi[gradovi.length - 1].sifra + 1
     }
     
     gradovi.push(grad)
@@ -29,7 +30,7 @@ async function promjeni(sifra,grad) {
 }
 
 function nadiIndex(sifra){
-    return gradovi.findIndex(s=>s.sifra === parseInt(sifra))
+    return gradovi.findIndex(s=>s.sifra === sifra)
 }
 
 // 4/4 Delete od CRUD

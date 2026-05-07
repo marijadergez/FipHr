@@ -20,7 +20,7 @@ async function get() {
 
 async function getBySifra(sifra) {
     const gradovi = dohvatiSveIzStorage();
-    const grad = gradovi.find(s => s.sifra === parseInt(sifra));
+    const grad = gradovi.find(s => s.sifra === sifra);
     return {success: true, data: grad};
     
 }
@@ -29,7 +29,7 @@ async function dodaj(grad) {
     const gradovi = dohvatiSveIzStorage();
 
     if (gradovi.length === 0) {
-        grad.sifra = 1;
+        grad.sifra ='1';
     }else {
         const maxSifra = Math.max(...gradovi.map(s => s.sifra));
         grad.sifra = maxSifra + 1;
@@ -42,7 +42,7 @@ async function dodaj(grad) {
 
 async function promjeni(sifra, grad) {
      const gradovi = dohvatiSveIzStorage();
-     const index = gradovi.findIndex( s => s.sifra === parseInt(sifra));
+     const index = gradovi.findIndex( s => s.sifra === sifra);
 
      if (index !== -1) {
         gradovi[index] = { ...gradovi[index], ...grad};
@@ -54,7 +54,7 @@ async function promjeni(sifra, grad) {
 
 async function obrisi(sifra) {
     let gradovi = dohvatiSveIzStorage();
-    gradovi = gradovi.filter(s => s.sifra !== parseInt(sifra));
+    gradovi = gradovi.filter(s => s.sifra !== sifra);
     console.table(gradovi)
     spremiUStorage(gradovi);
     return { message: 'Obrisano' };

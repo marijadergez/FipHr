@@ -23,7 +23,10 @@ npm install docx
 npm install @rive-app/react-canvas
 
 // za hash lozinki
+npm install bcryptjs
 
+// grafovi
+npm install highcharts highcharts-react-official
 
 
 

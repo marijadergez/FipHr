@@ -1,6 +1,6 @@
 export const korisnici = [
 {
-    sifra: 1,
+    sifra: '1',
     ime: 'Obrtnik',
     prezime: 'Naziv obrta',
     email: 'test@gmail.com',
@@ -8,7 +8,7 @@ export const korisnici = [
 },
 
 {
-    sifra: 2,
+    sifra: '2',
     ime: 'Firma',
     prezime: 'Prezimović',
     email: 'test@edunova.hr',
