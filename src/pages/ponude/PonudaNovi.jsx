@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import PonudaService from "../../services/ponude/PonudaService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
-
 import { useEffect, useState } from "react";
 import KorisnikService from "../../services/korisnici/KorisnikService";
 import UslugeService from "../../services/usluge/UslugeService";
@@ -119,8 +118,8 @@ export default function PonudaNovi() {
         dodaj({
             usluge: odabraneUsluge.map(u => u.sifra),
             korisnik: parseInt(podaci.get('korisnik')),
-            popust: podaci.get('popust')==='' ? 0 : parseInt(podaci.get('popust')),
-            datum:  new Date().toISOString()
+            popust: podaci.get('popust') === '' ? 0 : parseInt(podaci.get('popust')),
+            datum: new Date().toISOString()
         })
     }
 
@@ -135,7 +134,7 @@ export default function PonudaNovi() {
             <h3>Unos nove ponude</h3>
             <Form onSubmit={odradiSubmit}>
                 <Container className="mt-4">
-                    
+
                     <Row>
                         {/* Lijeva strana - Podaci o ponudi */}
                         <Col md={6}>
@@ -155,18 +154,18 @@ export default function PonudaNovi() {
                                             ))}
                                         </Form.Select>
                                     </Form.Group>
-                                    
-                                
-                                        <Form.Group controlId="popust" className="mb-3 mt-md-3">
-                                            
-                                            <Form.Label className="fw-bold">Popust (%)</Form.Label>
+
+
+                                    <Form.Group controlId="popust" className="mb-3 mt-md-3">
+
+                                        <Form.Label className="fw-bold">Popust (%)</Form.Label>
                                         <Form.Control
                                             type="number"
                                             name="popust"
                                             placeholder="0"
                                         />
-                                        </Form.Group>
-                                  
+                                    </Form.Group>
+
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -178,9 +177,47 @@ export default function PonudaNovi() {
                                     <Card.Title className="mb-4">Usluge</Card.Title>
 
                                     {/* Autocomplete pretraga */}
-                                    <Form.Group className="mb-3 position-relative">
-                                        <Form.Label className="fw-bold">Dodaj usluge</Form.Label>
-                                        <Form.Control
+                                    <Form.Group controlId="usluge">
+                                        <Form.Label>Usluge</Form.Label>
+                                        <Form.Select name="usluge" required>
+                                            <option key={0} value="">Odaberite uslugu</option>
+                                            {usluge && usluge.map((usluga) => (
+                                                <option key={usluga.sifra} value={usluga.sifra}>
+                                                    {usluga.naziv}
+                                                </option>
+                                            ))}
+                                        </Form.Select>
+                                    </Form.Group>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+
+                    <hr className="my-4" />
+
+                    {/* Gumbi za akciju */}
+                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <Link to={RouteNames.PONUDE} className="btn btn-danger px-4">
+                            Odustani
+                        </Link>
+                        <Button type="submit" variant="success">
+                            Dodaj novu ponudu
+                        </Button>
+
+                    </div>
+                </Container>
+            </Form>
+        </>
+    )
+
+}
+
+
+
+{/*
+
+    <Form.Label className="fw-bold">Dodaj usluge</Form.Label>
+                                      <Form.Control
                                             type="text"
                                             placeholder="Pretraži usluge..."
                                             value={pretragaUsluga}
@@ -216,7 +253,7 @@ export default function PonudaNovi() {
                                     </Form.Group>
                                     
 
-                                    {/* Tablica odabranih polaznika */}
+                                  
                                     {odabraneUsluge.length > 0 && (
                                         <div style={{ overflow: 'auto', maxHeight: '300px' }}>
                                             <Table striped bordered hover size="sm">
@@ -248,27 +285,4 @@ export default function PonudaNovi() {
                                     )}
                                     {odabraneUsluge.length === 0 && (
                                         <p className="text-muted">Nema odabranih usluga</p>
-                                    )}
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-
-                    <hr className="my-4" />
-
-                    {/* Gumbi za akciju */}
-                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <Link to={RouteNames.PONUDE} className="btn btn-danger px-4">
-                            Odustani
-                        </Link>
-                        <Button type="submit" variant="success">
-                            Dodaj novu ponudu
-                        </Button>
-
-                    </div>
-                </Container>
-            </Form>
-        </>
-    )
-
-}
+                                    )} */}

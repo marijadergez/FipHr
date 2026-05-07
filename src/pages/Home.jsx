@@ -184,7 +184,7 @@ export default function Home() {
                         </Row>
                         <Row>
                             <div style={{ width: '100%', maxWidth: '500px' }}>
-                           <Col md={6} className="mb-3">
+                           <Col md={12} className="mb-3">
                             <Card className="shadow-lg border-0 statistikaPanel h-100">
                                 <Card.Body className="text-center">
                                     <p className="text-white">Operateri</p>
