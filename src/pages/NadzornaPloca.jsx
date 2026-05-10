@@ -1,30 +1,52 @@
 import { IME_APLIKACIJE } from "../constants";
-import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Col, Row, Card, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { PieChart } from "react-highcharts"; // Provjerite jeste li ga instalirali
+import Highcharts from "highcharts";
+import GradService from "../services/gradovi/GradService";
+// import { useLoading } from "./hooks/useLoading"; // Ako koristite ovaj hook, vratite ga ovdje
+// import GradService from "./services/GradService"; // Provjerite putanju
 
 export default function NadzornaPloca() {
+    const [podaciKorisnici, setPodaciKorisnici] = useState([]);
+    const [podaciUsluge, setPodaciUsluge] = useState([]);
+    
+    // Ako koristite useLoading, otkomentirajte ovo:
+    // const { showLoading, hideLoading } = useLoading();
 
-        const [podaci, setPodaci] = useState([]);
-    const { showLoading, hideLoading } = useLoading();
+    async function getPodaci() {
+        // showLoading();
+        try {
+            const odgovor = await GradService.get();
+            
+            if (odgovor && odgovor.data) {
+                const korisniciData = odgovor.data.map((grad) => ({
+                    y: grad.korisnici ? grad.korisnici.length : 0,
+                    name: grad.naziv,
+                }));
+                
+                const uslugeData = odgovor.data.map((grad) => ({
+                    y: grad.usluge ? grad.usluge.length : 0,
+                    name: grad.naziv,
+                }));
 
-      async function getPodaci() {
-        showLoading();
-        const odgovor = await GradService.get();
-        setPodaci(odgovor.data.map((grad) => {
-            return {
-                y: grad.korisnici.length,
-                name: grad.naziv,
-            };
-        }));
-        hideLoading();
+                setPodaciKorisnici(korisniciData);
+                setPodaciUsluge(uslugeData);
+            }
+        } catch (error) {
+            console.error("Greška pri učitavanju podataka:", error);
+        } finally {
+            // hideLoading();
+        }
     }
 
     useEffect(() => {
         getPodaci();
     }, []);
 
-    const fixedOptions = {
+    // Zajednička opcija za graf
+    const fixedOptions = (titleText) => ({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -32,7 +54,7 @@ export default function NadzornaPloca() {
             type: 'pie',
         },
         title: {
-            text: 'Broj korisnika po gradu',
+            text: titleText,
             align: 'left',
         },
         tooltip: {
@@ -50,32 +72,69 @@ export default function NadzornaPloca() {
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>',
+                    format: '<b>{point.name}</b>: {point.y}', // Prikazuje i broj (y) umjesto samo %
                 },
             },
         },
-    };
-    
+    });
 
     return (
         <>
-         <Container className='mt-4'>
-                {podaci.length > 0 && (
-                    <PieChart
-                        highcharts={Highcharts}
-                        options={{
-                            ...fixedOptions,
-                            series: [
-                                {
-                                    name: 'Korisnici',
-                                    colorByPoint: true,
-                                    data: podaci,
-                                },
-                            ],
-                        }}
-                    />
-                )}
+            <Container className='mt-4'>
+                <Row>
+                    {/* 1. Graf za Korisnike */}
+                    <Col md={6}>
+                        <Card>
+                            <Card.Header>Broj korisnika po gradu</Card.Header>
+                            <Card.Body>
+                                {podaciKorisnici.length > 0 ? (
+                                    <PieChart
+                                        highcharts={Highcharts}
+                                        options={{
+                                            ...fixedOptions('Broj korisnika po gradu'),
+                                            series: [
+                                                {
+                                                    name: 'Korisnici',
+                                                    colorByPoint: true,
+                                                    data: podaciKorisnici,
+                                                },
+                                            ],
+                                        }}
+                                    />
+                                ) : (
+                                    <p>Učitavanje podataka...</p>
+                                )}
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    {/* 2. Graf za Usluge */}
+                    <Col md={6}>
+                        <Card>
+                            <Card.Header>Broj usluga po gradu</Card.Header>
+                            <Card.Body>
+                                {podaciUsluge.length > 0 ? (
+                                    <PieChart
+                                        highcharts={Highcharts}
+                                        options={{
+                                            ...fixedOptions('Broj usluga po gradu'),
+                                            series: [
+                                                {
+                                                    name: 'Usluge',
+                                                    colorByPoint: true,
+                                                    data: podaciUsluge,
+                                                },
+                                            ],
+                                        }}
+                                    />
+                                ) : (
+                                    <p>Učitavanje podataka...</p>
+                                )}
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
             </Container>
         </>
-    )
-}
+    ); 
+} 

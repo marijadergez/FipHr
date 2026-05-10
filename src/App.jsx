@@ -8,31 +8,26 @@ import Home from './pages/Home'
 import UslugeNovi from './pages/usluge/UslugeNovi'
 import UslugePromjena from './pages/usluge/UslugePromjena'
 import UslugePregled from './pages/usluge/UslugePregled'
-
 import KorisnikPregled from './pages/korisnici/KorisnikPregled'
 import KorisnikPromjena from './pages/korisnici/KorisnikPromjena'
 import KorisnikNovi from './pages/korisnici/KorisnikNovi'
-
 import GradPromjena from './pages/gradovi/GradPromjena'
 import GradNovi from './pages/gradovi/GradNovi'
 import GradPregled from './pages/gradovi/GradPregled'
-
 import GeneriranjePodataka from './pages/GeneriranjePodataka'
-
 import PonudaPregled from './pages/ponude/PonudaPregled'
 import PonudaNovi from './pages/ponude/PonudaNovi'
 import PonudaPromjena from './pages/ponude/PonudaPromjena'
-
 import LoadingSpinner from './components/LoadingSpinner'
-
-import Login from './pages/login/Login'
-import Registracija from './pages/registracija/Registracija'
-import NadzornaPloca from './pages/NadzornaPloca'
 import useAuth from './hooks/useAuth'
 import OperaterPregled from './pages/operateri/OperaterPregled'
 import OperaterNovi from './pages/operateri/OperaterNovi'
 import OperaterPromjena from './pages/operateri/OperaterPromjena'
 import OperaterPromjenaLozinke from './pages/operateri/OperaterPromjenaLozinke'
+import NadzornaPloca from './pages/NadzornaPloca'
+import Registracija from './pages/registracija/Registracija'
+import Login from './pages/login/Login'
+
 
 
 function App() {
