@@ -2,21 +2,164 @@ import { IME_APLIKACIJE } from "../constants";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Col, Row, Card, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { PieChart } from "react-highcharts"; // Provjerite jeste li ga instalirali
 import Highcharts from "highcharts";
+import ArcDiagram from "highcharts/modules/arcdiagram";
 import GradService from "../services/gradovi/GradService";
-// import { useLoading } from "./hooks/useLoading"; // Ako koristite ovaj hook, vratite ga ovdje
-// import GradService from "./services/GradService"; // Provjerite putanju
+import useLoading from "../hooks/useLoading";
 
+
+
+ArcDiagram(Highcharts);
+
+export default function NadzornaPloca() {
+    const [chartData, setChartData] = useState([]);
+    const { showLoading, hideLoading } = useLoading();
+
+    
+    const fixedLinks = [
+        ['Hamburg', 'Osijek', 11],
+        ['Hamburg', 'Donji Miholjac', 1],
+        ['Hamburg', 'Đakovo', 1],
+        ['Hannover', 'Wien', 1],
+        ['Hannover', 'Semeljci', 1],
+        ['Berlin', 'Budimci', 2],
+        ['Berlin', 'Slavonski Brod', 1],
+        ['Berlin', 'Vukojevci', 1],
+        ['Berlin', 'Piškorevci', 1],
+        ['Berlin', 'Čepin', 1],
+        ['Berlin', 'Düsseldorf', 1],
+        ['München', 'Poganovci', 4],
+        ['München', 'Hrastin', 1],
+        ['München', 'Ivankovo', 1],
+        ['München', 'Gunja', 1],
+        ['München', 'Rokovci', 6],
+        ['Stuttgart', 'Ada', 1],
+        ['Frankfurt', 'Ernestinovo', 1],
+        ['Frankfurt', 'Vinkovci', 1],
+        ['Frankfurt', 'Županja', 1],
+        ['Frankfurt', 'Josipovac Punitovački', 1],
+        ['Düsseldorf', 'Višnjevac', 1],
+        ['Düsseldorf', 'Petrijevci', 1],
+        ['Amsterdam', 'Antunovac', 1],
+        ['Paris', 'Brijest', 9],
+        ['Paris', 'Vuka', 1],
+        ['Paris', 'Livana', 1],
+    ];
+
+    async function getPodaci() {
+        showLoading();
+        try {
+           
+            const odgovor = await GradService.get();
+            
+           
+            
+            setChartData(fixedLinks);
+        } catch (error) {
+            console.error("Greška:", error);
+        } finally {
+            hideLoading();
+        }
+    }
+
+    useEffect(() => {
+        getPodaci();
+    }, []);
+
+    const options = {
+        chart: {
+            type: 'arcdiagram',
+            height: '600px'
+        },
+        title: {
+            text: 'Popis gradova korisnika usluga Fip.Hr-a.',
+            align: 'left'
+        },
+        accessibility: {
+            enabled: true,
+            point: {
+                valueDescriptionFormat: 'Connection from {point.from} to {point.to}.'
+            }
+        },
+        series: [{
+            type: 'arcdiagram',
+            keys: ['from', 'to', 'weight'],
+            data: chartData, 
+            linkWeight: 1.5,
+            centeredLinks: true,
+            dataLabels: {
+                enabled: true,
+                rotation: 90,
+                y: 30,
+                verticalAlign: 'top',
+                color: 'black',
+                padding: 0
+            },
+            offset: '65%',
+            node: {
+                label: {
+                    enabled: true
+                }
+            }
+        }]
+    };
+
+    return (
+        <Container className="mt-4">
+            <Card>
+                <Card.Body>
+                    {/* Ovdje se renderira graf */}
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={options}
+                    />
+                </Card.Body>
+            </Card>
+        </Container>
+    );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { useLoading } from "./hooks/useLoading"; 
+// import GradService from "./services/GradService"; 
+
+/*}
 export default function NadzornaPloca() {
     const [podaciKorisnici, setPodaciKorisnici] = useState([]);
     const [podaciUsluge, setPodaciUsluge] = useState([]);
     
-    // Ako koristite useLoading, otkomentirajte ovo:
-    // const { showLoading, hideLoading } = useLoading();
-
+    
     async function getPodaci() {
-        // showLoading();
+        
         try {
             const odgovor = await GradService.get();
             
@@ -31,8 +174,8 @@ export default function NadzornaPloca() {
                     name: grad.naziv,
                 }));
 
-                setPodaciKorisnici(korisniciData);
-                setPodaciUsluge(uslugeData);
+                setKorisnikPodaci(korisniciData);
+                setUslugePodaci(uslugeData);
             }
         } catch (error) {
             console.error("Greška pri učitavanju podataka:", error);
@@ -45,7 +188,6 @@ export default function NadzornaPloca() {
         getPodaci();
     }, []);
 
-    // Zajednička opcija za graf
     const fixedOptions = (titleText) => ({
         chart: {
             plotBackgroundColor: null,
@@ -82,12 +224,12 @@ export default function NadzornaPloca() {
         <>
             <Container className='mt-4'>
                 <Row>
-                    {/* 1. Graf za Korisnike */}
-                    <Col md={6}>
+                    {/* 1. Graf za Korisnike */
+                   /* <Col md={6}>
                         <Card>
                             <Card.Header>Broj korisnika po gradu</Card.Header>
                             <Card.Body>
-                                {podaciKorisnici.length > 0 ? (
+                                {KorisnikPodaci.length > 0 ? (
                                     <PieChart
                                         highcharts={Highcharts}
                                         options={{
@@ -96,7 +238,7 @@ export default function NadzornaPloca() {
                                                 {
                                                     name: 'Korisnici',
                                                     colorByPoint: true,
-                                                    data: podaciKorisnici,
+                                                    data: KorisnikPodaci,
                                                 },
                                             ],
                                         }}
@@ -108,12 +250,12 @@ export default function NadzornaPloca() {
                         </Card>
                     </Col>
 
-                    {/* 2. Graf za Usluge */}
-                    <Col md={6}>
+                    {/* 2. Graf za Usluge */
+                  /*  <Col md={6}>
                         <Card>
                             <Card.Header>Broj usluga po gradu</Card.Header>
                             <Card.Body>
-                                {podaciUsluge.length > 0 ? (
+                                {UslugePodaci.length > 0 ? (
                                     <PieChart
                                         highcharts={Highcharts}
                                         options={{
@@ -122,7 +264,7 @@ export default function NadzornaPloca() {
                                                 {
                                                     name: 'Usluge',
                                                     colorByPoint: true,
-                                                    data: podaciUsluge,
+                                                    data: UslugePodaci,
                                                 },
                                             ],
                                         }}
@@ -137,4 +279,4 @@ export default function NadzornaPloca() {
             </Container>
         </>
     ); 
-} 
+} */

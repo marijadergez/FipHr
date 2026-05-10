@@ -25,8 +25,8 @@ import OperaterNovi from './pages/operateri/OperaterNovi'
 import OperaterPromjena from './pages/operateri/OperaterPromjena'
 import OperaterPromjenaLozinke from './pages/operateri/OperaterPromjenaLozinke'
 import NadzornaPloca from './pages/NadzornaPloca'
-import Registracija from './pages/registracija/Registracija'
 import Login from './pages/login/Login'
+import Registracija from './pages/registracija/Registracija'
 
 
 
