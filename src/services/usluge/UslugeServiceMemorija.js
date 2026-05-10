@@ -8,15 +8,15 @@ async function get(){
 }
 
 async function getBySifra(sifra) {
-    return {success: true, data: usluge.find(s => s.sifra === parseInt(sifra))}
+    return {success: true, data: usluge.find(s => s.sifra === sifra)}
 }
 
 // 2/4 Create od CRUD
 async function dodaj(usluga){
     if(usluge.length===0){
-        usluga.sifra=1
+        usluga.sifra='1'
     }else{
-        usluga.sifra = usluge[usluge.length - 1].sifra + 1
+        usluga.sifra = String(parseInt(usluge[usluge.length - 1].sifra) + 1)
     }
     
     usluge.push(usluga)
@@ -29,7 +29,7 @@ async function promjeni(sifra,usluga) {
 }
 
 function nadiIndex(sifra){
-    return usluge.findIndex(s=>s.sifra === parseInt(sifra))
+    return usluge.findIndex(s=>s.sifra === sifra)
 }
 
 // 4/4 Delete od CRUD

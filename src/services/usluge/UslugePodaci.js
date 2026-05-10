@@ -2,7 +2,7 @@
 
 export const usluge=[
     {
-        sifra: 1,
+        sifra: '1',
         naziv: 'Knjigovodstvo obrtnika',
         cijena: 58.00,
         popust: 0
@@ -11,7 +11,7 @@ export const usluge=[
        
     },
     {
-        sifra: 2,
+        sifra: '2',
         naziv: 'Knjigovodstvo trgovačkih društava',
         cijena: 89.00,
         popust: 50
@@ -19,7 +19,7 @@ export const usluge=[
         
     },
     {
-        sifra: 3,
+        sifra: '3',
         naziv: 'Računovodstvo',
         cijena: 89.00,
         popust: 50

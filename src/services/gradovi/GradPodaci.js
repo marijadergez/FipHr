@@ -14,6 +14,19 @@ export const gradovi = [
 
 
 
+    },
+     {
+        sifra: '3',
+        naziv: 'Đakovo'
+        
+    },
+
+    {
+        sifra: '4',
+        naziv: 'Našice'
+
+
+
     }
 ]
 export default{

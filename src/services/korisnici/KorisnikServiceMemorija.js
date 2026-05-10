@@ -8,15 +8,15 @@ async function get(){
 }
 
 async function getBySifra(sifra) {
-    return {success: true, data: korisnici.find(s => s.sifra === parseInt(sifra))}
+    return {success: true, data: korisnici.find(s => s.sifra === sifra)}
 }
 
 
 async function dodaj(korisnik){
     if(korisnici.length===0){
-        korisnik.sifra=1
+        korisnik.sifra='1'
     }else{
-        korisnik.sifra = korisnici [korisnici.length - 1].sifra + 1
+        korisnik.sifra = String(parseInt(korisnici[korisnici.length - 1].sifra) + 1)
     }
     
     korisnici.push(korisnik)
@@ -29,7 +29,7 @@ async function promjeni(sifra,korisnik) {
 }
 
 function nadiIndex(sifra){
-    return korisnici.findIndex(s=>s.sifra === parseInt(sifra))
+    return korisnici.findIndex(s=>s.sifra === sifra)
 }
 
 
