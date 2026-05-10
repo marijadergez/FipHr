@@ -2,7 +2,7 @@ import { IME_APLIKACIJE } from "../constants";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Col, Row, Card, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import Highcharts from "highcharts";
+import Highcharts, { chart } from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import useLoading from "../hooks/useLoading";
 
@@ -61,7 +61,7 @@ export default function NadzornaPloca() {
     }, []);
 
     const options = {
-        chart: {
+        chartData: {
             type: 'arcdiagram',
             height: '600px'
         },
@@ -107,7 +107,7 @@ export default function NadzornaPloca() {
                 </Card.Header>
                 <Card.Body>
                     {chartData.length > 0 ? (
-                        <HighchartsReact
+                        <Highcharts.chart
                             highcharts={Highcharts}
                             options={options}
                         />
