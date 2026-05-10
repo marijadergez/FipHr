@@ -3,20 +3,16 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Col, Row, Card, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import Highcharts from "highcharts";
-import ArcDiagram from "highcharts/modules/arcdiagram";
-import GradService from "../services/gradovi/GradService";
+import HighchartsReact from "highcharts-react-official";
 import useLoading from "../hooks/useLoading";
 
 
-
-ArcDiagram(Highcharts);
 
 export default function NadzornaPloca() {
     const [chartData, setChartData] = useState([]);
     const { showLoading, hideLoading } = useLoading();
 
-    
-    const fixedLinks = [
+    const mojeVeze = [
         ['Hamburg', 'Osijek', 11],
         ['Hamburg', 'Donji Miholjac', 1],
         ['Hamburg', 'Đakovo', 1],
@@ -49,14 +45,12 @@ export default function NadzornaPloca() {
     async function getPodaci() {
         showLoading();
         try {
-           
-            const odgovor = await GradService.get();
+          
+            setChartData(mojeVeze);
             
-           
-            
-            setChartData(fixedLinks);
+           // console.log("Podaci za graf postavljeni:", mojeVeze.length, "veza.");
         } catch (error) {
-            console.error("Greška:", error);
+            console.error("Greška pri postavljanju podataka:", error);
         } finally {
             hideLoading();
         }
@@ -99,7 +93,8 @@ export default function NadzornaPloca() {
             node: {
                 label: {
                     enabled: true
-                }
+                },
+               
             }
         }]
     };
@@ -107,19 +102,23 @@ export default function NadzornaPloca() {
     return (
         <Container className="mt-4">
             <Card>
+                <Card.Header>
+                    {chartData.length > 0 ? `Prikazano ${chartData.length} veza između gradova` : 'Učitavanje...'}
+                </Card.Header>
                 <Card.Body>
-                    {/* Ovdje se renderira graf */}
-                    <HighchartsReact
-                        highcharts={Highcharts}
-                        options={options}
-                    />
+                    {chartData.length > 0 ? (
+                        <HighchartsReact
+                            highcharts={Highcharts}
+                            options={options}
+                        />
+                    ) : (
+                        <p className="text-center text-muted">Nema podataka za prikaz.</p>
+                    )}
                 </Card.Body>
             </Card>
         </Container>
     );
 }
-
-
 
 
 
