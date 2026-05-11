@@ -18,6 +18,7 @@ import GeneriranjePodataka from './pages/GeneriranjePodataka'
 import PonudaPregled from './pages/ponude/PonudaPregled'
 import PonudaNovi from './pages/ponude/PonudaNovi'
 import PonudaPromjena from './pages/ponude/PonudaPromjena'
+
 import LoadingSpinner from './components/LoadingSpinner'
 import useAuth from './hooks/useAuth'
 import OperaterPregled from './pages/operateri/OperaterPregled'

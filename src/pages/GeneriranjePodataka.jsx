@@ -10,11 +10,21 @@ import { ponude } from '../services/ponude/PonudaPodaci';
 import UslugeServiceLocalStorage from '../services/usluge/UslugeServiceLocalStorage';
 import { DATA_SOURCE, IME_APLIKACIJE, PrefixStorage } from '../constants';
 import gradoviMemorija from '../services/gradovi/GradPodaci'
-import korisniciMemorija from '../services/korisnici/KorisnikPodaci'
+import korisniciMemorija, { korisnici } from '../services/korisnici/KorisnikPodaci'
 import uslugeMemorija from '../services/usluge/UslugePodaci'
 import OperaterService from '../services/operateri/OperaterService';
 import operateriMemorija from '../services/operateri/OperaterPodaci'
 import ponudeMemorija from '../services/ponude/PonudaPodaci'
+import OperaterServiceFireBase from '../services/operateri/OperaterServiceFireBase';
+
+import KorisnikServiceFireBase from '../services/korisnici/KorisnikServiceFireBase';
+
+
+
+
+
+
+
 export default function GeneriranjePodataka() {
     const [brojUsluga, setBrojUsluga] = useState(10);
     const [brojKorisnika, setBrojKorisnika] = useState(20);
@@ -38,6 +48,11 @@ export default function GeneriranjePodataka() {
         const naziviUsluga = [
             'Knjigovodstvo obrtnika',
             'Knjigovodstvo trgovačkih društava',
+            'Računovodstvo',
+            'Digitalne usluge',
+            'Knjigovodstvo obrtnika',
+            'Knjigovodstvo za udruge',
+            'Završni račun'
 
 
         ];
@@ -460,8 +475,78 @@ export default function GeneriranjePodataka() {
     };
 
 
-    const handleMemorijaUFirebase = async () => {
-        // kasnije
+   const handleMemorijaUFirebase = async () => {
+        if (!window.confirm('Jeste li sigurni da želite pretočiti iz memorije u firebase?')) {
+        return;
+    }
+
+    setLoading(true);
+    setPoruka(null);
+
+    try {
+        // 1. Operateri (mogu ići paralelno jer ne trebamo njihove ID-ove za kasnije)
+        const operateriPromises = operateriMemorija.operateri.map(e => {
+            const { sifra, ...ostatak } = e;
+            return OperaterServiceFireBase.dodajBezHash(ostatak);
+        });
+        await Promise.all(operateriPromises);
+
+
+        // 2. Smjerovi (trebamo ID-ove za grupe)
+        let mapiranjeSifriUsluga = [];
+        for (const e of uslugeMemorija.usluge) {
+            const { sifra, ...ostatak } = e;
+            const fb = await UslugeServiceFireBase.dodaj(ostatak);
+            const noviId = fb.id; 
+            mapiranjeSifriUsluga.push({ sifram: sifra, sifraf: noviId });
+        }
+
+
+        // 3. Polaznici (trebamo ID-ove za grupe)
+        let mapiranjeSifriKorisnika = [];
+        for (const e of korisniciMemorija.korisnici) {
+            const { sifra, ...ostatak } = e;
+            const fb = await KorisnikServiceFireBase.dodaj(ostatak);
+            const noviId = fb.data.sifra;
+            mapiranjeSifriKorisnika.push({ sifram: sifra, sifraf: noviId });
+        }
+
+        //console.table(mapiranjeSifriSmjerova);
+        //console.table(mapiranjeSifriPolaznika);
+
+
+        // 4. Grupe (povezivanje starih šifri s novim Firebase ID-ovima)
+        for (const e of grupeMemorija.grad) {
+            const { sifra, ...ostatak } = e;
+
+            // Pronađi novi ID smjera
+            const mUsluga = mapiranjeSifriUsluga.find(m => m.sifram == ostatak.usluga);
+            ostatak.usluga = mUsluga ? mUsluga.sifraf : null;
+
+            // Mapiraj polaznike na njihove nove ID-ove
+            ostatak.korisnici = ostatak.korisnici.map(pSifra => {
+                const mKorisnik = mapiranjeSifriKorisnika.find(m => m.sifram == pSifra);
+                return mKorisnik ? mKorisnik.sifraf : null;
+            }).filter(id => id !== null); // Makni null ako polaznik nije pronađen
+
+            //console.log('Dodajem grupu:', ostatak);
+            await GradServiceFireBase.dodaj(ostatak);
+        }
+
+        setPoruka({
+            tip: 'success',
+            tekst: 'Uspješno presipano u Firebase'
+        });
+
+    } catch (error) {
+        console.error("Greška pri presipanju:", error);
+        setPoruka({
+            tip: 'error',
+            tekst: 'Došlo je do greške prilikom sinkronizacije.'
+        });
+    } finally {
+        setLoading(false);
+    }
     };
 
 

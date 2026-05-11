@@ -29,6 +29,8 @@ npm install bcryptjs
 npm install highcharts highcharts-react-official
 
 
+// rad s firebase
+npm install firebase
 
 
 

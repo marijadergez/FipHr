@@ -1,5 +1,5 @@
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { IME_APLIKACIJE, RouteNames } from '../constants'
+import { DATA_SOURCE, IME_APLIKACIJE, RouteNames } from '../constants'
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
 
@@ -60,15 +60,18 @@ export default function Izbornik() {
                                         </>)}
 
                                 </NavDropdown>
-                                <Nav.Link
-                                    onClick={() => navigate(RouteNames.APLIKACIJE_POLAZNIKA)}
-                                >Aplikacije polaznika</Nav.Link>
+                            
                             </>)}
 
 
                     </Nav>
 
                     <Nav className="ms-auto">
+                        <div className="btn-group">
+                            <Button
+                            variant="warning"
+                                className="btn me-2"
+                            >{DATA_SOURCE}</Button>
                         {isLoggedIn ? (
                             <Button
                                 className="me-2"
@@ -84,6 +87,7 @@ export default function Izbornik() {
                                     onClick={() => navigate(RouteNames.LOGIN)}
                                 >Login</Button>
                             </>)}
+                            </div>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

@@ -2,7 +2,7 @@ import { DATA_SOURCE } from "../../constants";
 import GradServiceLocalStorage from "./GradServiceLocalStorage";
 import GradServiceMemorija from "./GradServiceMemorija";
 
-
+import GrupaServiceFireBase from "./GradServiceFireBase";
 
 
 let Servis = null;
@@ -14,6 +14,9 @@ switch (DATA_SOURCE) {
 
     case 'localStorage':
         Servis = GradServiceLocalStorage;
+        break;
+         case 'firebase':
+        Servis = GrupaServiceFireBase;
         break;
     default:
         Servis = null;

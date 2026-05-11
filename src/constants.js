@@ -29,18 +29,18 @@ export const RouteNames = {
 
     NADZORNA_PLOCA: '/nadzorna-ploca',
 
-    TEST: 'test'
+
 
 
 }
 
 // memorija, localStorage, firebase
-export const DATA_SOURCE = 'memorija';
+export const DATA_SOURCE = localStorage.getItem('dataSource') || 'firebase';
 
 export const PrefixStorage = {
-    USLUGE: 'usluge',
-    KORISNICI: 'korisnici',
-    GRADOVI: 'gradovi',
-    PONUDE: 'ponude',
-    OPERATERI: 'operateri'
+    USLUGE: 'e.usluge',
+    KORISNICI: 'e.korisnici',
+    GRADOVI: 'e.gradovi',
+    PONUDE: 'e.ponude',
+    OPERATERI: 'e.operateri'
 }

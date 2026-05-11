@@ -1,13 +1,18 @@
-import { IME_APLIKACIJE } from "../constants";
+import { DATA_SOURCE, IME_APLIKACIJE } from "../constants";
 import { Col, Row, Card, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import KorisnikService from "../services/korisnici/korisnikService";
+
 import GradService from "../services/gradovi/GradService";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React from 'react';
 import PonudaService from "../services/ponude/PonudaService";
 import UslugeService from "../services/usluge/UslugeService";
 import OperaterService from "../services/operateri/OperaterService";
+import useAuth from "../hooks/useAuth";
+import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
+import OperaterServiceFireBase from "../services/operateri/OperaterServiceFireBase";
+import KorisnikService from "../services/korisnici/KorisnikService";
+
 
 export default function Home() {
 
@@ -26,12 +31,38 @@ export default function Home() {
      const [animatedOperateri, setAnimatedOperateri] = useState(0);
      const [brojOperatera, setBrojOperatera] = useState(0);
 
+     const { isLoggedIn, logout } = useAuth()
+
     const lottieStyle = {
         marginTop: '10px',
         width: ',',
         high: 'auto',
         display: 'block'
     }
+ 
+
+        const promijeniIzvor = async (noviIzvor) => {
+
+        let izvor = 'memorija';
+        
+        if (noviIzvor === 'localStorage') {
+            const servis = await OperaterServiceLocalStorage.get();
+            if (servis.data.length > 0){
+                izvor = noviIzvor;
+            } 
+            
+        }
+        if (noviIzvor === 'firebase') {
+            const servis = await OperaterServiceFireBase.get();
+            if (servis.data.length > 0){
+                izvor = noviIzvor;
+            } 
+        }
+
+        localStorage.setItem('dataSource', izvor);
+        logout()
+        window.location.reload();
+    };
 
 
     useEffect(() => { document.title = 'Početna, ' + IME_APLIKACIJE })
@@ -203,7 +234,35 @@ export default function Home() {
                     </div>
          
                 </Col>
-            </Row>
+            </Row> {isLoggedIn && (<>
+                <hr className="mt-5" />
+
+                <Row className="mb-5">
+                    <Col className="text-center">
+                        <h5>Izvor podataka:</h5>
+                        <div className="btn-group">
+                            <button
+                                onClick={() => promijeniIzvor('memorija')}
+                                className={`btn ${DATA_SOURCE === 'memorija' ? 'btn-success' : 'btn-danger'}`}
+                            >
+                                Memorija
+                            </button>
+                            <button
+                                onClick={() => promijeniIzvor('localStorage')}
+                                className={`btn ${DATA_SOURCE === 'localStorage' ? 'btn-success' : 'btn-danger'}`}
+                            >
+                                Local Storage
+                            </button>
+                            <button
+                                onClick={() => promijeniIzvor('firebase')}
+                                className={`btn ${DATA_SOURCE === 'firebase' ? 'btn-success' : 'btn-danger'}`}
+                            >
+                                Firebase
+                            </button>
+                        </div>
+                    </Col>
+                </Row>
+            </>)}
         </Container>
     )
 }
