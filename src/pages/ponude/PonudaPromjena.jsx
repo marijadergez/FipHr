@@ -159,7 +159,7 @@ export default function ponudaPromjena() {
                                     <Form.Group controlId="korisnik" className="mb-3">
                                         <Form.Label className="fw-bold">Korisnici</Form.Label>
                                         <Form.Select name="korisnik" required value={ponuda.korisnik} 
-                                        onChange={(e) => setPonuda({...ponuda, korisnik: parseInt(e.target.value)})}>
+                                        onChange={(e) => setPonuda({...ponuda, korisnik:(e.target.value)})}>
                                             <option value="">Odaberite korisnika</option>
                                             {korisnici && korisnici.map((korisnik) => (
                                                 <option key={korisnik.sifra} value={korisnik.sifra}>

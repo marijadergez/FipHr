@@ -2,45 +2,51 @@ import { IME_APLIKACIJE } from "../constants";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Col, Row, Card, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import Highcharts, { chart } from "highcharts";
+import Highcharts, { chart, ArcDiagram } from "highcharts";
 import {HighchartsReact} from "highcharts-react-official";
 import useLoading from "../hooks/useLoading";
 
 
+  
 
 export default function NadzornaPloca() {
     const [chartData, setChartData] = useState([]);
     const { showLoading, hideLoading } = useLoading();
+   
 
     const mojeVeze = [
         ['Hamburg', 'Osijek', 11],
-        ['Hamburg', 'Donji Miholjac', 1],
-        ['Hamburg', 'Đakovo', 1],
-        ['Hannover', 'Wien', 1],
-        ['Hannover', 'Semeljci', 1],
-        ['Berlin', 'Budimci', 2],
-        ['Berlin', 'Slavonski Brod', 1],
+        ['Osijek', 'Donji Miholjac', 1],
+        ['Osijek', 'Đakovo', 1],
+        ['Osijek', 'Wien', 1],
+        ['Osijek', 'Semeljci', 1],
+        ['Osijek', 'Budimci', 2],
+        ['Osijek', 'Slavonski Brod', 1],
         ['Berlin', 'Vukojevci', 1],
         ['Berlin', 'Piškorevci', 1],
         ['Berlin', 'Čepin', 1],
         ['Berlin', 'Düsseldorf', 1],
-        ['München', 'Poganovci', 4],
-        ['München', 'Hrastin', 1],
-        ['München', 'Ivankovo', 1],
-        ['München', 'Gunja', 1],
-        ['München', 'Rokovci', 6],
+        ['Osijek', 'Poganovci', 4],
+        ['Osijek', 'Hrastin', 1],
+        ['Osijek', 'Ivankovo', 1],
+        ['Osijek', 'Gunja', 1],
+        ['Osijek', 'Rokovci', 6],
         ['Stuttgart', 'Ada', 1],
-        ['Frankfurt', 'Ernestinovo', 1],
-        ['Frankfurt', 'Vinkovci', 1],
-        ['Frankfurt', 'Županja', 1],
-        ['Frankfurt', 'Josipovac Punitovački', 1],
+        ['Osijek', 'Ernestinovo', 1],
+        ['Osijek', 'Vinkovci', 1],
+        ['Osijek', 'Županja', 1],
+        ['Osijek', 'Josipovac Punitovački', 1],
         ['Düsseldorf', 'Višnjevac', 1],
         ['Düsseldorf', 'Petrijevci', 1],
         ['Amsterdam', 'Antunovac', 1],
-        ['Paris', 'Brijest', 9],
-        ['Paris', 'Vuka', 1],
-        ['Paris', 'Livana', 1],
+        ['Osijek', 'Brijest', 9],
+        ['Osijek', 'Vuka', 1],
+        ['Osijek', 'Livana', 1],
     ];
+
+    async function ArcDiagram(Highcharts) {
+         useLoading()
+    }
 
     async function getPodaci() {
         showLoading();
@@ -61,43 +67,90 @@ export default function NadzornaPloca() {
     }, []);
 
     const options = {
-        chartData: {
-            type: 'arcdiagram',
-            height: '600px'
+
+
+    title: {
+        text: 'Main train connections in Europe'
+    },
+
+    accessibility: {
+        description: 'Arc diagram chart with circles of different sizes ' +
+            'along the X axis, and connections drawn as arcs between them. ' +
+            'From the chart we can see that Osijek is the city with the most ' +
+            'connections to other cities.',
+        point: {
+            valueDescriptionFormat: 'Connection from {point.from} to ' +
+                '{point.to}.'
+        }
+    },
+
+    series: [{
+        keys: ['from', 'to', 'weight'],
+        type: 'arcdiagram',
+        name: 'Train connections',
+        linkWeight: 1.5,
+        centeredLinks: true,
+        dataLabels: {
+            rotation: 90,
+            y: 30,
+            verticalAlign: 'top',
+            color: 'var(--highcharts-neutral-color-100, black)',
+            padding: 0
         },
-        title: {
-            text: 'Popis gradova korisnika usluga Fip.Hr-a.',
-            align: 'left'
-        },
-        accessibility: {
-            enabled: true,
-            point: {
-                valueDescriptionFormat: 'Connection from {point.from} to {point.to}.'
-            }
-        },
-        series: [{
-            type: 'arcdiagram',
-            keys: ['from', 'to', 'weight'],
-            data: chartData, 
-            linkWeight: 1.5,
-            centeredLinks: true,
-            dataLabels: {
-                enabled: true,
-                rotation: 90,
-                y: 30,
-                verticalAlign: 'top',
-                color: 'black',
-                padding: 0
-            },
-            offset: '65%',
-            node: {
-                label: {
-                    enabled: true
-                },
-               
-            }
-        }]
-    };
+        offset: '65%',
+        data: [
+            ['Hamburg', 'Stuttgart', 1],
+            ['Hamburg', 'Osijek', 1],
+            ['Hamburg', 'Osijek', 1],
+            ['Hannover', 'Wien', 1],
+            ['Hannover', 'Osijek', 1],
+            ['Berlin', 'Wien', 1],
+            ['Berlin', 'Osijek', 1],
+            ['Berlin', 'Stuttgart', 1],
+            ['Berlin', 'Osijek', 1],
+            ['Berlin', 'Köln', 1],
+            ['Berlin', 'Düsseldorf', 1],
+            ['Osijek', 'Düsseldorf', 1],
+            ['Osijek', 'Wien', 1],
+            ['Osijek', 'Osijek', 1],
+            ['Osijek', 'Köln', 1],
+            ['Osijek', 'Amsterdam', 1],
+            ['Stuttgart', 'Wien', 1],
+            ['Osijek', 'Wien', 1],
+            ['Osijek', 'Amsterdam', 1],
+            ['Osijek', 'Osijek', 1],
+            ['Osijek', 'Budapest', 1],
+            ['Düsseldorf', 'Wien', 1],
+            ['Düsseldorf', 'Hamburg', 1],
+            ['Amsterdam', 'Osijek', 1],
+            ['Osijek', 'Brest', 1],
+            ['Osijek', 'Nantes', 1],
+            ['Osijek', 'Bayonne', 1],
+            ['Osijek', 'Bordeaux', 1],
+            ['Osijek', 'Toulouse', 1],
+            ['Osijek', 'Montpellier', 1],
+            ['Osijek', 'Marseille', 1],
+            ['Osijek', 'Nice', 1],
+            ['Osijek', 'Milano', 1],
+            ['Nantes', 'Nice', 1],
+            ['Bordeaux', 'Lyon', 1],
+            ['Nantes', 'Lyon', 1],
+            ['Milano', 'Osijek', 1],
+            ['Milano', 'Roma', 1],
+            ['Milano', 'Bari', 1],
+            ['Milano', 'Napoli', 1],
+            ['Milano', 'Brindisi', 1],
+            ['Milano', 'Lamezia Terme', 1],
+            ['Torino', 'Roma', 1],
+            ['Venezia', 'Napoli', 1],
+            ['Roma', 'Bari', 1],
+            ['Roma', 'Catania', 1],
+            ['Roma', 'Brindisi', 1],
+            ['Catania', 'Milano', 1]
+        ]
+    }]
+
+};
 
     return (
         <Container className="mt-4">
@@ -107,20 +160,20 @@ export default function NadzornaPloca() {
                 </Card.Header>
                 <Card.Body>
                     {chartData.length > 0 ? (
-                        <Highcharts.chart
+                        <HighchartsReact
                             highcharts={Highcharts}
                             options={options}
                         />
                     ) : (
-                        <p className="text-center text-muted">Nema podataka za prikaz.</p>
+                        <p className="text-center text-muted">Gradovi i usluge</p>
                     )}
                 </Card.Body>
             </Card>
         </Container>
-    );
+           );
 }
 
-
+         
 
 
 

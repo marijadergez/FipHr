@@ -71,7 +71,9 @@ export default function PonudaPregled() {
         ucitajPonude()
     }
     function dohvatiNazivKorisnika(sifraKorisnika) {
-        const korisnik = korisnici.find(s => s.sifra === sifraKorisnika)
+        //console.log(korisnici)
+        //console.log(sifraKorisnika)
+        const korisnik = korisnici.find(s => s.sifra == sifraKorisnika)
         return korisnik ? korisnik.ime + ' ' + korisnik.prezime : 'Nepoznat korisnik'
     }
 
@@ -116,7 +118,7 @@ export default function PonudaPregled() {
 
         const gradovi = gradoviPodaci.data
 
-        const imeGrada = gradovi.find(g => g.sifra = korisnik.grad).naziv
+        const imeGrada = gradovi.find(g => g.sifra === korisnik.grad)?.naziv || 'Nepoznat grad'
         const dtoKorisnik = { ...korisnik, grad: imeGrada }
         //console.table(korisnik)
         //console.table(dtoKorisnik)
@@ -156,7 +158,7 @@ export default function PonudaPregled() {
                 <tbody>
                     {ponude && ponude.map((ponuda) => (
                         <tr key={ponuda.sifra}>
-                            <td>{dohvatiNazivKorisnika(ponuda.korisnik)}</td>
+                            <td>{dohvatiNazivKorisnika(ponuda.korisnik)}{ponuda.korisnik ? ponuda.korisnik.length : ''}</td>
                             <td title={dohvatiNaziveUsluga(ponuda.usluge)}>{ponuda.usluge ? ponuda.usluge.length : ''}</td>
                             <td> <FormatDatuma datum={ponuda.datum} /></td>
 
