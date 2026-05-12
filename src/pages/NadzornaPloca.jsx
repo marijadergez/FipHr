@@ -4,14 +4,18 @@ import { Col, Row, Card, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import Highcharts, { chart, ArcDiagram } from "highcharts";
 import {HighchartsReact} from "highcharts-react-official";
+import 'highcharts/modules/sankey';
+import 'highcharts/modules/arc-diagram';
 import useLoading from "../hooks/useLoading";
 
 
-  
+
 
 export default function NadzornaPloca() {
     const [chartData, setChartData] = useState([]);
     const { showLoading, hideLoading } = useLoading();
+
+
    
 
     const mojeVeze = [
