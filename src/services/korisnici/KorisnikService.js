@@ -1,7 +1,6 @@
 import { DATA_SOURCE } from "../../constants";
 import KorisnikServiceLocalStorage from "./KorisnikServiceLocalStorage";
 import KorisnikServiceMemorija from "./KorisnikServiceMemorija";
-import KorisnikServiceFireBase from "./KorisnikServiceFireBase";
 
 
 

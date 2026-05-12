@@ -15,9 +15,7 @@ import uslugeMemorija from '../services/usluge/UslugePodaci'
 import OperaterService from '../services/operateri/OperaterService';
 import operateriMemorija from '../services/operateri/OperaterPodaci'
 import ponudeMemorija from '../services/ponude/PonudaPodaci'
-import OperaterServiceFireBase from '../services/operateri/OperaterServiceFireBase';
 
-import KorisnikServiceFireBase from '../services/korisnici/KorisnikServiceFireBase';
 
 
 

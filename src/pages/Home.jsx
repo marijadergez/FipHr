@@ -10,7 +10,6 @@ import UslugeService from "../services/usluge/UslugeService";
 import OperaterService from "../services/operateri/OperaterService";
 import useAuth from "../hooks/useAuth";
 import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
-import OperaterServiceFireBase from "../services/operateri/OperaterServiceFireBase";
 import KorisnikService from "../services/korisnici/KorisnikService";
 
 

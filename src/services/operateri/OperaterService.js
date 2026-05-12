@@ -1,7 +1,6 @@
 import OperaterServiceLocalStorage from "./OperaterServiceLocalStorage"
 import OperaterServiceMemorija from "./OperaterServiceMemorija"
 import { DATA_SOURCE } from "../../constants"
-import OperaterServiceFireBase from "./OperaterServiceFireBase"
 
 let Servis = null
 

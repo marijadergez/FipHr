@@ -1,7 +1,6 @@
 import { DATA_SOURCE } from "../../constants";
 import UslugeServiceLocalStorage from "./UslugeServiceLocalStorage";
 import UslugeServiceMemorija from "./UslugeServiceMemorija";
-import UslugeServiceFireBase from "./UslugeServiceFireBase";
 
 
 let Servis = null;
