@@ -252,12 +252,7 @@ export default function Home() {
                             >
                                 Local Storage
                             </button>
-                            <button
-                                onClick={() => promijeniIzvor('firebase')}
-                                className={`btn ${DATA_SOURCE === 'firebase' ? 'btn-success' : 'btn-danger'}`}
-                            >
-                                Firebase
-                            </button>
+                           
                         </div>
                     </Col>
                 </Row>
