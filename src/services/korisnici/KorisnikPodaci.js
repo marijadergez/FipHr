@@ -50,6 +50,20 @@ export const korisnici = [
     prezime: 'Topić',
     email: 'kreso@gmail.com',
     grad:1
+},
+{
+    sifra: '8',
+    ime: 'Anita',
+    prezime: 'Opg Teškić',
+    email: 'opgteskic@gmail.com',
+    grad: 2
+},
+{
+    sifra: '9',
+    ime: 'Ivana',
+    prezime: 'Topić',
+    email: 'ivana@gmail.com',
+    grad:1
 }
 
 
