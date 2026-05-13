@@ -28,7 +28,31 @@ export const korisnici = [
     prezime: 'Geić',
     email: 'vlado@edunova.hr',
     grad: 2
+},
+{
+    sifra: '5',
+    ime: 'Matej',
+    prezime: 'Opg',
+    email: 'opg@gmail.com',
+    grad:1
+},
+
+{
+    sifra: '6',
+    ime: 'Fani',
+    prezime: 'Celzijus',
+    email: 'cezi@edunova.hr',
+    grad: 2
+},
+{
+    sifra: '7',
+    ime: 'Krešimir',
+    prezime: 'Topić',
+    email: 'kreso@gmail.com',
+    grad:1
 }
+
+
 
 ]
 
