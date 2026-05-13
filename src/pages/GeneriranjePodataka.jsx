@@ -751,16 +751,7 @@ export default function GeneriranjePodataka() {
                                 {loading ? 'Pretakanje...' : 'Iz memorije u localStorage'}
                             </Button>
                         </Col>
-                        <Col md={6}>
-                            <Button
-                                variant="success"
-                                onClick={handleMemorijaUFirebase}
-                                disabled={loading}
-                                className="w-100 mb-2"
-                            >
-                                {loading ? 'Pretakanje...' : 'Iz memorije u firebase'}
-                            </Button>
-                        </Col>
+                      
 
                     </Row>
                 </>

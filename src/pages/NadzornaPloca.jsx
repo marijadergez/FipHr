@@ -74,7 +74,7 @@ export default function NadzornaPloca() {
 
 
     title: {
-        text: 'Gradovi klijenata koji su poklonili povjerenje FipHr-u'
+        text: '2026. FipHr'
     },
 
     accessibility: {
@@ -100,12 +100,25 @@ export default function NadzornaPloca() {
         },
         offset: '65%',
         data: [
-               ['Osijek', 'Osijek', 11],
+               ['Đakovo', 'Semeljci', 1],
         ['Osijek', 'Donji Miholjac', 1],
-        ['Osijek', 'Đakovo', 1],
-        ['Đakovo', 'Đakovo', 1],
         ['Osijek', 'Semeljci', 1],
-        ['Osijek2', 'Budimci', 2],
+        ['Đakovo', 'Đakovo', 1],
+        ['Brijest', 'Gunja', 1],
+        ['Osijek', 'Rokovci', 1],
+        ['Županja', 'Ada', 1],
+        ['Vuka', 'Ernestinovo', 1],
+        ['Osijek', 'Vinkovci', 1],
+        ['Brijest', 'Vuka', 1],
+        ['Osijek', 'Josipovac Punitovački', 1],
+        ['Đakovo', 'Vuka', 1],
+        ['Osijek', 'Petrijevci', 1],
+        ['Županja', 'Antunovac', 1],
+        ['Osijek', 'Brijest', 9],
+        ['Đakovo', 'Vuka', 1],
+        ['Brijest', 'Livana', 1],
+           ['Osijek', 'Semeljci', 1],
+        ['Županja', 'Budimci', 2],
         ['Osijek', 'Slavonski Brod', 1],
         ['Semeljci', 'Vukojevci', 1],
         ['Semeljci', 'Piškorevci', 1],
@@ -114,19 +127,23 @@ export default function NadzornaPloca() {
         ['Osijek', 'Poganovci', 4],
         ['Osijek', 'Hrastin', 1],
         ['Đakovo', 'Ivankovo', 1],
-        ['Osijek', 'Gunja', 1],
-        ['Osijek', 'Rokovci', 6],
-        ['Osijek1', 'Ada', 1],
-        ['Đakovo', 'Ernestinovo', 1],
-        ['Osijek', 'Vinkovci', 1],
-        ['Osijek', 'Županja', 1],
-        ['Osijek', 'Josipovac Punitovački', 1],
-        ['Đakovo', 'Višnjevac', 1],
-        ['Osijek', 'Petrijevci', 1],
-        ['Osijek1', 'Antunovac', 1],
-        ['Osijek', 'Brijest', 9],
-        ['Đakovo', 'Vuka', 1],
-        ['Osijek', 'Livana', 1],
+         ['Osijek', 'Donji Miholjac', 1],
+        ['Osijek', 'Đakovo', 1],
+        ['Đakovo', 'Đakovo', 1],
+        ['Brijest', 'Gunja', 1],
+          ['Županja', 'Budimci', 2],
+        ['Osijek', 'Slavonski Brod', 1],
+        ['Semeljci', 'Vukojevci', 1],
+        ['Semeljci', 'Piškorevci', 1],
+        ['Semeljci', 'Čepin', 1],
+        ['Semeljci', 'Đakovo', 1],
+        ['Đakovo', 'Poganovci', 4],
+        ['Osijek', 'Hrastin', 1],
+        ['Đakovo', 'Ivankovo', 1],
+         ['Đakovo', 'Donji Miholjac', 1],
+        ['Osijek', 'Đakovo', 1],
+        ['Đakovo', 'Đakovo', 1],
+        ['Vuka', 'Gunja', 1],
         ]
     }]
 
@@ -136,7 +153,7 @@ export default function NadzornaPloca() {
         <Container className="mt-4">
             <Card>
                 <Card.Header>
-                    {chartData.length > 0 ? `Prikazano ${chartData.length} veza između gradova` : 'Učitavanje...'}
+                    {chartData.length > 0 ? `Prikazano ${chartData.length} trenutnih veza između adresa klijenata sa kojima surađujemo` : 'Učitavanje...'}
                 </Card.Header>
                 <Card.Body>
                     {chartData.length > 0 ? (
