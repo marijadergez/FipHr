@@ -27,10 +27,10 @@ export default function Home() {
     const [animatedGradovi, setAnimatedGradovi] = useState(0);
     const [brojPonuda, setBrojPonuda] = useState(0);
     const [animatedPonude, setAnimatedPonude] = useState(0)
-     const [animatedOperateri, setAnimatedOperateri] = useState(0);
-     const [brojOperatera, setBrojOperatera] = useState(0);
+    const [animatedOperateri, setAnimatedOperateri] = useState(0);
+    const [brojOperatera, setBrojOperatera] = useState(0);
 
-     const { isLoggedIn, logout } = useAuth()
+    const { isLoggedIn, logout } = useAuth()
 
     const lottieStyle = {
         marginTop: '10px',
@@ -38,31 +38,56 @@ export default function Home() {
         high: 'auto',
         display: 'block'
     }
- 
 
-        const promijeniIzvor = async (noviIzvor) => {
-
-        let izvor = 'memorija';
-        
-        if (noviIzvor === 'localStorage') {
-            const servis = await OperaterServiceLocalStorage.get();
-            if (servis.data.length > 0){
-                izvor = noviIzvor;
-            } 
-            
+    const [currentSource, setCurrentSource] = useState('memorija');
+    useEffect(() => {
+        const savedSource = localStorage.getItem('dataSource');
+        if (savedSource) {
+            setCurrentSource(savedSource);
         }
-        if (noviIzvor === 'firebase') {
-            const servis = await OperaterServiceFireBase.get();
-            if (servis.data.length > 0){
-                izvor = noviIzvor;
-            } 
+    }, []);
+
+
+    const promijeniIzvor = async (noviIzvor) => {
+        let izvor = 'localStorage';
+
+        try {
+            if (noviIzvor === 'localStorage') {
+                const servis = await OperaterServiceLocalStorage.get();
+                if (servis && servis.data && servis.data.length > 0) {
+                    console.log("Korišten localStorage (podaci pronađeni)");
+                    izvor = 'localStorage';
+                } else {
+                    console.warn("LocalStorage prazan, prebacujem na memoriju.");
+                    izvor = 'memorija';
+                }
+            }
+            else if (noviIzvor === 'memorija') {
+                izvor = 'memorija';
+            }
+            else if (noviIzvor === 'firebase') {
+                const servis = await OperaterServiceFireBase.get();
+                if (servis && servis.data && servis.data.length > 0) {
+                    izvor = 'firebase';
+                } else {
+                    izvor = 'memorija';
+                }
+            }
+        } catch (error) {
+            console.error("Greška, prebacujem na memoriju:", error);
+            izvor = 'memorija';
         }
 
+        // 1. Spremi u localStorage
         localStorage.setItem('dataSource', izvor);
-        logout()
+
+        // 2. ODMAH ažuriraj stanje komponente (da se gumbi vizualno promijene prije reloada)
+        setCurrentSource(izvor);
+
+        // 3. Logout i reload
+        logout();
         window.location.reload();
     };
-
 
     useEffect(() => { document.title = 'Početna, ' + IME_APLIKACIJE })
 
@@ -140,7 +165,7 @@ export default function Home() {
     }, [animatedOperateri, brojOperatera]);
 
 
-    
+
 
     return (
         <Container>
@@ -176,7 +201,7 @@ export default function Home() {
                                     </Card.Body>
                                 </Card>
                             </Col>
-                        
+
                             <Col md={6} className="mb-3">
                                 <Card className="mb-3 shadow-lg border-0 statistikaPanel">
                                     <Card.Body className="text-center">
@@ -200,7 +225,7 @@ export default function Home() {
 
                                 </Card>
                             </Col>
-                        
+
                             <Col md={6} className="mb-3">
                                 <Card className="shadow-lg border-0 statistikaPanel">
                                     <Card.Body className="text-center">
@@ -210,53 +235,61 @@ export default function Home() {
                                         </div>
                                     </Card.Body>
                                 </Card>
-                            </Col>                            
+                            </Col>
                         </Row>
                         <Row>
                             <div style={{ width: '100%', maxWidth: '500px' }}>
-                           <Col md={12} className="mb-3">
-                            <Card className="shadow-lg border-0 statistikaPanel h-100">
-                                <Card.Body className="text-center">
-                                    <p className="text-white">Operateri</p>
-                                    <div className="statistikaTekst">
-                                        {animatedOperateri}
-                                    </div>
-                                    <div style={{ fontSize: '0.9rem', marginTop: '10px' }}>
-                                        <span className="badge bg-danger me-2">Admin: {brojAdmina}</span>
-                                        <span className="badge bg-primary">Korisnik: {brojOperaterKorisnika}</span>
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                        </Col> 
-                        </div>
+                                <Col md={12} className="mb-3">
+                                    <Card className="shadow-lg border-0 statistikaPanel h-100">
+                                        <Card.Body className="text-center">
+                                            <p className="text-white">Operateri</p>
+                                            <div className="statistikaTekst">
+                                                {animatedOperateri}
+                                            </div>
+                                            <div style={{ fontSize: '0.9rem', marginTop: '10px' }}>
+                                                <span className="badge bg-danger me-2">Admin: {brojAdmina}</span>
+                                                <span className="badge bg-primary">Korisnik: {brojOperaterKorisnika}</span>
+                                            </div>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </div>
                         </Row>
                     </div>
-         
-                </Col>
-            </Row> {isLoggedIn && (<>
-                <hr className="mt-5" />
 
-                <Row className="mb-5">
-                    <Col className="text-center">
-                        <h5>Izvor podataka:</h5>
-                        <div className="btn-group">
-                            <button
-                                onClick={() => promijeniIzvor('memorija')}
-                                className={`btn ${DATA_SOURCE === 'memorija' ? 'btn-success' : 'btn-danger'}`}
-                            >
-                                Memorija
-                            </button>
-                            <button
-                                onClick={() => promijeniIzvor('localStorage')}
-                                className={`btn ${DATA_SOURCE === 'localStorage' ? 'btn-success' : 'btn-danger'}`}
-                            >
-                                Local Storage
-                            </button>
-                           
-                        </div>
-                    </Col>
-                </Row>
-            </>)}
+                </Col>
+            </Row> {isLoggedIn && (
+                <>
+                    <hr className="mt-5" />
+                    <Row className="mb-5">
+                        <Col className="text-center">
+                            {/* OVDJE JE TEKST KOJI SE VIDI ODMAH */}
+                            <h5 className="mb-3">
+                                Trenutni izvor:
+                                <span className={`ms-2 fw-bold ${currentSource === 'localStorage' ? 'text-success' : 'text-danger'}`}>
+                                    {currentSource === 'localStorage' ? 'LocalStorage 🟢' : 'Memorija 🔵'}
+                                </span>
+                            </h5>
+
+                            <div className="btn-group" role="group">
+                                <button
+                                    onClick={() => promijeniIzvor('memorija')}
+                                    className={`btn ${currentSource === 'memorija' ? 'btn-success' : 'btn-outline-danger'}`}
+                                >
+                                    Memorija
+                                </button>
+                                <button
+                                    onClick={() => promijeniIzvor('localStorage')}
+                                    className={`btn ${currentSource === 'localStorage' ? 'btn-success' : 'btn-outline-danger'}`}
+                                >
+                                    Local Storage
+                                </button>
+                            </div>
+                        </Col>
+                    </Row>
+
+
+                </>)}
         </Container>
     )
 }
