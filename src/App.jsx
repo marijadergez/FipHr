@@ -32,9 +32,7 @@ import NadzornaPloca from './pages/NadzornaPloca'
 
 
 function App() {
-
-  const { isLoggedIn, authUser } = useAuth()
-
+ const { isLoggedIn, authUser } = useAuth()
 
   return (
     <>
@@ -74,8 +72,6 @@ function App() {
                 <Route path={RouteNames.PONUDE} element={<PonudaPregled />} />
                 <Route path={RouteNames.PONUDE_NOVI} element={<PonudaNovi />} />
                 <Route path={RouteNames.PONUDE_PROMJENA} element={<PonudaPromjena />} />
-              
-              
               </>
             ) : (
               <>
@@ -83,16 +79,10 @@ function App() {
                 <Route path={RouteNames.REGISTRACIJA} element={<Registracija />} />
               </>
             )}
-
-
          </Routes>
         </Container>
         <hr />
-    
- 
-
   &copy; Marija | Edunova | 2026.
-
       </Container ></>
   )
 }

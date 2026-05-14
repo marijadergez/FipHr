@@ -63,7 +63,7 @@ export default function Home() {
                     izvor = 'localStorage';
                 } else {
                     console.warn("LocalStorage prazan, prebacujem na memoriju.");
-                    izvor = 'local storage';
+                    izvor = 'memorija';
                 }
             }
             else if (noviIzvor === 'memorija') {
@@ -177,7 +177,7 @@ export default function Home() {
                 <Col md={8}>
                     <p className="lead m-5 text-center">Dobrodošli na {IME_APLIKACIJE}</p>
 
-                    <p>Knjigovodstvo i računovodstvo za velike i male tvrtke i obrtnike.</p>
+                    
 
                     <div>
                         <DotLottieReact
@@ -187,6 +187,10 @@ export default function Home() {
                             style={lottieStyle}
                         />
                     </div>
+
+                    <p>Knjigovodstvo i računovodstvo za velike i male tvrtke i obrtnike.</p>
+
+                    
                     {/*<div style={{ textAlign: 'center' }}>
                         <img src="" />
                     </div>*/}
@@ -271,7 +275,7 @@ export default function Home() {
                             <h5 className="mb-3">
                                 Trenutni izvor:
                                 <span className={`ms-2 fw-bold ${currentSource === 'localStorage' ? 'text-success' : 'text-danger'}`}>
-                                    {currentSource === 'localStorage' ? 'LocalStorage 🟢' : 'Memorija 🔵'}
+                                    {currentSource === 'localStorage' ? 'LocalStorage 🟢' : 'Memorija 🟢'}
                                 </span>
                             </h5>
 

@@ -21,13 +21,8 @@ export default function Izbornik() {
                             onClick={() => navigate(RouteNames.HOME)}
                         >Početna</Nav.Link>
 
-                        {isLoggedIn && (
-                            <>
-                                <Nav.Link
-                                    onClick={() => navigate(RouteNames.NADZORNA_PLOCA)}
-                                >Nadzorna ploča</Nav.Link>
 
-                                <NavDropdown title="Program" id="basic-nav-dropdown">
+                         <NavDropdown title="Program" id="basic-nav-dropdown">
 
                                     <NavDropdown.Item
                                         onClick={() => navigate(RouteNames.GRADOVI)}
@@ -61,6 +56,14 @@ export default function Izbornik() {
 
                                 </NavDropdown>
 
+
+                        {isLoggedIn && (
+                            <>
+                                <Nav.Link
+                                    onClick={() => navigate(RouteNames.NADZORNA_PLOCA)}
+                                >Nadzorna ploča</Nav.Link>
+
+                               
                             </>)}
 
 

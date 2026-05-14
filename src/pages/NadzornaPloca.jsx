@@ -104,18 +104,18 @@ export default function NadzornaPloca() {
         ['Brijest', 'Vuka', 1],
         ['Đakovo', 'Vuka', 1],
         ['Županja', 'Antunovac', 1],
-        ['Osijek', 'Brijest', 9],
-        ['Đakovo', 'Vuka', 1],
+        ['Osijek', 'Đakovo', 6],
+        ['Đakovo', 'Donji Miholjac', 1],
         ['Brijest', 'Livana', 1],
         ['Županja', 'Budimci', 2],
         ['Osijek', 'Slavonski Brod', 1],
         ['Semeljci', 'Vukojevci', 1],
         ['Semeljci', 'Čepin', 1],
         ['Semeljci', 'Đakovo', 1],
-        ['Đakovo', 'Poganovci', 4],
-        ['Đakovo', 'Hrastin', 1],
-        ['Đakovo', 'Ivankovo', 1],
-         ['Đakovo', 'Donji Miholjac', 1],
+        ['Đakovo', 'Poganovci', 1],
+        ['Vuka', 'Hrastin', 1],
+        ['Donji Miholjac', 'Ivankovo', 1],
+         ['Đakovo', 'Donji Miholjac', 3],
         ['Vuka', 'Gunja', 1],
         ]
     }]
@@ -126,7 +126,7 @@ export default function NadzornaPloca() {
         <Container className="mt-4">
             <Card>
                 <Card.Header>
-                    {chartData.length > 0 ? `Prikazano ${chartData.length} trenutnih veza između adresa klijenata sa kojima surađujemo` : 'Učitavanje...'}
+                    {chartData.length > 0 ? `Naši klijenti dolaze iz 17 gradova ` : 'Učitavanje...'}
                 </Card.Header>
                 <Card.Body>
                     {chartData.length > 0 ? (
