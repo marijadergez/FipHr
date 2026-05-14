@@ -60,7 +60,7 @@ export default function Izbornik() {
                                         </>)}
 
                                 </NavDropdown>
-                            
+
                             </>)}
 
 
@@ -68,26 +68,28 @@ export default function Izbornik() {
 
                     <Nav className="ms-auto">
                         <div className="btn-group">
+                            
                             <Button
-                            variant="warning"
+                                variant="warning"
                                 className="btn me-2"
                             >{DATA_SOURCE}</Button>
-                        {isLoggedIn ? (
-                            <Button
-                                className="me-2"
-                                onClick={() => logout()}
-                            >Logout {authUser.email}</Button>
-                        ) : (
-                            <>
+
+                            {isLoggedIn ? (
                                 <Button
                                     className="me-2"
-                                    onClick={() => navigate(RouteNames.REGISTRACIJA)}
-                                >Registracija</Button>
-                                <Button
-                                    onClick={() => navigate(RouteNames.LOGIN)}
-                                >Login</Button>
-                            </>)}
-                            </div>
+                                    onClick={() => logout()}
+                                >Logout {authUser.email}</Button>
+                            ) : (
+                                <>
+                                    <Button
+                                        className="me-2"
+                                        onClick={() => navigate(RouteNames.REGISTRACIJA)}
+                                    >Registracija</Button>
+                                    <Button
+                                        onClick={() => navigate(RouteNames.LOGIN)}
+                                    >Login</Button>
+                                </>)}
+                        </div>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

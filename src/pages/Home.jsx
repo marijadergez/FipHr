@@ -47,7 +47,11 @@ export default function Home() {
         }
     }, []);
 
-
+    async function registriraj(operater) {
+        await OperaterService.dodaj(operater).then(() => {
+            navigate(RouteNames.LOGIN)
+        })
+    }
     const promijeniIzvor = async (noviIzvor) => {
         let izvor = 'localStorage';
 
@@ -59,7 +63,7 @@ export default function Home() {
                     izvor = 'localStorage';
                 } else {
                     console.warn("LocalStorage prazan, prebacujem na memoriju.");
-                    izvor = 'memorija';
+                    izvor = 'local storage';
                 }
             }
             else if (noviIzvor === 'memorija') {
@@ -170,7 +174,7 @@ export default function Home() {
     return (
         <Container>
             <Row>
-                <Col md={6}>
+                <Col md={8}>
                     <p className="lead m-5 text-center">Dobrodošli na {IME_APLIKACIJE}</p>
 
                     <p>Knjigovodstvo i računovodstvo za velike i male tvrtke i obrtnike.</p>

@@ -1,9 +1,9 @@
 import { Button, Card, Row, Col, Container } from "react-bootstrap";
-import { NumericFormat } from "react-number-format";
 import { GrValidate } from "react-icons/gr";
-import FormatDatuma from "../../components/FormatDatuma";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { gradovi } from "../../services/gradovi/GradPodaci";
+
+
 
 
 export default function GradPregledGrid({ grad, navigate, brisanje }) {
@@ -45,12 +45,7 @@ export default function GradPregledGrid({ grad, navigate, brisanje }) {
                                     </span>
                                 </div>*/}
 
-                                <div className="d-flex justify-content-between">
-                                    <span className="text-muted">Početak:</span>
-                                    <span>
-                                        <FormatDatuma datum={grad.datumPokretanja} />
-                                    </span>
-                                </div>
+                                
                             </Card.Body>
 
                             <Card.Footer className="bg-light d-flex gap-2">

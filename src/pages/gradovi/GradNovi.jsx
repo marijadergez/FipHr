@@ -12,15 +12,15 @@ export default function GradNovi(){
 
 
     async function dodaj(grad){
-        //console.table(smjer)
+        //console.table
         await GradService.dodaj(grad).then(()=>{
             navigate(RouteNames.GRADOVI)
         })
     }
 
 
-    function odradiSubmit(e){ // e je event
-        e.preventDefault() // nemoj odraditi submit
+    function odradiSubmit(e){ 
+        e.preventDefault() 
         const podaci = new FormData(e.target)
 
          // --- KONTROLA 1: Naziv (Postojanje) ---
@@ -45,7 +45,7 @@ export default function GradNovi(){
 
     return (
         <>
-            <h3>Unos nove gradovi</h3>
+            <h3>Unos novog grada</h3>
             <Form onSubmit={odradiSubmit}>
 
 
@@ -62,14 +62,12 @@ export default function GradNovi(){
                                         <Form.Control
                                             type="text"
                                             name="naziv"
-                                            placeholder="Unesite naziv gradovi"
+                                            placeholder="Unesite naziv grada"
                                             required
                                         />
                                     </Form.Group>
                                 </Col>
                             </Row>
-
-                           
 
                             <hr />
 

@@ -29,9 +29,6 @@ npm install bcryptjs
 npm install highcharts highcharts-react-official
 
 
-// rad s firebase
-npm install firebase
-
 
 
 
@@ -39,23 +36,3 @@ npm install firebase
 // lottie animacija
 npm install @lottiefiles/dotlottie-react
 
-moje bilješke:
-
-dottie :     <DotLottieReact
-        src="https://lottie.host/671c63f5-ebe2-4a63-a4ba-11e54b67d00e/8hocp9zpl8.lottie"
-        loop
-        autoplay
-      />
-
-
-
-
-          {/*}
-      <div className="glass">
-      </div>
-  {*/}
-
-
-
-<script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.10/dist/dotlottie-wc.js" type="module"></script>
-<dotlottie-wc src="https://lottie.host/510411c5-d9ea-4e75-8829-efc1a022a9a6/mGH3ToWnVo.lottie" style="width: 300px;height: 300px" autoplay loop></dotlottie-wc>

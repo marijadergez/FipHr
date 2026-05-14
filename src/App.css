@@ -1,9 +1,8 @@
-body{
-  background-color: rgb(241, 233, 223);
-  background: linear-gradient(90deg, #9dc4e4 0,#afebd7 40%);
-  
-}
+body {
+  background: linear-gradient(90deg, rgba(157, 196, 228, 0.7) 0%, rgba(175, 235, 215, 0.7) 40%);
+  backdrop-filter: blur(10px); 
 
+}
 
 .App-logo {
   height: 40vmin;

@@ -80,21 +80,10 @@ export default function GradPregledTablica({ grad, navigate, brisanje }) {
         <Table striped bordered hover responsive>
             <thead>
                 <tr>
-                    <th onClick={() => handleSort('naziv')} style={{ cursor: 'pointer' }}>
+                   <th onClick={() => handleSort('naziv')} style={{ cursor: 'pointer' }}>
                         Naziv {getSortIcon('naziv')}
                     </th>
-                    <th onClick={() => handleSort('trajanje')} style={{ cursor: 'pointer' }}>
-                        Trajanje {getSortIcon('trajanje')}
-                    </th>
-                    <th onClick={() => handleSort('cijena')} style={{ cursor: 'pointer' }}>
-                        Cijena {getSortIcon('cijena')}
-                    </th>
-                    <th onClick={() => handleSort('datumPokretanja')} style={{ cursor: 'pointer' }}>
-                        Datum pokretanja {getSortIcon('datumPokretanja')}
-                    </th>
-                    <th onClick={() => handleSort('aktivan')} style={{ cursor: 'pointer' }}>
-                        Aktivan {getSortIcon('aktivan')}
-                    </th>
+                    
                     <th>Akcija</th>
                 </tr>
             </thead>
@@ -102,28 +91,10 @@ export default function GradPregledTablica({ grad, navigate, brisanje }) {
                 {sortedGradovi() && sortedGradovi().map((grad) => (
                     <tr key={grad.sifra}>
                         <td className="lead">{grad.naziv}</td>
-                        <td className='text-end'>{grad.trajanje} h</td>
-                        <td className='text-end'>
-                            <NumericFormat
-                                value={grad.cijena}
-                                displayType={'text'}
-                                thousandSeparator='.'
-                                decimalSeparator=','
-                                suffix=' €'
-                                prefix='='
-                                decimalScale={2}
-                                fixedDecimalScale
-                            />
-                        </td>
-                        <td>
-                            <FormatDatuma datum={grad.datumPokretanja} />
-                        </td>
-                        <td style={{ textAlign: 'center' }}>
-                            <GrValidate
-                                size={25}
-                                color={grad.aktivan ? 'green' : 'red'}
-                            />
-                        </td>
+                       
+                      
+                        
+                       
                         <td>
                             <Button onClick={() => navigate(`/grad/${grad.sifra}`)} title="Promjeni">
                                  <FaEdit />

@@ -100,29 +100,22 @@ export default function NadzornaPloca() {
         },
         offset: '65%',
         data: [
-               ['Đakovo', 'Semeljci', 1],
-
+         ['Đakovo', 'Semeljci', 1],
         ['Brijest', 'Vuka', 1],
-        ['Osijek', 'Josipovac Punitovački', 1],
         ['Đakovo', 'Vuka', 1],
-        ['Osijek', 'Petrijevci', 1],
         ['Županja', 'Antunovac', 1],
         ['Osijek', 'Brijest', 9],
         ['Đakovo', 'Vuka', 1],
         ['Brijest', 'Livana', 1],
-           ['Osijek', 'Semeljci', 1],
         ['Županja', 'Budimci', 2],
         ['Osijek', 'Slavonski Brod', 1],
         ['Semeljci', 'Vukojevci', 1],
-       
         ['Semeljci', 'Čepin', 1],
         ['Semeljci', 'Đakovo', 1],
         ['Đakovo', 'Poganovci', 4],
-        ['Osijek', 'Hrastin', 1],
+        ['Đakovo', 'Hrastin', 1],
         ['Đakovo', 'Ivankovo', 1],
          ['Đakovo', 'Donji Miholjac', 1],
-        ['Osijek', 'Đakovo', 1],
-        ['Đakovo', 'Đakovo', 1],
         ['Vuka', 'Gunja', 1],
         ]
     }]
