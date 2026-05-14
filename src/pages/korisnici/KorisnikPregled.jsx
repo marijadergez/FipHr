@@ -12,8 +12,6 @@ import useLoading from "../../hooks/useLoading"
 import KorisnikiPregledTablica from "./KorisnikPregledTablica"
 import KorisnikPregledGrid from "./KorisnikPregledGrid"
 import useBreakpoint from "../../hooks/useBreakpoint"
-import GradPregledGrid from "../gradovi/GradPregledGrid"
-import GradPregledTablica from "../gradovi/GradPregledTablica"
 
 export default function KorisnikPregled() {
 
