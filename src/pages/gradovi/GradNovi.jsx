@@ -46,6 +46,10 @@ export default function GradNovi(){
     return (
         <>
             <h3>Unos novog grada</h3>
+
+           
+            <hr />
+
             <Form onSubmit={odradiSubmit}>
 
 

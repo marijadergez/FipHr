@@ -15,9 +15,7 @@ import GradPromjena from './pages/gradovi/GradPromjena'
 import GradNovi from './pages/gradovi/GradNovi'
 import GradPregled from './pages/gradovi/GradPregled'
 import GeneriranjePodataka from './pages/GeneriranjePodataka'
-import PonudaPregled from './pages/ponude/PonudaPregled'
-import PonudaNovi from './pages/ponude/PonudaNovi'
-import PonudaPromjena from './pages/ponude/PonudaPromjena'
+
 
 import LoadingSpinner from './components/LoadingSpinner'
 import useAuth from './hooks/useAuth'
@@ -28,6 +26,9 @@ import OperaterPromjenaLozinke from './pages/operateri/OperaterPromjenaLozinke'
 import Login from './pages/login/Login'
 import Registracija from './pages/registracija/Registracija'
 import NadzornaPloca from './pages/NadzornaPloca'
+import PonudaPregled from './pages/ponude/PonudaPregled'
+import PonudaNovi from './pages/ponude/PonudaNovi'
+import PonudaPromjena from './pages/ponude/PonudaPromjena'
 
 
 
