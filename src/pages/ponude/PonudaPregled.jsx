@@ -96,12 +96,16 @@ export default function PonudaPregled() {
     async function generirajPDFZaPonudu(ponuda) {
         // Dohvati smjer
         const korisnik = korisnici.find(s => s.sifra === ponuda.korisnik)
-        if (!usluge) {
+        if (!korisnik) {
             alert('Korisnik nije pronađen')
             return
         }
+        if (!usluge){
+            alert('Usluge nisu pronađene')
+            return
+        }
 
-        // Dohvati sve polaznike
+        // Dohvati sve 
         const odgovorUsluge = await UslugeService.get()
         if (!odgovorUsluge.success) {
             alert('Nije moguće dohvatiti usluge')
@@ -115,6 +119,9 @@ export default function PonudaPregled() {
 
 
         const gradoviPodaci = await GradService.get()
+        if (!gradoviPodaci || !gradoviPodaci.data) {
+        console.error('Gradovi nisu učitani')
+    }
 
         const gradovi = gradoviPodaci.data
 
@@ -130,8 +137,7 @@ export default function PonudaPregled() {
 
         })
         await generiraj()
-
-
+    
 
     }
 
@@ -194,23 +200,6 @@ export default function PonudaPregled() {
 }
 
 
-{/* <Link to={RouteNames.PONUDE_NOVI}
-                          className="btn btn-success w-100 my-3">
-                          Dodavanje nove ponude
-                      </Link>
-                     /* tableti prema manje 
-                      {['xs', 'sm', 'md'].includes(sirina) ? (
-                          <PonudaPregledGrid
-                              ponude={ponude}
-                              navigate={navigate}
-                              brisanje={brisanje}
-                          />
-                      ) : (
-                          <PonudaPregledTablica
-                              ponude={ponude}
-                              navigate={navigate}
-                              brisanje={brisanje}
-                          />
-                      */}
+
 
 
