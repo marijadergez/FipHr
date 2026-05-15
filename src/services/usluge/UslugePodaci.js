@@ -24,6 +24,21 @@ export const usluge=[
         cijena: 89.00,
         popust: 50
         
+    },
+     {
+        sifra: '4',
+        naziv: 'Završni račun',
+        cijena: 89.00,
+        popust: 50
+        
+        
+    },
+    {
+        sifra: '5',
+        naziv: 'Digitalne usluge',
+        cijena: 89.00,
+        popust: 50
+        
     }
 ]
 export default{
