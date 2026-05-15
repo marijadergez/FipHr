@@ -95,7 +95,7 @@ export default function PonudaPregled() {
     }
     async function generirajPDFZaPonudu(ponuda) {
         // Dohvati smjer
-        const korisnik = korisnici.find(s => s.sifra === ponuda.korisnik)
+        const korisnik = korisnici.find(s => s.sifra == ponuda.korisnik)
         if (!korisnik) {
             alert('Korisnik nije pronađen')
             return
