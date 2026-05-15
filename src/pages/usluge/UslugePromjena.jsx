@@ -92,10 +92,14 @@ export default function UslugePromjena(){
                                         <Form.Control
                                             type="text"
                                             name="naziv"
-                                            placeholder="Unesite naziv usluga"
-                                            required
+                                            placeholder="Unesite naziv usluga"                                          
                                             defaultValue={usluga.naziv}
+                                            isInvalid={!!errors.naziv}
+                                            onFocus={() => ocistiGresku('naziv')}
                                         />
+                                        <Form.Control.Feedback type="invalid">
+                                            {errors.naziv}
+                                        </Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
                             </Row>

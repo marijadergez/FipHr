@@ -16,6 +16,18 @@ export const operateri = [
         email: 'operater@edunova.hr',
         lozinka: hashiranaLozinka,
         uloga: 'korisnik'
+    },
+       {
+        sifra: '3',
+        email: 'referada@edunova.hr',
+        lozinka: hashiranaLozinka,
+        uloga: 'admin'
+    },
+    {
+        sifra: '4',
+        email: 'korisnik@edunova.hr',
+        lozinka: hashiranaLozinka,
+        uloga: 'korisnik'
     }
 ]
 

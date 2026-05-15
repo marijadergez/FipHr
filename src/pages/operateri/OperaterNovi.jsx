@@ -107,7 +107,7 @@ export default function OperaterNovi() {
                             </Row>
 
                             <Row>
-                                <Col xs={12}>
+                                <Col xs={6}>
                                     <Form.Group controlId="uloga" className="mb-3">
                                         <Form.Label className="fw-bold">Uloga</Form.Label>
                                         <Form.Select
@@ -128,7 +128,10 @@ export default function OperaterNovi() {
 
                             <hr />
 
-                            <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            
+
+
+                            <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4" >
                                 <Link to={RouteNames.OPERATERI} className="btn btn-danger px-4">
                                     Odustani
                                 </Link>

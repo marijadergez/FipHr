@@ -38,9 +38,9 @@ export const RouteNames = {
 export const DATA_SOURCE = localStorage.getItem('dataSource') || 'memorija';
 
 export const PrefixStorage = {
-    USLUGE: 'e31.usluge',
-    KORISNICI: 'e31.korisnici',
-    GRADOVI: 'e31.gradovi',
-    PONUDE: 'e31.ponude',
+    USLUGE: 'e.usluge',
+    KORISNICI: 'e.korisnici',
+    GRADOVI: 'e.gradovi',
+    PONUDE: 'e.ponude',
     OPERATERI: 'e31.operateri'
 }
