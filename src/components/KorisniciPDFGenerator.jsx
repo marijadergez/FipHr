@@ -6,7 +6,7 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
     const fetchFontAsBase64 = async (url) => {
         const response = await fetch(url);
         if (!response.ok) throw new Error(`Font nije pronađen: ${url}`);
-        const blob = await response.blob();
+        const blob = await response.blob()
         return new Promise((resolve) => {
             const reader = new FileReader();
             reader.onloadend = () => resolve(reader.result.split(',')[1]);
@@ -36,7 +36,7 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
         // Dodaj logo - konvertiraj SVG u tekst (jednostavna verzija)
         doc.setFontSize(20);
         doc.setTextColor(46, 125, 50); // Zelena boja iz loga
-        doc.text('EDUNOVA', 20, 20);
+        doc.text('EDUNOVA  FIP HR', 20, 20);
 
         doc.setFontSize(10);
         doc.setTextColor(102, 102, 102);
@@ -46,7 +46,7 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
         doc.setFont('Roboto', 'bold');
         doc.setFontSize(16);
         doc.setTextColor(0, 0, 0);
-        doc.text('Ponuda', 20, 45);
+        doc.text('Podaci o ponudi', 20, 45);
 
         // Linija ispod naslova
         doc.setDrawColor(46, 125, 50);
@@ -88,8 +88,7 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
         yPosition += 7;
         doc.text(`Prezime: ${korisnik.prezime}`, 25, yPosition);
         yPosition += 7;
-        doc.text(`Grad: ${korisnik.grad}`, 25, yPosition);
-        yPosition += 7;
+        
         doc.text(`Email: ${korisnik.email}`, 25, yPosition);
         yPosition += 7;
         
@@ -115,6 +114,7 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
                 usluga.naziv,
                 usluga.cijena,
                 usluga.popust,
+                usluga.grad
                 
 
             ]);
@@ -147,6 +147,7 @@ export default function KorisniciPDFGenerator({ ponuda, korisnik, usluge }) {
                     0: { cellWidth: 35 }, // Naziv
                     1: { cellWidth: 35 }, // Cijena
                     2: { cellWidth: 50 }, // Email (njemu treba najviše mjesta)
+                    3: { cellWidth: 50}  //grad
                 }
             });
         } else {
