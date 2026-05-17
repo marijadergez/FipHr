@@ -97,19 +97,14 @@ export default function UslugePromjena(){
                                             name="naziv"
                                             placeholder="Unesite naziv usluga"                                          
                                             defaultValue={usluga.naziv}
-<<<<<<< HEAD
-                                           
-                                        />
-                                        <Form.Control.Feedback type="invalid">
-                                            {error.naziv}
-                                        </Form.Control.Feedback>
-=======
                                             onFocus={() => ocistiGresku('naziv')}
                                         />
->>>>>>> be0906a5ba8f4be1be2ba7a06e07999e77229257
                                     </Form.Group>
                                 </Col>
                             </Row>
+
+                            {/* Trajanje i Cijena - Jedno pored drugog na md+, jedno ispod drugog na mobitelu */}
+                           
 
                             {/* Trajanje i Cijena - Jedno pored drugog na md+, jedno ispod drugog na mobitelu */}
                             <Row>
