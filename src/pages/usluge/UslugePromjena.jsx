@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import UslugeService from "../../services/usluge/UslugeService";
 import { RouteNames } from "../../constants";
 import { Button, Card, Col, Container, Form, FormControl, FormGroup, Row } from "react-bootstrap";
+import { usluge } from "../../services/usluge/UslugePodaci";
+import { error } from "highcharts";
  
 
 
@@ -96,11 +98,10 @@ export default function UslugePromjena(){
                                             name="naziv"
                                             placeholder="Unesite naziv usluga"                                          
                                             defaultValue={usluga.naziv}
-                                            isInvalid={!!errors.naziv}
-                                            onFocus={() => ocistiGresku('naziv')}
+                                           
                                         />
                                         <Form.Control.Feedback type="invalid">
-                                            {errors.naziv}
+                                            {error.naziv}
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>

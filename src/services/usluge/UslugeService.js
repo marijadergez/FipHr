@@ -25,7 +25,7 @@ const PrazanServis = {
     get: async () =>({ success: false, data: [] }),
     getBySifra: async (sifra) => ({ success: false, data: {} }),
     dodaj: async (usluga) => { console.error("Servis nije učitan"); },
-  
+    
     obrisi: async (sifra) => { console.error("Servis nije dostupan"); }
 
 
