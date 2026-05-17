@@ -27,7 +27,6 @@ export default function UslugePromjena(){
                 return
             }
             const s = odgovor.data
-            s.datumPokretanja = s.datumPokretanja.substring(0,10)
             setUsluga(s)
             setPopust(s.popust)
            // console.table(odgovor.data)
@@ -98,11 +97,16 @@ export default function UslugePromjena(){
                                             name="naziv"
                                             placeholder="Unesite naziv usluga"                                          
                                             defaultValue={usluga.naziv}
+<<<<<<< HEAD
                                            
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             {error.naziv}
                                         </Form.Control.Feedback>
+=======
+                                            onFocus={() => ocistiGresku('naziv')}
+                                        />
+>>>>>>> be0906a5ba8f4be1be2ba7a06e07999e77229257
                                     </Form.Group>
                                 </Col>
                             </Row>
