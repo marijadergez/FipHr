@@ -42,5 +42,5 @@ export const PrefixStorage = {
     KORISNICI: 'e.korisnici',
     GRADOVI: 'e.gradovi',
     PONUDE: 'e.ponude',
-    OPERATERI: 'e31.operateri'
+    OPERATERI: 'e.operateri'
 }
